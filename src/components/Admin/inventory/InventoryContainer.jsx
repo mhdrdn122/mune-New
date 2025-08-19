@@ -21,7 +21,7 @@ import Table from '../../Tables/Tables';
  * 
  * @returns {JSX.Element} A paginated, filterable, and downloadable inventory table
  */
-const InventoryContainer = ({ refresh }) => {
+const InventoryContainer = ({ refresh , downloadExcel }) => {
   // Table configuration
   const tableHeader = ["اسم المنتج", "السعر", "الكمية", "تاريخ انشاء الطلب"];
   const fieldsToShow = ["name_ar", "price", "count", "created_at"];
@@ -65,6 +65,13 @@ const InventoryContainer = ({ refresh }) => {
     refetch();
   }, []);
 
+   /**
+   * download Excel 
+   */
+  useEffect(() => {
+    if(downloadExcel==true)
+    handleDownloadExcel();
+  }, [downloadExcel]);
   /**
    * Handles pagination change
    * @param {number} page - New page number
@@ -111,10 +118,7 @@ const InventoryContainer = ({ refresh }) => {
 
   return (
     <>
-      {/* Download button */}
-      <button className="btn btn-success mb-3" onClick={handleDownloadExcel}>
-        Excel تحميل ملف
-      </button>
+     
 
       {/* Filter Toggle Button */}
       <Row className="d-flex justify-content-between container" style={{ flexDirection: "row-reverse" }}>

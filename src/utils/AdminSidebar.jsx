@@ -309,16 +309,16 @@ const AdminSidebar = ({ className }) => {
       icon: <MdOutlineInventory2 />,
       show: userData?.restaurant?.is_order === 1,
     },
-    {
-      title: "ترحيل بيانات التقييمات",
-      icon: <LogoutIcon />,
-      handleClick: handleClickExcel,
-      loading: loading,
-      show:
-        location.pathname !== "/admin/rests" &&
-        hasPermission(PermissionsEnum.RATE_INDEX) &&
-        userData.restaurant.is_rate === 1,
-    },
+    // {
+    //   title: "ترحيل بيانات التقييمات",
+    //   icon: <LogoutIcon />,
+    //   handleClick: handleClickExcel,
+    //   loading: loading,
+    //   show:
+    //     location.pathname !== "/admin/rests" &&
+    //     hasPermission(PermissionsEnum.RATE_INDEX) &&
+    //     userData.restaurant.is_rate === 1,
+    // },
 
     {
       isDivider: true,

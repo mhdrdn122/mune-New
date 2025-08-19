@@ -306,7 +306,7 @@ const SubAppBar = ({
           )}
 
           {/* Download Excel button */}
-          {showDownloadButton && hasPermission(requiredPermission?.Download) && (
+          {showDownloadButton &&   (
             <Button
               variant="contained"
               sx={{
@@ -536,8 +536,7 @@ const SubAppBar = ({
               )}
 
               {/* Download Excel in mobile */}
-              {showDownloadButton &&
-                hasPermission(requiredPermission.Download) && (
+              {showDownloadButton && (
                   <MenuItem
                     onClick={() => {
                       onDownloadExcel?.();

@@ -13,21 +13,22 @@ import axios from "axios";
 import { baseURLLocalPublic } from "../../../Api/baseURLLocal";
 import { useGetTablesQuery } from "../../../redux/slice/tables/tablesApi";
 import { baseURLPublicName } from "../../../Api/baseURL";
-import PageHeader from '../../../components/PageHeader/PageHeader';
+import PageHeader from "../../../components/PageHeader/PageHeader";
 import { Col, Row } from "react-bootstrap";
 import { FaFilter } from "react-icons/fa";
+import SubAppBar from "../../../utils/SubAppBar";
 
 // Breadcrumb navigation for page header
 const breadcrumbs = [
   {
     label: " الفواتير",
-    to: '/admin/invoices'
+    to: "/admin/invoices",
   },
 ].reverse();
 
 /**
  * Admin Invoices Page Component
- * 
+ *
  * @returns {JSX.Element} Component for viewing, filtering, and exporting invoice records.
  */
 const InviocesPage = () => {
@@ -51,11 +52,14 @@ const InviocesPage = () => {
     const fetchWaiters = async () => {
       try {
         const adminInfo = JSON.parse(localStorage.getItem("adminInfo"));
-        const response = await axios.get(`${baseURLPublicName}/admin_api/show_waiters`, {
-          headers: {
-            Authorization: `Bearer ${adminInfo.token}`,
-          },
-        });
+        const response = await axios.get(
+          `${baseURLPublicName}/admin_api/show_waiters`,
+          {
+            headers: {
+              Authorization: `Bearer ${adminInfo.token}`,
+            },
+          }
+        );
         setWaiters(response.data); // Assumes response.data is an array of waiters
       } catch (error) {
         console.error("Error fetching waiters:", error);
@@ -112,7 +116,7 @@ const InviocesPage = () => {
 
   return (
     <div>
-      <PageHeader
+      {/* <PageHeader
         breadcrumbs={breadcrumbs}
         buttonText={" إضافة فاتورة"}
         heading={"الفواتير"}
@@ -121,15 +125,28 @@ const InviocesPage = () => {
         refreshRandomNumber={refreshRandomNumber}
         requiredPermission={PermissionsEnum.ORDER_ADD}
         setRefresh={setRefresh}
+      /> */}
+      <SubAppBar
+        title=" الفواتير "
+        showAddButton={true}
+        onAdd={() => setShowAdd(true)}
+        showRefreshButton={true}
+        refresh={refresh}
+        setRefresh={setRefresh}
+        showDownloadButton={true}
+        onDownloadExcel={handleDownloadExcel}
+        requiredPermission={{
+          Add: PermissionsEnum.ORDER_ADD,
+         }}
       />
 
-      {/* Download Excel Button */}
-      <button className="btn btn-success mb-3" onClick={handleDownloadExcel}>
-        Excel تحميل ملف
-      </button>
+     
 
       {/* Filter Toggle */}
-      <Row className="d-flex justify-content-between container" style={{ flexDirection: "row-reverse" }}>
+      <Row
+        className="d-flex justify-content-between container"
+        style={{ flexDirection: "row-reverse" }}
+      >
         <Col className="d-flex align-items-center px-4 gap-2">
           <div
             className="p-2 rounded d-flex align-items-center justify-content-center mb-3"
@@ -180,7 +197,12 @@ const InviocesPage = () => {
             </Grid>
 
             <Grid item xs={12} sm={4} md={3}>
-              <DateFilter value={date} setValue={setDate} name="date" label="date" />
+              <DateFilter
+                value={date}
+                setValue={setDate}
+                name="date"
+                label="date"
+              />
             </Grid>
           </>
         )}
@@ -190,13 +212,13 @@ const InviocesPage = () => {
       <InvoicesContainer
         show={showAdd}
         handleClose={() => setShowAdd(false)}
-        refresh={randomNumber}
+        refresh={refresh}
         services={services}
         date={date}
         selectedTableId={selectedTableId}
         selectedWaiterId={selectedWaiterId}
         tables={tables}
-      />
+       />
     </div>
   );
 };
