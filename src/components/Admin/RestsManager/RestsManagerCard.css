@@ -1,0 +1,30 @@
+
+.cardRest {
+  flex: 17%;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+.cardRest .MuiCardMedia-root {
+  aspect-ratio: 1 !important;
+}
+
+
+
+@media (max-width: 768px) { 
+  .cardRest {
+    flex: 22%;
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 480px) { 
+  .cardRest {
+    flex: 47% !important;
+    flex-grow: 0 !important;
+  }
+  .cardRest .MuiTypography-root {
+    font-size: 18px !important;
+  }
+  
+}

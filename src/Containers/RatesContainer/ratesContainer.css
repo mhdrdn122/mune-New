@@ -1,0 +1,40 @@
+.table_container {
+  margin: 0 22px !important;
+  border-radius: 8px;
+  box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.25) !important;
+}
+.table_container .table {
+  margin-bottom: 0 !important;
+}
+
+.table_container th,
+.table_container td {
+  text-align: center;
+  padding: 8px !important;
+}
+.table_container td svg {
+  width: 20px;
+  height: 20px;
+}
+.table_container th {
+  /* background-color: #1F2A40 !important; */
+  color: white !important;
+}
+.cnv {
+  display: flex ;
+  gap: 0.5rem;
+}
+
+@media (max-width: 480px) {
+  .table_container {
+    margin: 0 !important;
+  }
+  .table_container td svg {
+    width: 15px;
+    height: 15px;
+    /* padding: 8px !important; */
+  }
+  .table_container td .MuiIconButton-root {
+    padding: 6px !important;
+  }
+}

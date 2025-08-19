@@ -1,0 +1,64 @@
+/*
+This file handles user login functionality for the admin or takeout pages.
+*/
+
+.login_container {
+  /* background: linear-gradient(180deg, #1F2A40 0%, #868dfb 100%); */
+  background-color: rgb(31, 42, 64);
+  /* background-image: url(../../assets/bg.png); */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+}
+
+.login_container .logo_left {
+  width: 75%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.form_login {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around !important;
+  align-items: center !important;
+}
+.form_login img {
+  width: 150px;
+  height: 75px;
+  margin-bottom: 50px;
+}
+.form_login h3 {
+  color: #fff;
+  margin-bottom: 50px;
+  font-weight: bold;
+}
+.form_login button {
+  width: 175px;
+  height: 50px;
+  color: white;
+  background: rgb(2 13 38 / 91%);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 30px;
+  border: unset;
+  margin-top: 50px;
+}
+.form_login .form-control {
+  outline: unset !important;
+  border-radius: 30px !important;
+  padding: 15px !important;
+  border: 1px solid rgba(112, 112, 112, 0.44) !important;
+}
+
+.form_login .form-control:focus {
+  box-shadow: 0 0 0 0.25rem rgba(112, 112, 112, 0.2) !important;
+}
+
+@media (max-width: 480px) {
+  .login_container .logo_left {
+    /* width: 25%; */
+    height: 70%;
+  }
+}
