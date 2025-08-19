@@ -1,35 +1,19 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
-import { resolve } from 'path'
-
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   
-  resolve: {
-    alias: {
-      '@': resolve(__dirname, 'src')
-    }
-  },
-  
   build: {
-    outDir: 'dist',
-    sourcemap: false, // ⬅️ مهم لـ Vercel
     rollupOptions: {
       input: {
-        main: './index.html'
-        // احذف service worker إذا لم يكن ضرورياً
+        main: './index.html',
+        sw: './public/firebase-messaging-sw.js',
       },
-      output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom']
-        }
-      }
-    } ,
-    assetsInclude: ['**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.gif', '**/*.svg']
-
+    },
+    // ⬇️ أضف هذا
+    assetsInlineLimit: 4096 // 4kb
   },
 
-   
+  server: {
+    host: true,
+    port: 5173,
+  },
 })
-  
