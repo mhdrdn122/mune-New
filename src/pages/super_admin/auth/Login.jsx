@@ -7,7 +7,7 @@ import Row from "react-bootstrap/Row";
 import { ToastContainer } from "react-toastify";
 // import { useInsertData } from "../../../hooks/useInsertData";
 import notify from "../../../utils/useNotification";
-import logo from "../../../assets/logo";
+// import logo from "../../../assets/logo";
 import { useDispatch, useSelector } from "react-redux";
 import { loginAdminAction } from "../../../redux/slice/auth/authSlice";
 import { loginSuperAdminAction } from "../../../redux/slice/super_admin/auth/authSlice";
@@ -114,7 +114,7 @@ const Login = () => {
           lg={6}
           className="d-flex align-items-center justify-content-center"
         >
-          <img src={logo} alt="logo" className="logo_left" />
+          <img src={"../../../assets/logo.png"} alt="logo" className="logo_left" />
         </Col>
         <Col
           sm={12}

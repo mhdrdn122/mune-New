@@ -13,7 +13,7 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import { ToastContainer } from "react-toastify";
 import notify from "../../../utils/useNotification";
-import logo from "../../../assets/logo";
+// import logo from "../../../assets/logo";
 import { useDispatch, useSelector } from "react-redux";
 import {
   loginAdminAction,
@@ -140,7 +140,7 @@ const LoginTakeOutPage = () => {
       <Row style={{ minHeight: "100vh" }}>
         {/* Left column with logo */}
         <Col sm={12} lg={6} className="d-flex align-items-center justify-content-center">
-          <img src={logo} alt="logo" className="logo_left" />
+          <img src={"../../../assets/logo.png"} alt="logo" className="logo_left" />
         </Col>
 
         {/* Right column with login form */}
