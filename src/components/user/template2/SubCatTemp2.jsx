@@ -10,8 +10,7 @@ import CategoriesContainer from "./CategoriesContainer";
 import { CategoriesContext } from "../../../context/CategoriesProvider";
 import axios from "axios";
 import Slider from "react-slick";
-import vector from "../../../assets/User/Vector.png";
-
+ 
 import { Dropdown, Form, Modal, Spinner } from "react-bootstrap";
 import searchIcon from "../../../assets/User/_search outline.png";
 import Pagination from "../template1/Pagination";

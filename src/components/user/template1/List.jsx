@@ -14,7 +14,6 @@ import {
 } from "react-bootstrap";
 import { AdminContext } from "../../../context/AdminProvider";
 import search from "../../../assets/User/icon _search outline_.png";
-import vector2 from "../../../assets/User/Vector.png";
 import { LanguageContext } from "../../../context/LanguageProvider";
 import WhatssappIcon from "../../../utils/user/WhatssappIcon";
 import { MdCancel } from "react-icons/md";

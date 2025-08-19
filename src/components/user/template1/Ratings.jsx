@@ -1,6 +1,5 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
-import vector from "../../../assets/User/Vector.png";
-import facebook from "../../../assets/User/pngegg.png";
+ import facebook from "../../../assets/User/pngegg.png";
 import insta from "../../../assets/User/insta.png";
 import star from "../../../assets/User/Star.png";
 import star1 from "../../../assets/User/Star (1).png";

@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { AdminContext } from "../../../context/AdminProvider";
-import vector from "../../../assets/User/Vector.png";
-import { Link, useParams } from "react-router-dom";
+ import { Link, useParams } from "react-router-dom";
 import AdvertismentSlider from "../template1/AdvertismentSlider";
 import CategoriesSection from "./CategoriesSection";
 import { Dropdown } from "react-bootstrap";

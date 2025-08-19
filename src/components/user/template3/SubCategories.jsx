@@ -1,6 +1,5 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 // import search from "../../../assets/User/icon _search outline_.png";
-import vector from "../../../assets/User/Vector.png";
 import { useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { AdminContext } from "../../../context/AdminProvider";
