@@ -7,7 +7,7 @@ import Row from "react-bootstrap/Row";
 import { ToastContainer } from "react-toastify";
 // import { useInsertData } from "../../../hooks/useInsertData";
 import notify from "../../../utils/useNotification";
-import logo from "../../../assets/logo.png";
+import logo from "../../../assets/logo";
 import { useDispatch, useSelector } from "react-redux";
 import { loginAdminAction } from "../../../redux/slice/auth/authSlice";
 import { loginSuperAdminAction } from "../../../redux/slice/super_admin/auth/authSlice";

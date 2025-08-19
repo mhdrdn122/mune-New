@@ -13,7 +13,7 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import { ToastContainer } from "react-toastify";
 import notify from "../../../utils/useNotification";
-import logo from "../../../assets/logo.png";
+import logo from "../../../assets/logo";
 import { useDispatch, useSelector } from "react-redux";
 import {
   loginAdminAction,
