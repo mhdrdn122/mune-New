@@ -4,7 +4,6 @@ import { Button, Stack } from "@mui/material";
 import "./ResturantPage.css";
 import AccountProfileDetails from "../../../components/Admin/profile/AccountProfileDetails";
 import Breadcrumb from "../../../utils/Breadcrumb";
-import ava from "../../../assets/bg.png";
 import { useSelector, useDispatch } from "react-redux";
 import { getAdminDetailsAction } from "../../../redux/slice/auth/authSlice";
 import ResturantDetails from "../../../components/Admin/restaurant/ResturantDetails";

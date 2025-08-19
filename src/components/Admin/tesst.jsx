@@ -1,8 +1,7 @@
 import ThreeSixty from "react-360-view";
 import { Box } from "@mui/material";
 import ReactPannellum, { getConfig } from "react-pannellum";
-import img from "../../assets/bg.png";
-import { useEffect, useState } from "react";
+ import { useEffect, useState } from "react";
 
 
 export function Counter() {
