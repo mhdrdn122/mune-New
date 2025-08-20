@@ -1,6 +1,5 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
-import insta from "../../../assets/User/insta.png";
-import star from "../../../assets/User/Star.png";
+ import star from "../../../assets/User/Star.png";
 import star1 from "../../../assets/User/Star (1).png";
 import { Dropdown, Form, Modal, Spinner, Button } from "react-bootstrap";
 import { Fragment, useContext, useEffect, useState } from "react";
