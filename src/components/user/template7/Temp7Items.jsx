@@ -28,8 +28,7 @@ import { useGetItems } from "../../../hooks/user/useGetItems";
 import PlusButton from "../../../utils/user/PlusButton";
 import PanoramaImg from "../template1/PanoramaImg";
 import ReactPannellum from "react-pannellum";
-import cancel from "../../../assets/User/Vectorrr.png"
-import { baseURLLocalPublic } from "../../../Api/baseURLLocal";
+ import { baseURLLocalPublic } from "../../../Api/baseURLLocal";
 import 'swiper/css'
 import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
