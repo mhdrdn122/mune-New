@@ -4,7 +4,7 @@ import { Fragment, useContext, useEffect, useState } from "react";
 import { AdminContext } from "../../../context/AdminProvider";
 import axios from "axios";
  import { LanguageContext } from "../../../context/LanguageProvider";
-import notFound from "../../../assets/User/pngegg(14).png";
+// import notFound from "../../../assets/User/pngegg(14).png";
  import "react-lazy-load-image-component/src/effects/blur.css";
 import notify from "../../../utils/useNotification";
 import { ToastContainer } from "react-toastify"; 
@@ -521,7 +521,7 @@ const Ratings = () => {
             <div className="alert alert-primary mb-5" role="alert">
               {error?.message}
             </div>
-            <img src={notFound} className=" w-100 h-75" />
+            <img src={"../../../assets/User/pngegg(14).png"} className=" w-100 h-75" />
           </div>
         )
       ) : (

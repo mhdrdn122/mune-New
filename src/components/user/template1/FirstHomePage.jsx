@@ -9,7 +9,7 @@ import { FaFacebookF } from "react-icons/fa";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { Button, Spinner } from "react-bootstrap";
-import notFound from "../../../assets/User/pngegg(14).png";
+// import notFound from "../../../assets/User/pngegg(14).png";
 import { UserContext } from "../../../context/UserProvider";
 import levantLogo from "../../../assets/User/lev.jpg";
 import "animate.css";
@@ -169,7 +169,7 @@ const FirstHomePage = () => {
               <div className="alert alert-primary mb-5" role="alert">
                 {error?.message}
               </div>
-              <img src={notFound} className=" w-100 h-75" />
+              <img src={"../../../assets/User/pngegg(14).png"} className=" w-100 h-75" />
             </div>
           )
         ) : (
