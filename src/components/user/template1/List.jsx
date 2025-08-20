@@ -13,8 +13,7 @@ import {
   Spinner,
 } from "react-bootstrap";
 import { AdminContext } from "../../../context/AdminProvider";
-import search from "../../../assets/User/icon _search outline_.png";
-import { LanguageContext } from "../../../context/LanguageProvider";
+ import { LanguageContext } from "../../../context/LanguageProvider";
 import WhatssappIcon from "../../../utils/user/WhatssappIcon";
 import { MdCancel } from "react-icons/md";
 import { FaFacebookF, FaWhatsapp } from "react-icons/fa";

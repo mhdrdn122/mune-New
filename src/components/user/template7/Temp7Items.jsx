@@ -1,6 +1,5 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import search from "../../../assets/User/icon _search outline_.png";
-import { Link, useNavigate, useParams } from "react-router-dom";
+ import { Link, useNavigate, useParams } from "react-router-dom";
 import { AdminContext } from "../../../context/AdminProvider";
 import axios from "axios";
 import { CategoriesContext } from "../../../context/CategoriesProvider";
