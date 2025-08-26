@@ -39,7 +39,7 @@ import { baseURLLocalPublic } from "../../../Api/baseURLLocal";
 import Table from "../../Tables/Tables";
 import AttentionModal from "../../Modals/AttentionModal/AttentionModal";
 import { handleDelete } from "./helpers";
-import ViewOrder from "./VIewOrder";
+import ViewOrder from "./ViewOrder";
 
 const OrdersContainer = ({ show, handleClose, refresh, showService, handleCloseAddService }) => {
   // Table configuration
