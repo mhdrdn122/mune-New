@@ -1,0 +1,265 @@
+/* Style For Home Page */
+
+.oreint_house_home {
+  /* background-image: url(../../../assets/User/orient2.jpg); */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  object-fit: cover;
+  object-position: center;
+}
+
+.oreint_house_home .social_media {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  padding: 30px 0;
+}
+.oreint_house_home .social_media .social {
+  /* background-color: #ab8030; */
+  border-radius: 50%;
+  padding: 8px !important;
+  /* box-shadow: 0px 4px 8.8px 0px rgba(0, 0, 0, 0.25); */
+  box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25) inset,
+    -2px -2px 4px 0px rgba(0, 0, 0, 0.25) inset;
+}
+.oreint_house_home .social_media .social img,
+.oreint_house_home .social_media .social svg {
+  width: 45px;
+  height: 45px;
+  padding: 5px !important;
+}
+
+.oreint_house_home .social_media button {
+  padding: 8px 34px;
+  border-radius: 12px;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  box-shadow: 0px 4px 8.8px 0px rgba(0, 0, 0, 0.25);
+  margin-top: 30px;
+    /* background-color: #ab8030; */
+  text-transform: uppercase;
+  font-family: "DIN";
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 480px) {
+  .oreint_house_home {
+  }
+}
+
+/* Style For Categories Page */
+.orient_cats_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  /* padding-top: 1.5rem; */
+  gap: calc(20% / 6);
+  margin-bottom: 54px;
+}
+.orient_cats_container .orient_category {
+  /* background: linear-gradient(145deg, #ab8030, #b78d3d); */
+  width: calc(80% / 5);
+  margin-bottom: 20px;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 8px inset,
+    rgba(0, 0, 0, 0.25) 0px -2px 8px inset, 0px 2px 3px 0px rgba(0, 0, 0, 0.25),
+    0px -2px 3px 0px rgba(0, 0, 0, 0.25);
+}
+
+.orient_cats_container .orient_category p {
+  width: 100%;
+  color: white;
+  text-align: center;
+  font-family: "DIN";
+  font-weight: 700;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  text-transform: capitalize;
+  /* direction: rtl; */
+  /* letter-spacing: 1px; */
+}
+
+.orient_logo {
+  width: 70px;
+  height: 70px;
+  overflow: hidden;
+}
+.orient_logo img {
+  /* width: 100%;
+  height: 100%; */
+
+  width: 80%;
+  border-radius: 50%;
+  margin-top: 10%;
+  margin-left: 10%;
+}
+
+@media (max-width: 720px) {
+  .orient_cats_container {
+    gap: calc(20% / 5);
+  }
+  .orient_cats_container .orient_category {
+    width: calc(80% / 4);
+  }
+}
+@media (max-width: 480px) {
+  .orient_cats_container {
+    gap: calc(20% / 3);
+  }
+  .orient_cats_container .orient_category {
+    width: calc(80% / 2);
+  }
+}
+
+/* Style For Sub Categories Page */
+.breadcrumb_orient {
+  margin-bottom: 0 !important;
+  background-color: transparent !important;
+  /* flex-direction: row-reverse !important; */
+}
+.breadcrumb_orient_item {
+  font-size: 24px;
+  color: #fff !important;
+}
+.breadcrumb_orient_item + .breadcrumb_orient_item::before {
+  padding-left: 0.5rem !important;
+  float: none !important;
+}
+
+/* Style For Items Page */
+.orient_items_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-top: 25px;
+  gap: calc(20% / 6);
+}
+.orient_items_container .orient_item {
+  cursor: pointer;
+    /* background-color: #ab8030; */
+  width: calc(80% / 5);
+  box-shadow: 0 4px 7.6px 0 rgba(0, 0, 0, 0.25);
+  margin-bottom: 20px;
+  border-radius: 8px;
+  /* box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 8px inset,
+    rgba(0, 0, 0, 0.25) 0px -2px 8px inset; */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.9);
+}
+
+.orient_items_container .orient_item img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 3/3;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 8px;
+  /* box-shadow: 6px 6px 4px 0px rgba(0, 0, 0, 0.25),
+    -6px -6px 4px 0px rgba(0, 0, 0, 0.25); */
+  box-shadow: 0 0 0.4cm rgba(0, 0, 0, 0.8);
+}
+.orient_items_container .orient_item .orient_details {
+  color: #fff;
+  text-align: center;
+  padding: 7px 4px;
+}
+.orient_items_container .orient_item .orient_details p {
+  margin-bottom: 6px !important;
+  font-family: "DIN";
+  font-weight: 700;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  text-transform: capitalize;
+  /* direction: rtl; */
+}
+
+.orient_dialog_item_details {
+  width: 400px !important;
+  /* height: 100% !important; */
+  border-radius: 0.5rem !important;
+}
+.orient_card {
+  border: 1px solid #474748 !important;
+  /* box-shadow: 0px 4px 8.8px 0px rgba(0, 0, 0, 0.25); */
+  background-color: #474748 !important;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.9);
+
+}
+.orient_card .card-body {
+  text-align: center;
+  background-color: #474748 !important;
+  border-radius: 0.5rem !important;
+}
+.orient_card .card-body .card-text,
+.orient_card .card-body .card-title {
+  color: #fff;
+  font-family: "DIN";
+  font-weight: 700;
+  text-transform: capitalize;
+}
+.orient_card .card-body .card-text {
+  margin-bottom: 12px !important;
+}
+.orient_card .card-body .golden {
+  /* color: #ab8030 !important; */
+}
+.orient_card .card_image {
+  width: 100%;
+  /* height: 100%; */
+  aspect-ratio: 1;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 0.5rem 0.5rem 1rem 1rem !important;
+  position: relative;
+  box-shadow: 6px 6px 4px 0px rgba(0, 0, 0, 0.25),
+    -6px -6px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.orient_card .previous {
+  position: absolute;
+  background-color: #fff;
+  top: 5px;
+  left: 5px;
+  width: 30px;
+  height: 30px;
+  padding: 3px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.25) inset,
+    -1px -1px 3px 0px rgba(0, 0, 0, 0.25) inset;
+}
+
+@media (max-width: 720px) {
+  .orient_items_container {
+    gap: calc(20% / 5);
+  }
+  .orient_items_container .orient_item {
+    width: calc(80% / 4);
+  }
+}
+@media (max-width: 480px) {
+  .orient_dialog_item_details {
+    width: 360px !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .orient_items_container {
+    gap: calc(20% / 3);
+  }
+  .orient_items_container .orient_item {
+    width: calc(80% / 2);
+  }
+}

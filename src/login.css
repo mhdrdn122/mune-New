@@ -1,0 +1,77 @@
+/* src/components/login.css */
+.login-background {
+  background:     /* الغيوم الذهبية المعززة */    radial-gradient(circle at 20% 70%, rgba(255, 186, 8, 0.7) 0%, transparent 25%),    radial-gradient(circle at 80% 20%, rgba(255, 186, 8, 0.6) 5%, transparent 30%),        /* الغيوم الزرقاء الكثيفة */    radial-gradient(circle at 30% 30%, rgba(58, 110, 165, 0.8) 0%, transparent 40%),    radial-gradient(circle at 70% 70%, rgba(28, 39, 76, 0.9) 0%, transparent 45%),        /* تأثيرات الضباب الخفيف */    radial-gradient(circle at 50% 50%, rgba(217, 217, 217, 0.4) 0%, transparent 50%),        /* الخلفية الأساسية */    linear-gradient(135deg, #1C274C 0%, #3A6EA5 100%);
+  background-size: 200% 200%;
+  animation: boiling-clouds 30s ease infinite;
+  -webkit-animation: boiling-clouds 30s ease infinite;
+}
+
+@keyframes boiling-clouds {
+  0% {
+    background-position: 
+      0% 10%,  /* الذهبية 1 */
+      100% 90%, /* الذهبية 2 */
+      30% 30%,  /* الزرقاء 1 */
+      70% 70%,  /* الزرقاء 2 */
+      50% 50%,  /* الضباب */
+      0% 0%;    /* الخلفية */
+    background-size: 200% 200%;
+  }
+  25% {
+    background-position: 
+      15% 60%, 
+      85% 25%, 
+      45% 45%, 
+      55% 85%, 
+      60% 60%, 
+      0% 0%;
+    background-size: 210% 210%;
+  }
+  50% {
+    background-position: 
+      30% 30%, 
+      70% 70%, 
+      60% 20%, 
+      40% 60%, 
+      30% 70%, 
+      0% 0%;
+    background-size: 220% 220%;
+  }
+  75% {
+    background-position: 
+      40% 80%, 
+      60% 40%, 
+      20% 50%, 
+      80% 30%, 
+      70% 40%, 
+      0% 0%;
+    background-size: 215% 215%;
+  }
+  100% {
+    background-position: 
+      0% 10%, 
+      100% 90%, 
+      30% 30%, 
+      70% 70%, 
+      50% 50%, 
+      0% 0%;
+    background-size: 200% 200%;
+  }
+}
+
+.login-card {
+  background-color: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 
+    0 8px 32px 0 rgba(31, 38, 135, 0.25),
+    0 0 20px 0 rgba(255, 186, 8, 0.3); /* توهج ذهبي */
+}
+
+/* تأثيرات إضافية عند التمرير */
+.login-card:hover {
+  box-shadow: 
+    0 8px 40px 0 rgba(31, 38, 135, 0.3),
+    0 0 30px 0 rgba(255, 186, 8, 0.4);
+}
