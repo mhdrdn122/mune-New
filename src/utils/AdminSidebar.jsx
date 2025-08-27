@@ -272,7 +272,7 @@ const AdminSidebar = ({ className }) => {
     },
 
     {
-      title: "المشرفين",
+      title: "الموظفين",
       to: "/admin/admins",
       icon: <FaUsers />,
       show: hasPermission(PermissionsEnum.USER_INDEX),

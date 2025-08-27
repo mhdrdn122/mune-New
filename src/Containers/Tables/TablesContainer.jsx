@@ -19,7 +19,7 @@ import DynamicForm from "../../components/Modals/AddModal/AddModal";
 import {
   getAddTableFormFields,
   handleDelete,
-  onAddTableSubmit,
+  onAddTableSubmit, 
   onUpdateTableSubmit,
 } from "./helpers";
 import ShowTable from "./ShowTable";
@@ -163,6 +163,7 @@ const TablesContainer = ({
   // }, []);
 
   // WebSocket listener for table updates
+  
   useEffect(() => {
     console.log(channel);
     channel.listen(".App\\Events\\TableUpdatedEvent", (event) => {

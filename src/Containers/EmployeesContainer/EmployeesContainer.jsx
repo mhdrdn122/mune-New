@@ -31,6 +31,7 @@ import DynamicCard from "../../utils/DynamicCard";
 import { PermissionsEnum } from "../../constant/permissions";
 import { LiaFileInvoiceSolid } from "react-icons/lia";
 import DynamicSkeleton from "../../utils/DynamicSkeletonProps";
+import { useGetPermissonsQuery } from "../../redux/slice/admins/adminsApi";
 
 /**
  * EmployeesContainer Component
@@ -62,9 +63,11 @@ const EmployeesContainer = ({
   const { resId } = useParams(); // Restaurant ID from route
   const [randomNumber, refreshRandomNumber] = useRandomNumber(1, 100);
 
+   const { data: permissions } = useGetPermissonsQuery(undefined);
   const [loadingFields, setLoadingFields] = useState(false);
   const [hasAdmin, setHasAdmin] = useState(false); // Check if an admin user exists
 
+  console.log(permissions)
   // Fetch employees
   const {
     data: employees,
@@ -116,7 +119,8 @@ const EmployeesContainer = ({
   };
   const handleShowEdit = (data) => {
     setShowEdit(true);
-    setPassedData(data);
+    console.log(data)
+     setPassedData(data);
   };
   const handleShowDelete = (data) => {
     setShowDelete(true);
@@ -160,71 +164,153 @@ const EmployeesContainer = ({
   ] = getAddMutation(isSuperAdmin);
   const [updateEmployee] = getEditEmployeeMutation(isSuperAdmin);
 
-  /**
-   * Submit handler for adding a new employee
-   */
-  const onAddEmployee = async (formValues) => {
-    const types = JSON.parse(localStorage.getItem("types"));
-    const type_id = types?.find((item) => item.name === formValues.type_id)?.id;
+  const formatEmployeeData = (formValues, isEditMode = false) => {
+  const types = JSON.parse(localStorage.getItem("types"));
+  const type_id = types?.find((item) => item.name === formValues.type_id)?.id;
+  const categories = formValues?.category?.map((item) => item.id);
+  const permission = formValues?.permission?.map((item) => item.name);
+
+  let body = {
+    name: formValues.name,
+    user_name: formValues.user_name,
+    mobile: formValues.mobile,
+    role: formValues.role,
+    type_id,
+    'permission[]': permission,
+    'category[]': categories,
+  };
+
+  if (isEditMode) {
+    body.id = formValues.id;
+  }
+  
+  // قم بإضافة حقل 'password' فقط إذا كان موجودًا في formValues
+  if (formValues.password) {
+    body.password = formValues.password;
+  }
+
+  // معالجة حالة الأدمن
+  if (formValues.role === "أدمن") {
+    body = {
+      name: formValues.name,
+      user_name: formValues.user_name,
+      password: formValues.password,
+      mobile: formValues.mobile,
+      restaurant_id: resId, // تأكد من أن resId متاح في النطاق (scope)
+      role: formValues.role,
+      'category[]': formValues.category,
+    };
+  }
+
+  return body;
+};
+/**
+ * Submit handler for adding a new employee.
+ * It formats form values into a FormData object for submission.
+ *
+ * @param {object} formValues - The form data submitted by the user.
+ */
+const onAddEmployee = async (formValues) => {
+  const types = JSON.parse(localStorage.getItem("types"));
+  const type_id = types?.find((item) => item.name === formValues.type_id)?.id;
+
+  // Create a new FormData object to handle key-value pairs,
+  // allowing for multiple values with the same key.
+  const formData = new FormData();
+
+  // Append basic employee data
+  formData.append('name', formValues.name);
+  formData.append('user_name', formValues.user_name);
+  formData.append('mobile', formValues.mobile);
+  formData.append('role', formValues.role);
+
+  // Conditionally append password if it exists
+  if (formValues.password) {
+    formData.append('password', formValues.password);
+  }
+
+  // Handle the 'admin' role differently
+  if (formValues.role === "أدمن") {
+    formData.append('restaurant_id', resId);
+    // Append each category item separately
+    if (formValues.category) {
+      formValues.category.forEach(item => {
+        formData.append('category[]', item);
+      });
+    }
+  } else {
+    // For non-admin roles, append type_id and formatted arrays
+    formData.append('type_id', type_id);
+    
+    // Append each category item separately
     const categories = formValues?.category?.map((item) => item.id);
-
-    let body;
-    if (formValues.role === "أدمن") {
-      body = {
-        name: formValues.name,
-        user_name: formValues.user_name,
-        password: formValues.password,
-        mobile: formValues.mobile,
-        restaurant_id: resId,
-        role: formValues.role,
-        category: formValues.category,
-      };
-    } else {
-      body = { ...formValues, type_id, category: categories };
+    if (categories && categories.length > 0) {
+      categories.forEach(item => {
+        formData.append('category[]', item);
+      });
     }
 
-    const result = await addEmployee(body).unwrap();
-    return result;
-  };
-
-  /**
-   * Submit handler for editing an employee
-   */
-  const onEditEmployee = async (formValues) => {
-    const types = JSON.parse(localStorage.getItem("types"));
-    const type_id = types?.find((item) => item.name === formValues.type_id)?.id;
-    const categories = formValues.category.map((item) => item.id);
-
-    let body;
-    if (!formValues.password) {
-      body = {
-        id: passedData.id,
-        name: formValues.name,
-        user_name: formValues.user_name,
-        mobile: formValues.mobile,
-        role: formValues.role,
-        category: categories,
-        type_id,
-      };
-    } else {
-      body = {
-        id: passedData.id,
-        name: formValues.name,
-        user_name: formValues.user_name,
-        mobile: formValues.mobile,
-        role: formValues.role,
-        category: categories,
-        type_id,
-        password: formValues.password,
-      };
+    // Append each permission item separately
+    const permission = formValues?.permission?.map((item) => item.name);
+    if (permission && permission.length > 0) {
+      permission.forEach(item => {
+        formData.append('permission[]', item);
+      });
     }
+  }
 
-    const result = await updateEmployee(body).unwrap();
-    if (result.status === true) {
-      notify(result.message, "success");
-      handleClose();
-    }
-  };
+  const result = await addEmployee(formData).unwrap();
+  return result;
+};
+
+ /**
+ * Submit handler for editing an existing employee.
+ * It formats form values into a FormData object for submission.
+ *
+ * @param {object} formValues - The form data submitted by the user.
+ */
+const onEditEmployee = async (formValues) => {
+  const types = JSON.parse(localStorage.getItem("types"));
+  const type_id = types?.find((item) => item.name === formValues.type_id)?.id;
+
+  // Create a new FormData object
+  const formData = new FormData();
+
+  // Append employee data, including the ID
+  formData.append('id', passedData.id);
+  formData.append('name', formValues.name);
+  formData.append('user_name', formValues.user_name);
+  formData.append('mobile', formValues.mobile);
+  formData.append('role', formValues.role);
+  formData.append('type_id', type_id);
+
+  // Conditionally append password if it exists
+  if (formValues.password) {
+    formData.append('password', formValues.password);
+  }
+
+  // Append each category item separately
+  const categories = formValues.category.map((item) => item.id);
+  if (categories && categories.length > 0) {
+    categories.forEach(item => {
+      formData.append('category[]', item);
+    });
+  }
+
+  // Append each permission item separately
+  const permission = formValues?.permission?.map((item) => item.name);
+  if (permission && permission.length > 0) {
+    permission.forEach(item => {
+      formData.append('permission[]', item);
+    });
+  }
+
+  const result = await updateEmployee(formData).unwrap();
+  if (result.status === true) {
+    notify(result.message, "success");
+    handleClose();
+  }
+};
 
   // Fetch and cache types
   const { data: types } = getTypes(isSuperAdmin);
@@ -243,7 +329,8 @@ const EmployeesContainer = ({
         isSuperAdmin,
         hasAdmin,
         JSON.parse(types),
-        showEdit ? "edit" : "add"
+        showEdit ? "edit" : "add",
+        permissions
       );
       setFields(res);
       setLoadingFields(false);

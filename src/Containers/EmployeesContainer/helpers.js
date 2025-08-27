@@ -53,12 +53,16 @@ export const getEmployee = (isSuperAdmin, role, page, refresh, startDate, endDat
  * @param {'add'|'edit'} mode - Current mode of the form
  * @returns {Array} Array of field configs
  */
-export const getAddEmplyeeFields = async (isSuperAdmin, hasAdmin, types, mode) => {
+export const getAddEmplyeeFields = async (isSuperAdmin, hasAdmin, types, mode , permissions) => {
   const res = await get_All_Categories_and_sub();
   const categories = res?.data?.map((category) => ({
     name: category.name,
     id: category.id
   }));
+
+   
+
+ 
 
   const roles = (!isSuperAdmin || hasAdmin)
     ? ['موظف']
@@ -67,30 +71,39 @@ export const getAddEmplyeeFields = async (isSuperAdmin, hasAdmin, types, mode) =
   const typesLabels = types?.map((type) => type.name);
 
   return [
-    { name: "name", label: "الإسم", type: "text", required: true },
-    { name: "user_name", label: "اسم المستخدم", type: "text", required: true },
-    { name: "email", label: "البريد الالكتروني", type: "text", required: true },
+  { name: "name", label: "الإسم", type: "text", required: true },
+  { name: "user_name", label: "اسم المستخدم", type: "text", required: true },
+  { name: "email", label: "البريد الالكتروني", type: "text", required: true },
 
-    { name: "password", label: "كلمة السر", type: "password", required: mode !== 'edit' },
+  { name: "password", label: "كلمة السر", type: "password", required: mode !== 'edit' },
 
-    { name: "mobile", label: "رقم الموبايل", type: "tel", required: true },
-    { name: "role", label: "Role", type: "select", options: roles, required: true },
-    {
-      name: "category",
-      label: "Category",
-      type: "multiselect",
-      options: categories,
-      isHidden: (values) => values.role === "أدمن"
-    },
-    {
-      name: "type_id",
-      label: "النوع",
-      type: "select",
-      options: typesLabels,
-      required: true,
-      isHidden: (values) => values.role === "أدمن"
-    }
-  ];
+  { name: "mobile", label: "رقم الموبايل", type: "tel", required: true },
+  
+  {
+    name: "category",
+    label: "Category",
+    type: "multiselect",
+    options: categories,
+     isHidden: (values) => values.type_id !== "شيف"
+  },
+  
+  {
+    name: "type_id",
+    label: "النوع",
+    type: "select",
+    options: typesLabels,
+    required: true,
+    isHidden: (values) => values.role === "أدمن"
+  },
+  
+  {
+    name: "permission",
+    label: "الصلاحيات",
+    type: "multiselect",
+    options: permissions,
+    isHidden: (values) => values.role === "أدمن"
+  },
+];
 };
 
 /**

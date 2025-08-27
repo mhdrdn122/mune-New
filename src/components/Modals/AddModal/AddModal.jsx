@@ -15,13 +15,24 @@ import notify from "../../../utils/useNotification";
 import avatar from "../../../assets/avatar.png";
 import useGetStyle from "../../../hooks/useGetStyle";
 
-export default function DynamicForm({ title, fields, onSubmit, show, onHide, loading, passedData }) {
+export default function DynamicForm({
+  title,
+  fields,
+  onSubmit,
+  show,
+  onHide,
+  loading,
+  passedData,
+}) {
   const [formValues, setFormValues] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const { Color } = useGetStyle();
 
   const handleChange = (name, value) => {
+    console.log(name)
+    console.log(value)
+
     setFormValues((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -60,17 +71,14 @@ export default function DynamicForm({ title, fields, onSubmit, show, onHide, loa
 
   return (
     <div>
-      <Modal
-        show={show}
-        onHide={onHide}
-        centered
-        style={{ zIndex: 1050 }}  
-      >
+      <Modal show={show} onHide={onHide} centered style={{ zIndex: 1050 }}>
         <Modal.Header className="d-flex justify-content-center border-0">
           <Modal.Title
-          style={{
-            color : Color? Color : "#2F4B26"
-           }} className="  fw-bold text-center w-100">
+            style={{
+              color: Color ? Color : "#2F4B26",
+            }}
+            className="  fw-bold text-center w-100"
+          >
             {title}
           </Modal.Title>
         </Modal.Header>
@@ -139,7 +147,9 @@ export default function DynamicForm({ title, fields, onSubmit, show, onHide, loa
                       <InputLabel>{field?.label}</InputLabel>
                       <Select
                         value={formValues[field?.name] || ""}
-                        onChange={(e) => handleChange(field?.name, e.target.value)}
+                        onChange={(e) =>
+                          handleChange(field?.name, e.target.value)
+                        }
                         label={field?.label}
                       >
                         {field?.options.map((option) => (
@@ -158,7 +168,9 @@ export default function DynamicForm({ title, fields, onSubmit, show, onHide, loa
                         inputLabelProps={{ shrink: true }}
                         multiple
                         value={formValues[field?.name] || []}
-                        onChange={(e) => handleChange(field?.name, e.target.value)}
+                        onChange={(e) =>
+                          handleChange(field?.name, e.target.value)
+                        }
                         input={<OutlinedInput label={field?.label} />}
                         renderValue={(selected) =>
                           selected.map((item) => item.name).join(", ")
@@ -185,7 +197,9 @@ export default function DynamicForm({ title, fields, onSubmit, show, onHide, loa
                       name={field?.name}
                       required={field?.required}
                       value={formValues[field?.name] || ""}
-                      onChange={(e) => handleChange(field?.name, e.target.value)}
+                      onChange={(e) =>
+                        handleChange(field?.name, e.target.value)
+                      }
                       fullWidth
                       margin="normal"
                       dir={field?.dir}
@@ -200,17 +214,17 @@ export default function DynamicForm({ title, fields, onSubmit, show, onHide, loa
                           borderRadius: "8px",
                           backgroundColor: "#FFF",
                           "&:hover .MuiOutlinedInput-notchedOutline": {
-                            borderColor: Color? Color : "#2F4B26",
+                            borderColor: Color ? Color : "#2F4B26",
                           },
                           "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                            borderColor: Color? Color : "#2F4B26",
+                            borderColor: Color ? Color : "#2F4B26",
                           },
                         },
                         "& .MuiInputLabel-root": {
-                          color: Color? Color : "#2F4B26",
+                          color: Color ? Color : "#2F4B26",
                         },
                         "& .MuiInputLabel-root.Mui-focused": {
-                          color: Color? Color : "#2F4B26",
+                          color: Color ? Color : "#2F4B26",
                         },
                       }}
                     />
@@ -222,7 +236,10 @@ export default function DynamicForm({ title, fields, onSubmit, show, onHide, loa
           <Modal.Footer className="flex  items-center justify-content-around  w-full  p-4 border-0">
             <Button
               variant="contained"
-              style={{ backgroundColor: Color? Color : "#2F4B26", color: "#FFF" }}
+              style={{
+                backgroundColor: Color ? Color : "#2F4B26",
+                color: "#FFF",
+              }}
               onClick={() => {
                 onHide();
                 setFormValues({});
@@ -231,14 +248,23 @@ export default function DynamicForm({ title, fields, onSubmit, show, onHide, loa
               تجاهل
             </Button>
             {isLoading === true ? (
-              <Button variant="contained" style={{ backgroundColor: Color? Color : "#2F4B26", color: "#FFF" }}>
+              <Button
+                variant="contained"
+                style={{
+                  backgroundColor: Color ? Color : "#2F4B26",
+                  color: "#FFF",
+                }}
+              >
                 <Spinner className="m-auto" animation="border" role="status" />
               </Button>
             ) : (
               <Button
                 variant="contained"
                 type="submit"
-                style={{ backgroundColor:Color? Color : "#2F4B26" ,  color: "#FFF" }}
+                style={{
+                  backgroundColor: Color ? Color : "#2F4B26",
+                  color: "#FFF",
+                }}
               >
                 حفظ
               </Button>

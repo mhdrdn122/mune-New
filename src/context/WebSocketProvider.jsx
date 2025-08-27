@@ -1,7 +1,7 @@
 // src/context/WebSocketContext.tsx
-import React, { createContext, useContext, useEffect, useRef } from 'react';
-import Echo from 'laravel-echo';
-import Pusher from 'pusher-js';
+import React, { createContext, useContext, useEffect, useRef } from "react";
+import Echo from "laravel-echo";
+import Pusher from "pusher-js";
 
 const WebSocketContext = createContext(null);
 
@@ -12,27 +12,31 @@ export const WebSocketProvider = ({ children }) => {
     window.Pusher = Pusher;
 
     echoRef.current = new Echo({
-      broadcaster: 'pusher',
-      key: 'bqfkpognxb0xxeax5bjc', 
-      cluster: 'mt1',
-      wsPort:6001,
-      wsHost: 'tmenuback.addresses.sy',
+      broadcaster: "pusher",
+      key: "bqfkpognxb0xxeax5bjc",
+      cluster: "mt1",
+      // wsPort:6001,
+      wsPort: 8080,
+
+      // wsHost: 'tmenuback.addresses.sy',
+      wsHost: "192.168.1.44",
+
       forceTLS: false,
       disableStats: true,
-      enabledTransports: ['ws','wss'],
+      enabledTransports: ["ws", "wss"],
     });
 
-    console.log('✅ Echo WebSocket Initialized Globally');
+    console.log("✅ Echo WebSocket Initialized Globally");
   }
 
   useEffect(() => {
     return () => {
-      console.log('🛑 Cleaning up Echo WebSocket');
+      console.log("🛑 Cleaning up Echo WebSocket");
       echoRef.current?.disconnect();
     };
   }, []);
 
-  console.log("echoRef" , echoRef.current)
+  console.log("echoRef", echoRef.current);
   return (
     <WebSocketContext.Provider value={echoRef.current}>
       {children}
@@ -42,14 +46,14 @@ export const WebSocketProvider = ({ children }) => {
 
 // Hook to use Echo easily
 export const useWebSocket = (restaurantId) => {
+  console.log("restaurantId" , restaurantId)
   const context = useContext(WebSocketContext);
   if (!context) {
-    throw new Error('useWebSocket must be used within a WebSocketProvider');
+    throw new Error("useWebSocket must be used within a WebSocketProvider");
   }
-  console.log("echoRef context" , context)
+  console.log("echoRef context", context);
 
-  const channel = context.channel(`restaurant${restaurantId}`)
-  console.log(`connect to channel restaurant${restaurantId}`)
+  const channel = context.channel(`restaurant${restaurantId}`);
+  console.log(`connect to channel restaurant${restaurantId}`);
   return channel;
-  
 };
