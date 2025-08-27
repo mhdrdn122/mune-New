@@ -19,8 +19,7 @@ import useGetStyle from "../../../hooks/useGetStyle";
  * @param {string} props.status - Status of the table ('reserved' or 'empty')
  */
 const TableCard = ({ data, onClick, onReceipt, onDelete, onAdd, onEdit }) => {
-  const isSmallDevice = useMediaQuery("only screen and (max-width : 768px)");
-  const { hasPermission } = usePermissions();
+   const { hasPermission } = usePermissions();
     const {Color} = useGetStyle()
 
   const getBackgroundColor = () => {
@@ -31,8 +30,7 @@ const TableCard = ({ data, onClick, onReceipt, onDelete, onAdd, onEdit }) => {
       : "rgba(0, 255, 0, 0.53)";
   };
 
-  console.log(data.new);
-  return (
+   return (
     <Card
       sx={{
         maxWidth: 300,

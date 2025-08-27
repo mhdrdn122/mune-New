@@ -203,7 +203,7 @@ const MyOrdersPage = () => {
     const res = {
       data: payload,
       userToken, 
-      address_id:address,
+      address,
       longitude,
       latitude,
       isDelivery:isDelivery,

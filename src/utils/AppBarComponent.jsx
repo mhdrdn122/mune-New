@@ -115,7 +115,7 @@ const AppBarComponent = ({ Role }) => {
                 textDecoration: "none",
                 transition: "background-color 0.3s, transform 0.2s",
                 borderRadius: "8px",
-                padding: "8px 12px",
+                padding: isSmallDevice ? " 4px 6px " : "8px 12px",
                 whiteSpace: "nowrap",
                 fontSize: "1rem",
               }}

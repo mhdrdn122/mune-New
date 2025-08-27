@@ -19,7 +19,7 @@ const CatContainer = () => {
     updateUsername(username);
   }, [updateUsername, username]);
   return (
-    <div className="flex flex-wrap w-full justify-center items-center gap-3 mb-5 md:mb-2">
+    <div className="grid grid-cols-2 md:grid-col-3 lg:grid-cols-4 gap-2 md:gap-3 mb-5 md:mb-2 p-1">
       {categories?.map((cat) => {
         const path = `/${username}/template/10/category/${cat.id}`;
         return (

@@ -23,8 +23,7 @@ import { BsFillCartCheckFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { useWebSocket } from "../../../context/WebSocketProvider";
 
-// تحسين تصميم مكون الجداول
-const TabelsContainer = ({ show, handleClose, refresh }) => {
+ const TabelsContainer = ({ show, handleClose, refresh }) => {
   const { hasPermission } = usePermissions();
   const userData = JSON.parse(localStorage.getItem("adminInfo"));
   const [deleteTable, { isLoading }] = useDeleteTableMutation();
