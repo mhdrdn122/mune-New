@@ -155,6 +155,7 @@ export const {
   useUpdateOrderMutation,
   useDeleteOrderMutation,
   useGetInvoicesQuery,
+  useLazyGetInvoicesQuery,
   useAddInvoiceMutation,
   useAddCouponToInvoiceMutation,
   useUpdateInvoiceMutation,

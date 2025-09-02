@@ -230,11 +230,10 @@ const AddOrder = () => {
       items-center
       justify-center
       group
-      ${
-        cart?.length > 0
-          ? "ring-2 ring-red-400 ring-opacity-80 animate-bounce"
-          : "ring-2 ring-white ring-opacity-60 animate-pulse"
-      }
+      ${cart?.length > 0
+              ? "ring-2 ring-red-400 ring-opacity-80 animate-bounce"
+              : "ring-2 ring-white ring-opacity-60 animate-pulse"
+            }
     `}
           disabled={cart?.length > 0 ? false : true}
           onClick={() => setShowCart(true)}

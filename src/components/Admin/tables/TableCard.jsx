@@ -84,7 +84,7 @@ const TableCard = ({
           }}
           className="absolute text-2xl  text-white"
         >
-          {data?.number_table || "1"}
+          {data?.number_table || "0"}
         </div>
       </CardContent>
 

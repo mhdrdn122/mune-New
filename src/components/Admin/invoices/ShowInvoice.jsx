@@ -143,7 +143,7 @@ const ShowInvoice = ({ show, handleClose, id, from = "invoice", data }) => {
             </tr>
           </thead>
           <tbody>
-            {invoice?.orders.map((order) => (
+            {invoice?.orders?.map((order) => (
               <tr key={order?.id}>
                 <td>{order?.name}</td>
                 <td>{order?.price}</td>

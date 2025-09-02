@@ -99,6 +99,7 @@ const InvoicesContainer = ({
     isFetching,
     refetch
   } = useGetInvoicesQuery({ page, refresh, date, selectedTableId, selectedAdminId });
+  console.log(invoices)
 
   const [payInvoice, { isLoading: loadPay }] = useUpdateInvoiceMutation();
   const [addInvoice] = useAddInvoiceMutation();

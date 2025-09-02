@@ -29,94 +29,13 @@ import { ToastContainer } from "react-toastify";
 import { Badge } from "@mui/material";
 import TableCard from "../../components/Admin/tables/TableCard";
 import ShowInvoice from "../../components/Admin/invoices/ShowInvoice";
-import { useAddInvoiceMutation } from "../../redux/slice/order/orderApi";
+import { useAddInvoiceMutation, useGetInvoicesQuery, useLazyGetInvoicesQuery } from "../../redux/slice/order/orderApi";
 import DynamicSkeleton from "../../utils/DynamicSkeletonProps";
 import notify from "../../utils/useNotification";
 
 const tableHeaders = ["Table Number", "Actions"];
 const fieldsToShow = ["number_table"];
-const INVOICES_STORAGE_KEY = "restaurant_invoices";
 
-// Helper functions for invoice storage management
-const getInvoicesFromStorage = () => {
-  try {
-    const data = localStorage.getItem(INVOICES_STORAGE_KEY);
-    return data ? JSON.parse(data) : [];
-  } catch (error) {
-    console.error("Error reading invoices from storage:", error);
-    return [];
-  }
-};
-
-const saveInvoiceToStorage = (tableId, invoiceData) => {
-  try {
-    const invoices = getInvoicesFromStorage();
-    const existingIndex = invoices.findIndex((inv) => inv.tableId === tableId);
-
-    const invoiceToSave = {
-      tableId,
-      data: invoiceData,
-      savedAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    };
-
-    if (existingIndex >= 0) {
-      invoices[existingIndex] = invoiceToSave;
-    } else {
-      invoices.push(invoiceToSave);
-    }
-
-    localStorage.setItem(INVOICES_STORAGE_KEY, JSON.stringify(invoices));
-    return true;
-  } catch (error) {
-    console.error("Error saving invoice to storage:", error);
-    return false;
-  }
-};
-
-const getInvoiceFromStorage = (tableId) => {
-  try {
-    const invoices = getInvoicesFromStorage();
-    return invoices.find((inv) => inv.tableId === tableId) || null;
-  } catch (error) {
-    console.error("Error getting invoice from storage:", error);
-    return null;
-  }
-};
-
-const clearInvoiceFromStorage = (tableId) => {
-  try {
-    const invoices = getInvoicesFromStorage();
-    const filteredInvoices = invoices.filter((inv) => inv.tableId !== tableId);
-    localStorage.setItem(
-      INVOICES_STORAGE_KEY,
-      JSON.stringify(filteredInvoices)
-    );
-    return true;
-  } catch (error) {
-    console.error("Error clearing invoice from storage:", error);
-    return false;
-  }
-};
-
-const cleanupOldInvoices = (maxAgeHours = 24) => {
-  try {
-    const invoices = getInvoicesFromStorage();
-    const now = new Date();
-    const freshInvoices = invoices.filter((invoice) => {
-      if (!invoice.savedAt) return false;
-      const savedDate = new Date(invoice.savedAt);
-      const hoursDiff = (now - savedDate) / (1000 * 60 * 60);
-      return hoursDiff <= maxAgeHours;
-    });
-
-    if (freshInvoices.length !== invoices.length) {
-      localStorage.setItem(INVOICES_STORAGE_KEY, JSON.stringify(freshInvoices));
-    }
-  } catch (error) {
-    console.error("Error cleaning up old invoices:", error);
-  }
-};
 
 /**
  * TablesContainer component for managing restaurant tables
@@ -141,7 +60,9 @@ const TablesContainer = ({
 
   const [showEdit, setShowEdit] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
+  const [tableId, setTableId] = useState(0);
   const [showDetails, setShowDetails] = useState(false);
+  const [fields, setFields] = useState();
 
   const [addTable, { isLoading: addLoading }] = useAddTableMutation();
   const [updateTable] = useUpdateTableMutation();
@@ -155,7 +76,11 @@ const TablesContainer = ({
     refetch,
     isFetching,
   } = useGetTablesQuery({});
-  const [addInvoice, { data: invoice }] = useAddInvoiceMutation();
+  const [addInvoice] = useAddInvoiceMutation();
+
+
+
+  const [getInvoice] = useLazyGetInvoicesQuery();
 
   const { triggerRedirect } = useError401Admin(isError, error);
 
@@ -180,6 +105,8 @@ const TablesContainer = ({
     setTables(data);
   }, [data]);
 
+
+
   const handleShowEdit = (table) => {
     setShowEdit(true);
     setPassedData({
@@ -190,35 +117,47 @@ const TablesContainer = ({
   };
 
   const handleReceipt = async (table) => {
+    console.log(table)
     try {
-      const tableId = table?.id;
-      // Get stored invoice for this specific table
-      const storedInvoice = getInvoiceFromStorage(tableId);
 
       const result = await addInvoice({
-        table_id: tableId,
+        table_id: table?.id,
       }).unwrap();
 
-      console.log("Invoice API response:", result);
-      console.log("out if")
-      if (result?.data) {
-        console.log("in if")
+      if (result?.message && !result?.data) {
+        notify(result.message, "error");
 
-        // Save new invoice for this specific table
-        saveInvoiceToStorage(tableId, result.data);
+      }
+
+      if (result?.message && result?.data) {
+        notify(result.message, "success");
+
+      }
+
+      console.log("Invoice API response:", result);
+      if (result?.data) {
+
         setInvoiceData(result.data);
         handleShowReceipt(tableId);
-      } else if (storedInvoice) {
-        // If no new invoice, use the stored one
-        setInvoiceData(storedInvoice.data);
-        setShowInv(true);
-        setPassedData({ id: tableId });
       } else {
-        notify("No invoice available for display", "warning");
+        // If no new invoice, use the stored one
+
+        const res = await getInvoice({ selectedTableId: table?.id }).unwrap()
+        console.log(res)
+        if (res?.data?.length > 1) {
+          notify("اضف طلبات أولا ", "error")
+          return;
+        } else {
+          setInvoiceData(res?.data[0]);
+
+          setShowInv(true);
+          setPassedData({ id: tableId });
+        }
+
       }
     } catch (err) {
       console.error("Error generating invoice:", err);
-      notify(err.message || "An error occurred", "error");
+      notify(err?.data?.message, "error");
     }
   };
 
@@ -231,12 +170,6 @@ const TablesContainer = ({
   const handleShowReceipt = (tableId) => {
     setShowInv(true);
     setPassedData({ id: tableId });
-
-    // Get invoice from storage when opening the modal
-    const storedInvoice = getInvoiceFromStorage(tableId);
-    if (storedInvoice) {
-      setInvoiceData(storedInvoice.data);
-    }
   };
 
   const handleShowDetails = (table) => {
@@ -252,7 +185,6 @@ const TablesContainer = ({
     setPage(page);
   };
 
-  const [fields, setFields] = useState();
   useEffect(() => {
     const result = getAddTableFormFields();
     setFields(result);
@@ -414,18 +346,15 @@ const TablesContainer = ({
       {/* Invoice Display Modal */}
       <ShowInvoice
         show={showInv}
-        handleClose={() => setShowInv(false)}
+        handleClose={() => {
+          setInvoiceData({});
+
+          setShowInv(false)
+        }}
         id={passedData?.id}
         from="tables"
         data={invoiceData}
-        onRefresh={() => {
-          if (passedData?.id) {
-            const refreshedInvoice = getInvoiceFromStorage(passedData.id);
-            if (refreshedInvoice) {
-              setInvoiceData(refreshedInvoice.data);
-            }
-          }
-        }}
+
       />
 
       <ToastContainer />
