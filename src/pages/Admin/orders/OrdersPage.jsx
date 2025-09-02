@@ -19,7 +19,6 @@ import OrdersContainer from "../../../components/Admin/orders/OrdersContainer";
 import { PermissionsEnum } from "../../../constant/permissions";
 import { useParams } from "react-router-dom";
 import useRandomNumber from "../../../hooks/useRandomNumber";
-import { useGetServicesQuery } from "../../../redux/slice/service/serviceApi";
  import SubAppBar from "../../../utils/SubAppBar";
 
 const OrdersPage = () => {
@@ -30,18 +29,6 @@ const OrdersPage = () => {
   const [randomNumber, refreshRandomNumber] = useRandomNumber(1, 100); // custom hook for random refresh token
   const { tableId, invoiceId } = useParams();
 
-  /**
-   * Fetches services from the backend with caching and error states.
-   * @param {Object} queryArgs - Contains the `refresh` token to force refetching.
-   */
-  const {
-    data: services,
-    isLoading: loading,
-    isError,
-    error,
-    refetch,
-    isFetching,
-  } = useGetServicesQuery({ refresh });
 
   
 
@@ -61,6 +48,8 @@ const OrdersPage = () => {
     <div>
       <SubAppBar
         title=" الطلبات "
+        titleBtn="إضافة خدمة"
+        
         showAddButton={true}
         onAdd={handleShowAdd}
         showRefreshButton={true}

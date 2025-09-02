@@ -268,7 +268,7 @@ const RatesContainer = ({ refresh, mode }) => {
     }
   };
 
-  if (loading) {
+  if (loading && !showFilterModal) {
     return (
       <div className="flex justify-content-center gap-2 !flex-wrap">
         <DynamicSkeleton
@@ -401,7 +401,7 @@ const RatesContainer = ({ refresh, mode }) => {
                   className="w-full p-2.5 rounded-lg border   focus:outline-none focus:ring-2 focus:ring-[#2F4B26] bg-white text-[#2F4B26] transition-all mb-4"
                   dir="rtl"
                 >
-                  <option value="">الكل</option>
+                  <option value="" > حدد نوع الفلترة</option>
                   <option value="date">التاريخ</option>
                   <option value="age">العمر</option>
                   <option value="rate">التقييم</option>

@@ -18,8 +18,8 @@ export const WebSocketProvider = ({ children }) => {
       // wsPort:6001,
       wsPort: 8080,
 
-      // wsHost: 'tmenuback.addresses.sy',
-      wsHost: "192.168.1.44",
+      wsHost: 'tmenuback.addresses.sy',
+      // wsHost: "192.168.1.38",
 
       forceTLS: false,
       disableStats: true,
@@ -45,15 +45,15 @@ export const WebSocketProvider = ({ children }) => {
 };
 
 // Hook to use Echo easily
-export const useWebSocket = (restaurantId) => {
-  console.log("restaurantId" , restaurantId)
+export const useWebSocket = (channelName) => {
+  console.log(channelName);
   const context = useContext(WebSocketContext);
   if (!context) {
     throw new Error("useWebSocket must be used within a WebSocketProvider");
   }
-  console.log("echoRef context", context);
 
-  const channel = context.channel(`restaurant${restaurantId}`);
-  console.log(`connect to channel restaurant${restaurantId}`);
+  const channel = context.channel(channelName);
+  console.log(channel);
+
   return channel;
 };

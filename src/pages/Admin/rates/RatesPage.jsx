@@ -81,7 +81,7 @@ const RatesPage = () => {
         onViewToggle={() => setMode((prev) => !prev)}
         downloadLoading={loading && isExcelRequested}
       />
-      <RatesContainer refresh={refresh} mode={mode} />
+      <RatesContainer  setRefresh={setRefresh} refresh={refresh} mode={mode} />
     </Fragment>
   );
 };

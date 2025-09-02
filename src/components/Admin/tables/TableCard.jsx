@@ -9,7 +9,7 @@ import { usePermissions } from "../../../context/PermissionsContext";
 import { PermissionsEnum } from "../../../constant/permissions";
 import tableImage from "./table.svg";
 import useGetStyle from "../../../hooks/useGetStyle";
-
+import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 /**
  * TableCard Component
  * Displays a table card with actions based on table status.
@@ -18,19 +18,27 @@ import useGetStyle from "../../../hooks/useGetStyle";
  * @param {Function} props.onClick - Function to handle card click
  * @param {string} props.status - Status of the table ('reserved' or 'empty')
  */
-const TableCard = ({ data, onClick, onReceipt, onDelete, onAdd, onEdit }) => {
-   const { hasPermission } = usePermissions();
-    const {Color} = useGetStyle()
+const TableCard = ({
+  data,
+  onClick,
+  onReceipt,
+  onDelete,
+  onAdd,
+  onEdit,
+  onShow,
+}) => {
+  const { hasPermission } = usePermissions();
+  const { Color } = useGetStyle();
 
   const getBackgroundColor = () => {
-    return data?.new === 1
-      ? "#ff00007c"
+    return data?.new === 0 ? "#eee" : 
+       data?.new === 1 ?  "rgba(255, 0, 0, 0.3)" 
       : data?.new === 2
-      ? "#fffb0091"
-      : "rgba(0, 255, 0, 0.53)";
+        ? "rgba(255, 255, 0, 0.3)"
+        : "rgba(0, 255, 0, 0.3)";
   };
 
-   return (
+  return (
     <Card
       sx={{
         maxWidth: 300,
@@ -76,33 +84,34 @@ const TableCard = ({ data, onClick, onReceipt, onDelete, onAdd, onEdit }) => {
           }}
           className="absolute text-2xl  text-white"
         >
-          0{data?.id || "1"}
+          {data?.number_table || "1"}
         </div>
       </CardContent>
 
       {/* Lower Section: Action Buttons */}
-      <div style={{ padding: "5px", backgroundColor: Color ? "#" + Color : "#2F4B26" }}>
+      <div
+        style={{
+          padding: "5px",
+          backgroundColor: Color ? "#" + Color : "#2F4B26",
+        }}
+      >
         <div className="flex justify-around">
-          {hasPermission(PermissionsEnum.TABLE_ADD) && (
-            <IconButton onClick={onAdd}>
-              <AddIcon sx={{ color: "white" }} />
-            </IconButton>
-          )}
-          {hasPermission(PermissionsEnum.TABLE_UPDATE) && (
-            <IconButton onClick={onEdit}>
-              <EditOutlinedIcon sx={{ color: "white" }} />
-            </IconButton>
-          )}
-          {hasPermission(PermissionsEnum.TABLE_DELETE) && (
-            <IconButton onClick={onDelete}>
-              <DeleteIcon sx={{ color: "white" }} />
-            </IconButton>
-          )}
-          {hasPermission(PermissionsEnum.TABLE_DELETE) && (
-            <IconButton onClick={() => onReceipt({id : data?.id})}>
-              <ReceiptIcon sx={{ color: "white" }} />
-            </IconButton>
-          )}
+          <IconButton onClick={onAdd}>
+            <AddIcon sx={{ color: "white" }} />
+          </IconButton>
+          <IconButton onClick={() => onEdit(data)}>
+            <EditOutlinedIcon sx={{ color: "white" }} />
+          </IconButton>
+          <IconButton onClick={() => onDelete({ id: data?.id })}>
+            <DeleteIcon sx={{ color: "white" }} />
+          </IconButton>
+          <IconButton onClick={() => onReceipt({ id: data?.id })}>
+            <ReceiptIcon sx={{ color: "white" }} />
+          </IconButton>
+
+          <IconButton onClick={() => onShow(data)}>
+            <RemoveRedEyeOutlinedIcon sx={{ color: "white !important" }} />
+          </IconButton>
         </div>
       </div>
     </Card>

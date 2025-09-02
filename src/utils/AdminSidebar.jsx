@@ -320,7 +320,7 @@ const AdminSidebar = ({ className }) => {
     },
 
     {
-      title: "الانتقال الى واجهة المستخدم",
+      title: "    واجهة المستخدم",
       to: `/${userData?.restaurant?.name_url}`,
       icon: <MdOutlineWeb />,
       show: true,

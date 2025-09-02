@@ -154,8 +154,9 @@ const TakeoutOrdersContainer = ({refresh}) => {
           <h5 className="mt-4">معلومات إضافية</h5>
           <ListGroup variant="flush">
             <ListGroup.Item>
-              <FaMoneyBillAlt className="me-2" />
-              <strong>المجموع:</strong> {showOrder?.price}
+              <FaMoneyBillAlt className="me-2" />{
+               }
+              <strong>المجموع:</strong> {passedData?.total}
             </ListGroup.Item>
 
             {[
@@ -209,17 +210,19 @@ const TakeoutOrdersContainer = ({refresh}) => {
       {showEditModal && (
         <DynamicForm
           fields={fields}
-          loading={false}
+           loading={false}
           onHide={() => setShowEditModal(false)}
-          onSubmit={async (values) =>
+          onSubmit={async (values) =>{
+  console.log(values)
+
             await handleUpdateOrder(
               values,
               drivers,
               adminInfo,
-              setRefresh,
+              // setRefresh,
               () => setShowEditModal(false),
               passedData
-            )
+            )}
           }
           passedData={{}}
           show={showEditModal}

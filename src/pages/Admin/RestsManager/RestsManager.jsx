@@ -70,7 +70,7 @@ const RestsManager = () => {
 
       {/* Page header */}
       <Header heading={"المطاعم"} />
-
+ 
       {/* Renders the container with restaurant manager cards or list */}
       <RestsManagerContainer
         restsManager={restsManager}

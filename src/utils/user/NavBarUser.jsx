@@ -23,7 +23,7 @@ const NavBarUser = ({ handleShow, searchWord, setSearchWord, withRatings }) => {
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   const [heSaidNo, setHeSaidNo] = useState(localStorage.getItem("heSaidNo"));
 
- 
+
   useEffect(() => {
     updateUsername(username);
   }, [username]);
@@ -44,13 +44,13 @@ const NavBarUser = ({ handleShow, searchWord, setSearchWord, withRatings }) => {
     return () => document.removeEventListener("mousedown", handleOutsideClick);
   }, []);
 
- 
+
 
   const badgeCount = ordersState.length > 10 ? "9+" : ordersState.length;
   const backgroundColor = adminDetails?.color?.substring(10, 16) || "ffffff";
 
   const toggleDropdown = () => setDropdownVisible((prev) => !prev);
- 
+
   const getBackgroundColor = () => `#${backgroundColor}`;
 
   // Conditionally render the cart icon based on the order status and heSaidNo
@@ -72,12 +72,15 @@ const NavBarUser = ({ handleShow, searchWord, setSearchWord, withRatings }) => {
       {/* Desktop Navigation */}
       <nav
         className="hidden md:flex justify-between items-center px-4 py-3 shadow-md"
-        style={{ backgroundColor: getBackgroundColor() ,
-    borderRadius: "0 0 20px 20px"
-  }}
+        style={{
+          backgroundColor: getBackgroundColor(),
+          borderRadius: "0 0 20px 20px"
+        }}
       >
         {/* Left Section - Logo */}
         <div className="flex items-center">
+
+
           <Link to={`/${username}`}>
             <img
               src={adminDetails?.logo_home_page}
@@ -99,12 +102,19 @@ const NavBarUser = ({ handleShow, searchWord, setSearchWord, withRatings }) => {
             <FaStar size={24} className="text-white" />
           </Link>
 
-          <Link to={`/${adminDetails?.name_url}/my-orders`}>
-            <FaShoppingBag size={24} className="text-white" />
-          </Link>
-          <Link to={`/${adminDetails?.name_url}/profile`}>
-            <FaUserCircle size={24} className="text-white" />
-          </Link>
+          {
+            isTakeout && (
+              <>
+                <Link to={`/${adminDetails?.name_url}/my-orders`}>
+                  <FaShoppingBag size={24} className="text-white" />
+                </Link>
+                <Link to={`/${adminDetails?.name_url}/profile`}>
+                  <FaUserCircle size={24} className="text-white" />
+                </Link>
+              </>
+            )
+          }
+
         </div>
       </nav>
 
@@ -123,9 +133,16 @@ const NavBarUser = ({ handleShow, searchWord, setSearchWord, withRatings }) => {
             />
           </Link>
 
-          <Link to={`/${adminDetails?.name_url}/profile`}>
-            <FaUserCircle size={24} className="text-white" />
-          </Link>
+          {
+            isTakeout && (
+              <Link to={`/${adminDetails?.name_url}/profile`}>
+                <FaUserCircle size={24} className="text-white" />
+              </Link>
+            )
+          }
+
+
+
         </nav>
 
         {/* Bottom Navbar */}
@@ -140,9 +157,19 @@ const NavBarUser = ({ handleShow, searchWord, setSearchWord, withRatings }) => {
             <FaStar size={24} className="text-white" />
           </Link>
 
-          <Link to={`/${adminDetails?.name_url}/my-orders`}>
-            <FaShoppingBag size={24} className="text-white" />
-          </Link>
+
+
+          {
+            isTakeout && (
+              <>
+                <Link to={`/${adminDetails?.name_url}/my-orders`}>
+                  <FaShoppingBag size={24} className="text-white" />
+                </Link>
+
+              </>
+            )
+
+          }
 
           <div>{renderCartIcon()}</div>
         </nav>

@@ -97,7 +97,7 @@ import PaymentGatewayIntegration from "./components/Admin/Payment/PaymentGateway
 import CreateAccountForm from "./LoginForm";
 import UserOrders from "./utils/user/UserOrders";
 import HomeTemp10 from "./components/user/template10/HomeTemp10";
-import DriverTracking from "./pages/Admin/deliveries/DriverTracking";
+import DriverTracking from "./pages/Admin/deliveries/DriverTracking"; 
 function App() {
   const { adminDetails, updateUsername, loading } = useContext(AdminContext);
   console.log(adminDetails);

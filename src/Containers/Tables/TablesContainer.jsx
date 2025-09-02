@@ -13,13 +13,14 @@ import { FaEye } from "react-icons/fa";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Table from "../../components/Tables/Tables";
-import { Pagination } from "react-bootstrap";
+import Pagination from "../../utils/Pagination";
 import useError401Admin from "../../hooks/useError401Admin";
 import DynamicForm from "../../components/Modals/AddModal/AddModal";
+import ReceiptIcon from "@mui/icons-material/Receipt";
 import {
   getAddTableFormFields,
   handleDelete,
-  onAddTableSubmit, 
+  onAddTableSubmit,
   onUpdateTableSubmit,
 } from "./helpers";
 import ShowTable from "./ShowTable";
@@ -30,6 +31,7 @@ import TableCard from "../../components/Admin/tables/TableCard";
 import ShowInvoice from "../../components/Admin/invoices/ShowInvoice";
 import { useAddInvoiceMutation } from "../../redux/slice/order/orderApi";
 import DynamicSkeleton from "../../utils/DynamicSkeletonProps";
+import notify from "../../utils/useNotification";
 
 const tableHeaders = ["Table Number", "Actions"];
 const fieldsToShow = ["number_table"];
@@ -128,7 +130,8 @@ const TablesContainer = ({
 }) => {
   const userData = JSON.parse(localStorage.getItem("adminInfo"));
   const navigate = useNavigate();
-  const channel = useWebSocket(userData?.restaurant_id);
+  // const channel = useWebSocket(userData?.restaurant_id);
+  const channel = useWebSocket(`restaurant${userData?.restaurant_id}`);
 
   const [page, setPage] = useState(1);
   const [tables, setTables] = useState();
@@ -151,21 +154,16 @@ const TablesContainer = ({
     error,
     refetch,
     isFetching,
-  } = useGetTablesQuery({ page });
+  } = useGetTablesQuery({});
   const [addInvoice, { data: invoice }] = useAddInvoiceMutation();
 
-  console.log(invoice);
   const { triggerRedirect } = useError401Admin(isError, error);
 
-  // Clean up old invoices on component mount
-  // useEffect(() => {
-  //   cleanupOldInvoices();
-  // }, []);
+
 
   // WebSocket listener for table updates
-  
   useEffect(() => {
-    console.log(channel);
+    console.log("channel");
     channel.listen(".App\\Events\\TableUpdatedEvent", (event) => {
       console.log("📩 Event received:", event);
       setTables(event);
@@ -191,8 +189,42 @@ const TablesContainer = ({
     });
   };
 
+  const handleReceipt = async (table) => {
+    try {
+      const tableId = table?.id;
+      // Get stored invoice for this specific table
+      const storedInvoice = getInvoiceFromStorage(tableId);
+
+      const result = await addInvoice({
+        table_id: tableId,
+      }).unwrap();
+
+      console.log("Invoice API response:", result);
+      console.log("out if")
+      if (result?.data) {
+        console.log("in if")
+
+        // Save new invoice for this specific table
+        saveInvoiceToStorage(tableId, result.data);
+        setInvoiceData(result.data);
+        handleShowReceipt(tableId);
+      } else if (storedInvoice) {
+        // If no new invoice, use the stored one
+        setInvoiceData(storedInvoice.data);
+        setShowInv(true);
+        setPassedData({ id: tableId });
+      } else {
+        notify("No invoice available for display", "warning");
+      }
+    } catch (err) {
+      console.error("Error generating invoice:", err);
+      notify(err.message || "An error occurred", "error");
+    }
+  };
+
   const handleShowDelete = (table) => {
     setShowDelete(true);
+    console.log(table)
     setPassedData(table);
   };
 
@@ -235,7 +267,9 @@ const TablesContainer = ({
       sx={{
         "& .MuiBadge-badge": {
           backgroundColor:
-            row.new === 1 ? "red" : row.new === 2 ? "yellow" : "green",
+            row.new === 1 ? "rgba(255, 0, 0, 1)" : row.new === 2 ? "rgba(255, 255, 0, 1)" : row.new === 1 ? "gray" : "rgba(0, 255, 0, 1)",
+
+
         },
       }}
     >
@@ -259,6 +293,11 @@ const TablesContainer = ({
       icon: <EditOutlinedIcon />,
       name: "edit",
       onClickFunction: handleShowEdit,
+    },
+    {
+      icon: <ReceiptIcon />,
+      name: "receipt",
+      onClickFunction: (table) => handleReceipt(table),
     },
     {
       icon: <DeleteIcon />,
@@ -292,38 +331,10 @@ const TablesContainer = ({
               <TableCard
                 key={index}
                 index={index}
-                onEdit={handleShowEdit}
-                onDelete={handleShowDelete}
-                onReceipt={async () => {
-                  try {
-                    const tableId = table?.id;
-                    // Get stored invoice for this specific table
-                    const storedInvoice = getInvoiceFromStorage(tableId);
-
-                    const result = await addInvoice({
-                      table_id: tableId,
-                    }).unwrap();
-
-                    console.log("Invoice API response:", result);
-
-                    if (result?.data) {
-                      // Save new invoice for this specific table
-                      saveInvoiceToStorage(tableId, result.data);
-                      setInvoiceData(result.data);
-                      handleShowReceipt(tableId);
-                    } else if (storedInvoice) {
-                      // If no new invoice, use the stored one
-                      setInvoiceData(storedInvoice.data);
-                      setShowInv(true);
-                      setPassedData({ id: tableId });
-                    } else {
-                      notify("No invoice available for display", "warning");
-                    }
-                  } catch (err) {
-                    console.error("Error generating invoice:", err);
-                    notify(err.message || "An error occurred", "error");
-                  }
-                }}
+                onShow={(table) => handleShowDetails(table)}
+                onEdit={(table) => handleShowEdit(table)}
+                onDelete={(table) => handleShowDelete(table)}
+                onReceipt={(table) => handleReceipt(table)}
                 onAdd={() => navigate(`/admin/addOrder/${table?.id}`)}
                 onClick={() => navigate(`/admin/tables/${table?.id}/orders`)}
                 data={table}

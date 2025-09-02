@@ -16,6 +16,7 @@ import {
   useGetCouponsQuery,
   useUpdateCouponMutation,
 } from "../../redux/slice/coupons/couponsApi";
+import Pagination from "../../utils/Pagination";
 
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -72,6 +73,15 @@ const CouponsContainer = ({ show, handleClose, refresh, role, mode }) => {
   const [showEdit, setShowEidt] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const [showDeactive, setShowDeactive] = useState(false);
+
+   /**
+   * Handles pagination change
+   * @param {number} page - New page number
+   */
+  const onPress = async (page) => {
+    setPage(page);
+    window.scroll(0, 0);
+  };
 
   // Updates form fields depending on add/edit modal visibility
   useEffect(() => {
@@ -232,6 +242,10 @@ const CouponsContainer = ({ show, handleClose, refresh, role, mode }) => {
         show={showDeactive}
       />
 
+        {/* Pagination Controls */}
+      {coupons?.meta?.total_pages > 1 && (
+        <Pagination onPress={onPress} pageCount={coupons.meta.total_pages} />
+      )}
       <ToastContainer />
     </div>
   );

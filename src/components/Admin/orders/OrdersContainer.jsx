@@ -8,9 +8,7 @@
  * 
  * It also handles responsive layout for small devices and uses Redux for data fetching.
  *
- * @param {boolean} show - Whether to show the AddOrder modal
- * @param {function} handleClose - Function to close AddOrder modal
- * @param {number|string} refresh - Trigger to refetch order data
+  * @param {number|string} refresh - Trigger to refetch order data
  * @param {boolean} showService - Whether to show AddService modal (unused here but passed from parent)
  * @param {function} handleCloseAddService - Closes AddService modal (unused here)
  *
@@ -32,7 +30,7 @@ import notify from "../../../utils/useNotification";
 import { usePermissions } from "../../../context/PermissionsContext";
 import useError401Admin from "../../../hooks/useError401Admin";
 import { useParams } from "react-router-dom";
-import AddOrder from "./AddOrder";
+import AddService from "./AddService";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import axios from "axios";
 import { baseURLLocalPublic } from "../../../Api/baseURLLocal";
@@ -40,6 +38,8 @@ import Table from "../../Tables/Tables";
 import AttentionModal from "../../Modals/AttentionModal/AttentionModal";
 import { handleDelete } from "./helpers";
 import ViewOrder from "./ViewOrder";
+import { useGetServicesQuery } from "../../../redux/slice/service/serviceApi";
+import useGetStyle from "../../../hooks/useGetStyle";
 
 const OrdersContainer = ({ show, handleClose, refresh, showService, handleCloseAddService }) => {
   // Table configuration
@@ -53,7 +53,7 @@ const OrdersContainer = ({ show, handleClose, refresh, showService, handleCloseA
   const [showEdit, setShowEidt] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const [loading2, setLoading2] = useState(false); // status update loading state
-
+  const {Color} = useGetStyle()
   // URL params
   const { tableId, invoiceId } = useParams();
 
@@ -73,9 +73,11 @@ const OrdersContainer = ({ show, handleClose, refresh, showService, handleCloseA
     refetch,
   } = useGetOrdersQuery({ page, tableId, invoiceId, refresh });
 
-  useEffect(()=>{
+
+
+  useEffect(() => {
     refetch()
-  },[])
+  }, [])
   const [deleteOrder, { isLoading: isDeleting }] = useDeleteOrderMutation();
 
   // Redirect on auth error
@@ -166,8 +168,8 @@ const OrdersContainer = ({ show, handleClose, refresh, showService, handleCloseA
         <Form.Select
           aria-label="تغيير حالة الطلبات"
           style={{
-            width: "12%",
-            backgroundColor: "rgb(2 13 38 / 91%)",
+            width: "150px",
+            backgroundColor: Color ?  "#" + Color : "rgb(2 13 38 / 91%)",
             color: "#fff",
             border: "1px solid #ccc",
             borderRadius: "6px",
@@ -206,7 +208,7 @@ const OrdersContainer = ({ show, handleClose, refresh, showService, handleCloseA
       )}
 
       {/* Modals */}
-      {show && <AddOrder show={show} handleClose={handleClose} />}
+      {show && <AddService show={show} handleClose={handleClose} />}
 
       {showEdit && (
         <UpdateOrder show={showEdit} handleClose={handleCloseEdit} order={passedData} />

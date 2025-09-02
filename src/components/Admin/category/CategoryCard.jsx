@@ -160,7 +160,7 @@ const CategoryCard = ({ title, title2, img, id, page, is_active, to, setMasterId
             <IconButton
               sx={{ color: "#9ACD32", padding: "10px" }}
               onClick={() => setShowDeactiveModal(true)}
-              style={{ backgroundColor: "#FFFFFF", borderRadius: "20px", padding: "4px 12px" }}
+              style={{ backgroundColor:  is_active == 1 ? "#FFFFFF" : "#f00" , borderRadius: "20px", padding: "4px 12px" }}
             >
               <MdToggleOn size={35} />
             </IconButton>
@@ -168,7 +168,7 @@ const CategoryCard = ({ title, title2, img, id, page, is_active, to, setMasterId
             <IconButton
               sx={{ color: "#9ACD32", padding: "0" }}
               onClick={() => setShowDeactiveModal(true)}
-              style={{ backgroundColor: "#FFFFFF", borderRadius: "20px", padding: "4px 12px" }}
+              style={{ backgroundColor:  is_active == 1 ? "#FFFFFF" : "#f00", borderRadius: "20px", padding: "4px 12px" }}
             >
               <MdToggleOff size={35} />
             </IconButton>
@@ -178,7 +178,7 @@ const CategoryCard = ({ title, title2, img, id, page, is_active, to, setMasterId
           <IconButton
             sx={{ padding: "8px" }}
             onClick={() => setShowDeleteModal(true)}
-            disabled={is_active === 1 ? true : false}
+            // disabled={is_active === 1 ? true : false}
             style={{ backgroundColor: "#9ACD32", borderRadius: "8px" }}
           >
             <DeleteIcon sx={{ color: is_active ? "gray" : "#FFFFFF" }} />

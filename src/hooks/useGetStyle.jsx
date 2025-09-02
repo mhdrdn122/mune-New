@@ -4,7 +4,7 @@ const useGetStyle = () => {
   const [style, setStyle] = useState({});
 
   useEffect(() => {
-    const res = localStorage.getItem("adminInfo") || '{}'; 
+    const res = localStorage.getItem("adminInfo") || '{}';
     try {
       const parsedData = JSON.parse(res);
       setStyle(parsedData?.restaurant || parsedData);
@@ -13,8 +13,8 @@ const useGetStyle = () => {
       setStyle({});
     }
   }, []);
- 
-  const Color =  style?.color?.substring(10, 16);
+
+  const Color = style?.color ? style?.color?.substring(10, 16) : "2F1B26";
   const BackgroundColor = style?.background_color?.substring(10, 16)
   const BackgroundImg = style?.background_image_home_page
   const Logo = style?.logo
@@ -25,7 +25,7 @@ const useGetStyle = () => {
     Color,
     BackgroundColor,
     BackgroundImg,
-Logo
+    Logo
   };
 };
 

@@ -18,7 +18,7 @@ import "./fonts.css";
 import { PermissionsProvider } from "./context/PermissionsContext.jsx";
 import UserProvider from "./context/UserProvider.jsx";
 import { WebSocketProvider } from "./context/WebSocketProvider.jsx";
-import 'leaflet/dist/leaflet.css';
+import "leaflet/dist/leaflet.css";
 import ShowSidebarProvider from "./context/ShowSidebarProvider.jsx";
 // Service Worker Registration
 
@@ -32,29 +32,28 @@ import ShowSidebarProvider from "./context/ShowSidebarProvider.jsx";
 //       });
 // }
 
-
 ReactDOM.createRoot(document.getElementById("root")).render(
   // <React.StrictMode>
-    <BrowserRouter>
-      <Provider store={store}>
+  <BrowserRouter>
+    <Provider store={store}>
+      <WebSocketProvider>
         <LanguageProvider>
           <AdminProvider>
             <CategoriesProvider>
               <AdvertismentsProvidr>
                 <PermissionsProvider>
                   <UserProvider>
-                    <WebSocketProvider>
-                      <ShowSidebarProvider>
-                                              <App/>
-                      </ShowSidebarProvider>
-                    </WebSocketProvider>
+                    <ShowSidebarProvider>
+                      <App />
+                    </ShowSidebarProvider>
                   </UserProvider>
                 </PermissionsProvider>
               </AdvertismentsProvidr>
             </CategoriesProvider>
           </AdminProvider>
         </LanguageProvider>
-      </Provider>
-    </BrowserRouter>
+      </WebSocketProvider>
+    </Provider>
+  </BrowserRouter>
   // </React.StrictMode>
 );

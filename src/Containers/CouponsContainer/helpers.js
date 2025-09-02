@@ -20,7 +20,7 @@ import notify from "../../utils/useNotification";
  */
 export const getCouponFormFields = () => {
   const fields = [
-    { name: "code", label: "الكود", type: "text", required: true },
+    // { name: "code", label: "الكود", type: "text", required: true },
     { name: "percent", label: "الخصم", type: "number", required: true },
     {
       name: "from_date",

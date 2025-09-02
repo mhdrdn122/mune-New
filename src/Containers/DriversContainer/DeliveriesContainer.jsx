@@ -174,7 +174,7 @@ const DeliveriesContainer = ({ role, refresh, show, handleClose, mode }) => {
                   { key: "name", label: "الاسم" },
                   { key: "username", label: "اسم الحساب" },
                   { key: "phone", label: "رقم الموبايل" },
-                  { key: "birthday", label: "تاريخ الميلاد" },
+                  { key: "birthday", label: "تاريخ البدء" },
                   {
                     key: "is_active",
                     label: "الحالة",

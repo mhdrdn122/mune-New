@@ -31,6 +31,7 @@ import { usePermissions } from "../../../context/PermissionsContext";
 import { IoQrCodeOutline } from "react-icons/io5";
 import DownloadForOfflineIcon from "@mui/icons-material/DownloadForOffline";
 import { FaShareAlt } from "react-icons/fa";
+import { getAllRestsManagerAction } from "../../../redux/slice/restsManager/ratesManagerSlice";
 
 const customTheme = (outerTheme) =>
   createTheme({
@@ -92,21 +93,42 @@ const hexToColorString = (hex) => {
   return `Color(0xff${hex.substring(1)})`;
 };
 
-const ResturantDetails = ({ item, getProfileDetails }) => {
+const ResturantDetails = ({ getProfileDetails }) => {
   const dispatch = useDispatch();
   const { hasPermission } = usePermissions();
   const [img, setImg] = useState(null);
   const [imgLogo, setImgLogo] = useState("");
   const [showQR, setShowQR] = useState(false);
   const [showQRTakeOut, setShowQRTakeOut] = useState(false);
+  // Extracts restaurant manager state from Redux store
+  const {
+    restsManager,
+    // , loading, error, status
+  } = useSelector((state) => state.restsManager);
+
+  let item = {};
+  if (restsManager?.data?.length > 0) {
+    item = restsManager?.data[0];
+  }
 
   const outerTheme = useTheme();
 
-  console.log(item)
+  /**
+   * Fetches the restaurant manager data for the current page.
+   * This action is dispatched only if the Redux state is idle.
+   */
+  const fetchData = async () => {
+    const res = await dispatch(getAllRestsManagerAction()); 
+  };
+ 
+  // On mount or when `page` changes, fetch the data if status is idle
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   useEffect(() => {
     putCurrentData();
-    console.log("item", item);
-  }, [item]);
+   }, [item]);
 
   const onImageChange = (event, type) => {
     if (event.currentTarget.files) {
@@ -141,67 +163,66 @@ const ResturantDetails = ({ item, getProfileDetails }) => {
       formik.resetForm({
         values: {
           user_name: item?.user_name || "",
-          name_en: item?.restaurant?.translations.en.name || "",
-          name_ar: item?.restaurant?.translations.ar.name || "",
-          background_color: convertColorFormat(
-            item?.restaurant?.background_color
-          ),
-          color: convertColorFormat(item?.restaurant?.color),
-          facebook_url: item?.restaurant?.facebook_url || "",
-          instagram_url: item?.restaurant?.instagram_url || "",
-          whatsapp_phone: item?.restaurant?.whatsapp_phone || "",
-          note_en: item?.restaurant?.translations.en.note || "",
-          note_ar: item?.restaurant?.translations.ar.note || "",
-          message_bad: item?.restaurant?.message_bad || "",
-          message_good: item?.restaurant?.message_good || "",
-          message_perfect: item?.restaurant?.message_perfect || "",
-          font_type: item?.restaurant?.font || "",
+          name_en: item?.translations?.en?.name || "",
+          name_ar: item?.translations?.ar?.name || "",
+          background_color: convertColorFormat(item?.background_color),
+          color: convertColorFormat(item?.color),
+          facebook_url: item?.facebook_url || "",
+          instagram_url: item?.instagram_url || "",
+          whatsapp_phone: item?.whatsapp_phone || "",
+          note_en: item?.translations?.en?.note || "",
+          note_ar: item?.translations?.ar?.note || "",
+          message_bad: item?.message_bad || "",
+          message_good: item?.message_good || "",
+          message_perfect: item?.message_perfect || "",
+          font_type: item?.font || "",
           logo: imgLogo,
           cover: img,
-          name_url: item?.restaurant?.name_url || "",
-          is_welcome_massege: item?.restaurant?.is_welcome_massege || "",
-          welcome: item?.restaurant?.welcome || "",
-          question: item?.restaurant?.question || "",
-          if_answer_no: item?.restaurant?.if_answer_no || "",
-          consumer_spending: item?.restaurant?.consumer_spending || "",
-          local_administration: item?.restaurant?.local_administration || "",
-          reconstruction: item?.restaurant?.reconstruction || "",
-          price_km: item?.restaurant?.price_km || "",
+          name_url: item?.name_url || "",
+          is_welcome_massege: item?.is_welcome_massege || "",
+          welcome: item?.welcome || "",
+          question: item?.question || "",
+          if_answer_no: item?.if_answer_no || "",
+          consumer_spending: item?.consumer_spending || "",
+          local_administration: item?.local_administration || "",
+          reconstruction: item?.reconstruction || "",
+          price_km: item?.price_km || "",
         },
       });
 
-      setImg(item?.restaurant?.cover);
-      setImgLogo(item?.restaurant?.logo);
+      setImg(item?.cover);
+      setImgLogo(item?.logo);
     }
   };
 
+  console.log(item)
   const formik = useFormik({
     initialValues: {
-      user_name: item?.user_name || "",
-      name_en: item?.restaurant?.translations.en.name || "",
-      name_ar: item?.restaurant?.translations.ar.name || "",
-      background_color: convertColorFormat(item?.restaurant?.background_color),
-      color: convertColorFormat(item?.restaurant?.color),
-      facebook_url: item?.restaurant?.facebook_url || "",
-      instagram_url: item?.restaurant?.instagram_url || "",
-      whatsapp_phone: item?.restaurant?.whatsapp_phone || "",
-      note_en: item?.restaurant?.translations.en.note || "",
-      note_ar: item?.restaurant?.translations.ar.note || "",
-      message_bad: item?.restaurant?.message_bad || "",
-      message_good: item?.restaurant?.message_good || "",
-      message_perfect: item?.restaurant?.message_perfect || "",
-      font_type: item?.restaurant?.font || "",
+      user_name: item?.name || "",
+      name_en: item?.name_en || "",
+      name_ar: item?.name_ar || "",
+      background_color: convertColorFormat(item?.background_color),
+      color: convertColorFormat(item?.color),
+      facebook_url: item?.facebook_url || "",
+      instagram_url: item?.instagram_url || "",
+      whatsapp_phone: item?.whatsapp_phone || "",
+      note_en: item?.translations?.en?.note || "",
+      note_ar: item?.translations?.ar?.note || "",
+      message_bad: item?.message_bad || "",
+      message_good: item?.message_good || "",
+      message_perfect: item?.message_perfect || "",
+      font_type: item?.font || "",
       logo: imgLogo,
       cover: img,
-      name_url: item?.restaurant?.name_url || "",
-      is_welcome_massege: item?.restaurant?.is_welcome_massege || "",
-      welcome: item?.restaurant?.welcome || "",
-      question: item?.restaurant?.question || "",
-      if_answer_no: item?.restaurant?.if_answer_no || "",
-      consumer_spending: item?.restaurant?.consumer_spending || "",
-      local_administration: item?.restaurant?.local_administration || "",
-      reconstruction: item?.restaurant?.reconstruction || "",
-      price_km: item?.restaurant?.price_km || "",
+      name_url: item?.name_url || "",
+      is_welcome_massege: item?.is_welcome_massege || "",
+      welcome: item?.welcome || "",
+      question: item?.question || "",
+      if_answer_no: item?.if_answer_no || "",
+      consumer_spending: item?.consumer_spending || "",
+      local_administration: item?.local_administration || "",
+      reconstruction: item?.reconstruction || "",
+      price_km: item?.price_km || "",
     },
     onSubmit: async (values) => {
       console.log("values before convert : ", values);
@@ -224,7 +245,7 @@ const ResturantDetails = ({ item, getProfileDetails }) => {
       await dispatch(resetupdatedRestaurant());
     },
     validationSchema: Yup.object({
-      user_name: Yup.string().required("الاسم مطلوب"),
+      // user_name: Yup.string().required("الاسم مطلوب"),
       background_color: Yup.string().required("لون الخلفية مطلوب"),
       color: Yup.string().required("اللون مطلوب"),
       facebook_url: Yup.string().url("رابط غير صالح"),
@@ -250,6 +271,12 @@ const ResturantDetails = ({ item, getProfileDetails }) => {
       notify(error.message, "error");
     }
   }, [error]);
+
+//   useEffect(() => {
+//   console.log("Form errors:", formik.errors);
+//   console.log("Form touched:", formik.touched);
+//   console.log("Form is valid:", formik.isValid);
+// }, [formik.errors, formik.touched]);
 
   return (
     <form autoComplete="off" noValidate onSubmit={formik.handleSubmit}>
@@ -305,9 +332,9 @@ const ResturantDetails = ({ item, getProfileDetails }) => {
                         size="small"
                         sx={{
                           color: "#fff",
-                          padding:"10px",
+                          padding: "10px",
                           bgcolor: "#BDD358",
-                          borderRadius:"10px",
+                          borderRadius: "10px",
                           "&:hover": { bgcolor: "rgba(0,0,0,0.7)" },
                         }}
                         onClick={() => handleShowQR(item)}
@@ -322,9 +349,9 @@ const ResturantDetails = ({ item, getProfileDetails }) => {
                         size="small"
                         sx={{
                           color: "#fff",
-                          padding:"10px",
+                          padding: "10px",
                           bgcolor: "#BDD358",
-                          borderRadius:"10px",
+                          borderRadius: "10px",
                           "&:hover": { bgcolor: "rgba(0,0,0,0.7)" },
                         }}
                         onClick={() => handleShowQRTakeOut(item)}
@@ -411,7 +438,7 @@ const ResturantDetails = ({ item, getProfileDetails }) => {
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  disabled
+                  disabled={false}
                   fullWidth
                   variant="outlined"
                   size="small"

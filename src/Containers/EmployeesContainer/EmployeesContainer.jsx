@@ -221,6 +221,7 @@ const onAddEmployee = async (formValues) => {
   // Append basic employee data
   formData.append('name', formValues.name);
   formData.append('user_name', formValues.user_name);
+  formData.append('email', formValues.email);
   formData.append('mobile', formValues.mobile);
   formData.append('role', formValues.role);
 
@@ -280,6 +281,8 @@ const onEditEmployee = async (formValues) => {
   formData.append('id', passedData.id);
   formData.append('name', formValues.name);
   formData.append('user_name', formValues.user_name);
+  formData.append('email', formValues.email);
+
   formData.append('mobile', formValues.mobile);
   formData.append('role', formValues.role);
   formData.append('type_id', type_id);

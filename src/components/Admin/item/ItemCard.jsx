@@ -163,7 +163,7 @@ export default function ItemCard({ item, page, setItemId }) {
           <IconButton
             sx={{ color: "#9ACD32", padding: "0" }}
             onClick={handleToggle(setShowDeactiveModal)}
-            style={{ backgroundColor: "#FFFFFF", borderRadius: "20px", padding: "4px 12px" }}
+            style={{ backgroundColor: item?.is_active == 1 ? "#FFFFFF" : "#f00", borderRadius: "20px", padding: "4px 12px" }}
           >
             {item.is_active === 1 ? (
               <MdToggleOn size={35} />

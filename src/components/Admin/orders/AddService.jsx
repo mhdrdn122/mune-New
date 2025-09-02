@@ -38,15 +38,14 @@ const AddService = ({ show, handleClose, page ,refresh}) => {
         isFetching
       } = useGetServicesQuery({ refresh});
     
-    const { data: tables } = useGetTablesQuery("");
-    const { tableId, invoiceId } = useParams();
+     const { tableId } = useParams();
     const dispatch = useDispatch();
 
     const userData = JSON.parse(localStorage.getItem("adminInfo"));
     
-    useEffect(() => {
-      dispatch(getAllItemsAction({ resId: userData.restaurant_id }));
-    }, []);
+    // useEffect(() => {
+    //   dispatch(getAllItemsAction({ resId: userData.restaurant_id }));
+    // }, []);
 
     const [loading,setLoading]=useState(false)
 
@@ -77,7 +76,7 @@ const AddService = ({ show, handleClose, page ,refresh}) => {
                 }
           })
           console.log("result Service :", result);
-          if (result.status === 200) {
+          if (result.data.status === true) {
             notify(result.data.message, "success");
             handleClose();
             formik.resetForm();

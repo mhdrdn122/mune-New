@@ -54,6 +54,7 @@ export const handleUpdateOrder = async (
   handleClose,
   passedData
 ) => {
+  console.log("test")
   const driverId = drivers.find((driver) => driver.name === values["driver"])?.id;
 
   try {
@@ -111,7 +112,7 @@ export const handleUpdateOrder = async (
  * @param {Object} adminInfo - Admin credentials from local storage.
  */
 export const handleReceive = async (invoiceId, setLoadingReceivedItemId, adminInfo) => {
-  const url = `${baseURLLocalPublic}/admin_api/update_status_invoice_received?id=${invoiceId}`;
+  const url = `${baseURLLocalPublic}/admin_api/update_status_invoice_paid?id=${invoiceId}`;
   notify("جاري القيام بالعملية", "success");
 
   try {

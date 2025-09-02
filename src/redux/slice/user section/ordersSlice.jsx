@@ -3,11 +3,10 @@ import { useInsertDataUser } from "../../../hooks/Admin/useInsertData";
 import { useGetDataUser } from "../../../hooks/Admin/useGetData";
 import notify from "../../../utils/useNotification";
 
-
 function arraysEqual(a, b) {
   if (a.length !== b.length) return false;
   // Ensure both arrays have the same elements (order doesn't matter)
-  return a.every(val => b.includes(val)) && b.every(val => a.includes(val));
+  return a.every((val) => b.includes(val)) && b.every((val) => a.includes(val));
 }
 
 const initialState = {
@@ -21,22 +20,46 @@ const initialState = {
     loading: false,
     error: null,
     data: null,
-    showInvoice: false
+    showInvoice: false,
   },
   error: null,
   loading: false,
   success: false,
-
 };
 
 // Send Orders
 export const sendOrdersAction = createAsyncThunk(
   "orders/sendOrders",
-  async ({data,userToken,address_id,longitude,latitude,isDelivery,delivery_price,code, friend_address}, { rejectWithValue }) => {
+  async (
+    {
+      data,
+      userToken,
+      address,
+      longitude,
+      latitude,
+      isDelivery,
+      delivery_price,
+      code,
+      friend_address,
+    },
+    { rejectWithValue }
+  ) => {
     try {
       // const response = await useInsertDataUser(`/customer_api/add_order`, data, userToken);
-      const response = await useInsertDataUser(`/customer_api/add_order`, 
-        { data,address_id,longitude,latitude ,isDelivery,delivery_price,code,friend_address}, userToken);
+      const response = await useInsertDataUser(
+        `/customer_api/add_order`,
+        {
+          data,
+          address,
+          longitude,
+          latitude,
+          isDelivery,
+          delivery_price,
+          code,
+          friend_address,
+        },
+        userToken
+      );
 
       // console.log(response.data);
       return response.data;
@@ -50,7 +73,7 @@ export const sendOrdersAction = createAsyncThunk(
 //Get Orders Invoice
 export const getOrdersInvoice = createAsyncThunk(
   "orders/getOrdersInvoice",
-  async ({userToken}, { rejectWithValue }) => {
+  async ({ userToken }, { rejectWithValue }) => {
     console.log("getOrdersInvoice called with userToken:", userToken);
     try {
       const response = await useGetDataUser(
@@ -74,15 +97,16 @@ const ordersSlice = createSlice({
   initialState,
   reducers: {
     addOrder: (state, action) => {
-      console.log('action inside addOrder : ',action?.payload)
+      console.log("action inside addOrder : ", action?.payload);
       const incoming = action.payload;
-      const res = state.orders?.some(item =>
-                    item.id === incoming.id &&
-                    item.sizes === incoming.sizes &&
-                    arraysEqual(item.components, incoming.components) &&
-                    arraysEqual(item.toppings, incoming.toppings)
-                  );
-      console.log(res)
+      const res = state.orders?.some(
+        (item) =>
+          item.id === incoming.id &&
+          item.sizes === incoming.sizes &&
+          arraysEqual(item.components, incoming.components) &&
+          arraysEqual(item.toppings, incoming.toppings)
+      );
+      console.log(res);
       if (res) {
         const newItem = state.orders.map((item) => {
           if (
@@ -94,7 +118,7 @@ const ordersSlice = createSlice({
             return { ...item, count: item.count + incoming.count };
           } else return item;
         });
-        console.log('state after add order : ',state.orders)
+        console.log("state after add order : ", state.orders);
         // const newItem = [...item, count: item.count + 1]
         state.orders = newItem;
       } else {
@@ -102,15 +126,13 @@ const ordersSlice = createSlice({
       }
     },
     deleteOrder: (state, action) => {
-      const incoming = action.payload
-      const res = state.orders.filter((item) => 
-        item.id === incoming.id 
-      );
+      const incoming = action.payload;
+      const res = state.orders.filter((item) => item.id === incoming.id);
       state.orders = res;
     },
     deleteCount: (state, action) => {
       const updatedOrders = state.orders.reduce((acc, item) => {
-        const incoming = action?.payload
+        const incoming = action?.payload;
         if (
           item.id === incoming.id &&
           item.sizes === incoming.sizes &&
@@ -128,10 +150,10 @@ const ordersSlice = createSlice({
         }
         return acc;
       }, []);
-      
+
       state.orders = updatedOrders;
     },
-    
+
     resetSendOrdersState: (state) => {
       state.sendOrders = initialState.sendOrders;
     },
@@ -181,6 +203,6 @@ export const {
   deleteCount,
   resetSendOrdersState,
   resetOrdersState,
-  resetOrdersInvoiceState
+  resetOrdersInvoiceState,
 } = ordersSlice.actions;
 export default ordersSlice.reducer;

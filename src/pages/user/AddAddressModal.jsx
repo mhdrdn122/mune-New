@@ -100,12 +100,12 @@ const AddAddressModal = ({
         tabValue === 1
           ? { address }
           : {
-              longitude,
-              latitude,
-              city,
-              region,
-              description: apartment,
-            };
+            longitude,
+            latitude,
+            city,
+            region,
+            description: apartment,
+          };
 
       const response = await axios.post(
         `${baseURLLocalPublic}/user_api/add_address`,

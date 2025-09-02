@@ -11,78 +11,82 @@ import "swiper/css";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { AiOutlineInstagram, AiOutlineWhatsApp } from "react-icons/ai";
 import { FaFacebookF } from "react-icons/fa";
+import DynamicSkeleton from "../../../utils/DynamicSkeletonProps";
 export default function Cover() {
   const { adminDetails, updateUsername } = useContext(AdminContext);
-    console.log(adminDetails.logo) 
+  console.log(adminDetails.logo)
 
   return (
-    // <Swiper
-    //   spaceBetween={30}
-    //   centeredSlides={true}
-    //   autoplay={{
-    //     delay: 4000,
-    //     disableOnInteraction: false,
-    //     pauseOnMouseEnter:true,
-    //     stopOnLastSlide:false
-    //   }}
-    //   loop={true}
-    //   modules={[Autoplay]}
-    //   className="!w-full h-[300px] md:h-[500px]"
-    // >
-    //   <SwiperSlide className="!w-full !h-full rounded-2xl">
-    //     <LazyLoadImage
-    //       src={adminDetails?.cover}
-    //       alt="cover"
-    //       width={"100%"}
-    //       height={"100%"}
-    //       effect="blur"
-    //       className="!h-full"
-    //     />
-    //   </SwiperSlide>
-    //   <SwiperSlide className="!w-full !h-full rounded-2xl">
-    //     {adminDetails?.is_rate === 1 && (
-    //       <Link
-    //         to={`/${adminDetails.name_url}/rating`}
-    //         className="!w-full !h-full relative flex flex-col justify-center items-center rounded-2xl"
-    //         style={{
-    //           backgroundColor: `rgba(255,255,255,${adminDetails.rate_opacity || 1})`,
-    //         }}
-    //       >
-    //         {/* Absolute "Rate Us" header */}
-    //         <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-10">
-    //           <h3 className="text-lg font-bold text-gray-800">Rate Us</h3>
-    //         </div>
-
-    //         {/* Rating images */}
-    //         <div className="flex justify-center items-center gap-5  p-4 w-full mt-16 ">
-    //           <img src={adminDetails?.bad_image} alt="" className="!w-[200px] !hidden md:!block object-contain" />
-    //           <img src={adminDetails?.good_image} alt="" className="!w-[200px] !hidden md:!block object-contain" />
-    //           <img src={adminDetails?.perfect_image} alt="Perfect" className="!w-[200px] object-contain" />
-    //         </div>
-    //       </Link>
-    //     )}
-    //   </SwiperSlide>
-    // </Swiper>
-
+ 
     <div className="relative ">
-      <img
-        style={{
-          borderRadius: "40px 40px",
-        }}
-        src={adminDetails.cover}
-        className="w-full  px-2 my-3 shadow-lg  object-cover min-h-[300px] max-h-[250px] md:max-h-[500px] "
-        alt="cover_restaurant"
-      />
 
-      <img
-        style={{
-          borderRadius: "50%",
-          transform: "translate(-50%)",
-        }}
-        src={adminDetails.logo}
-        className=" absolute bottom-[-50px] md:bottom-[-50px] left-[50%] border-4  object-cover w-[150px] md:w-[200px] h-[150px] md:h-[200px] "
-        alt="cover_restaurant"
-      />
+      {
+        adminDetails.cover ? (
+          <img
+            style={{
+              borderRadius: "40px 40px",
+            }}
+            src={adminDetails.cover}
+            className="w-full  px-2 my-3 shadow-lg  object-cover min-h-[300px] max-h-[250px] md:max-h-[500px] "
+            alt="cover_restaurant"
+          />
+        ) : (
+          <div className="p-2 overflow-hidden">
+            <DynamicSkeleton
+              count={1}
+              variant="rounded"
+              height={350}
+              animation="wave"
+              spacing={3}
+              columns={{ xs: 12, sm: 12, md: 12 }}
+
+            />
+          </div>
+
+        )
+
+      }
+
+
+
+      {
+        adminDetails.logo ? (
+          <img
+            style={{
+              borderRadius: "50%",
+              transform: "translate(-50%)",
+            }}
+            src={adminDetails.logo}
+            className=" absolute bottom-[-50px] md:bottom-[-50px] left-[50%] border-0  object-cover w-[150px] md:w-[200px] h-[150px] md:h-[200px] "
+            alt="cover_restaurant"
+          />
+        ) : (
+          <div
+            style={{
+              borderRadius: "50%",
+              transform: "translate(-50%)",
+              borderRadius: "50%",
+              overflow: "hidden"
+            }}
+            className=" absolute bottom-[-50px] md:bottom-[-50px] left-[50%] border-0  object-cover w-[150px] md:w-[200px] h-[150px] md:h-[200px] "
+          >
+            <DynamicSkeleton
+              count={1}
+              variant="rounded"
+              height={200}
+              animation="wave"
+              spacing={3}
+              columns={{ xs: 12, sm: 12, md: 12 }}
+
+            />
+          </div>
+
+        )
+
+      }
+
+
+
 
       <div
         className="w-100 d-flex justify-content-start"
@@ -95,11 +99,10 @@ export default function Cover() {
                 className="p-2"
                 color="white"
                 style={{
-                  background: `#${
-                    adminDetails &&
+                  background: `#${adminDetails &&
                     adminDetails.color &&
                     adminDetails.color.substring(10, 16)
-                  }`,
+                    }`,
                   width: "45px",
                   height: "45px",
                   borderRadius: "50%",
@@ -116,11 +119,10 @@ export default function Cover() {
                 className="p-2"
                 color="white"
                 style={{
-                  backgroundColor: `#${
-                    adminDetails &&
+                  backgroundColor: `#${adminDetails &&
                     adminDetails.color &&
                     adminDetails.color.substring(10, 16)
-                  }`,
+                    }`,
                   width: "45px",
                   height: "45px",
                   borderRadius: "50%",
@@ -142,11 +144,10 @@ export default function Cover() {
                 className="p-2"
                 color="white"
                 style={{
-                  backgroundColor: `#${
-                    adminDetails &&
+                  backgroundColor: `#${adminDetails &&
                     adminDetails.color &&
                     adminDetails.color.substring(10, 16)
-                  }`,
+                    }`,
                   width: "45px",
                   height: "45px",
                   borderRadius: "50%",

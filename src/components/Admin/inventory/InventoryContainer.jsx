@@ -25,9 +25,9 @@ const InventoryContainer = ({
   refresh,
   downloadExcel,
   searchWord,
-   startDate,
-   endDate,
- }) => {
+  startDate,
+  endDate,
+}) => {
   // Table configuration
   const tableHeader = ["اسم المنتج", "السعر", "الكمية", "تاريخ انشاء الطلب"];
   const fieldsToShow = ["name_ar", "price", "count", "created_at"];
@@ -36,8 +36,8 @@ const InventoryContainer = ({
   // Component state
   const [page, setPage] = useState(1);
   const [status] = useState("done"); // Fixed status for daily inventory
-   const [debouncedSearch, setDebouncedSearch] = useState("");
- 
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+
   const adminInfo = JSON.parse(localStorage.getItem("adminInfo"));
   const token = adminInfo?.token;
 
@@ -114,7 +114,7 @@ const InventoryContainer = ({
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute("download", `Invoices.xlsx`);
+      link.setAttribute("download", `Invoices_${new Date().toISOString().split('T')[0]}.xlsx`);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);

@@ -36,6 +36,7 @@ import useGetStyle from "../hooks/useGetStyle";
 
 const SubAppBar = ({
   title = "User",
+  titleBtn="إضافة",
   onSearch = () => {},
   onAdd = () => {},
   onViewToggle = () => {},
@@ -237,7 +238,7 @@ const SubAppBar = ({
             <MenuItem value="" sx={{ fontSize: "0.875rem" }}>
               <em>{selectedFilter.label}</em>
             </MenuItem>
-            {selectedFilter.options.map((option) => (
+            {selectedFilter?.options?.map((option) => (
               <MenuItem
                 key={option.value}
                 value={option.value}
@@ -251,7 +252,7 @@ const SubAppBar = ({
       );
     }
 
-    return filters.map((filter) => (
+    return filters?.map((filter) => (
       <Select
         key={filter.id}
         size="small"
@@ -297,7 +298,7 @@ const SubAppBar = ({
         <MenuItem value="" sx={{ fontSize: "0.875rem" }}>
           <em>{filter.label}</em>
         </MenuItem>
-        {filter.options?.map((option) => (
+        {filter?.options?.map((option) => (
           <MenuItem
             key={option.value}
             value={option.value}
@@ -344,7 +345,7 @@ const SubAppBar = ({
                 </InputAdornment>
               }
             >
-              {filters.map((filter) => (
+              {filters?.map((filter) => (
                 <MenuItem key={filter.id} value={filter.id} sx={{ fontSize: "0.875rem" }}>
                   {filter.label}
                 </MenuItem>
@@ -380,7 +381,7 @@ const SubAppBar = ({
               <MenuItem value="" sx={{ fontSize: "0.875rem" }}>
                 <em>{selectedFilter.label}</em>
               </MenuItem>
-              {selectedFilter.options.map((option) => (
+              {selectedFilter?.options?.map((option) => (
                 <MenuItem
                   key={option.value}
                   value={option.value}
@@ -395,7 +396,7 @@ const SubAppBar = ({
       );
     }
 
-    return filters.map((filter) => (
+    return filters?.map((filter) => (
       <Box key={filter.id} sx={{ px: 2, py: 1 }}>
         <Select
           size="small"
@@ -425,7 +426,7 @@ const SubAppBar = ({
           <MenuItem value="" sx={{ fontSize: "0.875rem" }}>
             <em>{filter.label}</em>
           </MenuItem>
-          {filter.options.map((option) => (
+          {filter?.options?.map((option) => (
             <MenuItem
               key={option.value}
               value={option.value}
@@ -720,7 +721,7 @@ const SubAppBar = ({
                 startIcon={<AddIcon sx={{ fontSize: "1rem" }} />}
                 onClick={onAdd}
               >
-                إضافة
+                {titleBtn}
               </Button>
             )}
 
@@ -872,25 +873,7 @@ const SubAppBar = ({
 
               {(showSearch || showFilter || showSingleDateSearch || showDateRangeSearch) && <Divider sx={{ my: 1 }} />}
 
-              {/* Add service in mobile */}
-              {showServicesButton && hasPermission(requiredPermission.services) && (
-                <MenuItem
-                  onClick={() => {
-                    onAddService?.();
-                    handleMenuClose();
-                  }}
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 1,
-                    color: "#3f51b5",
-                    fontWeight: 500,
-                  }}
-                >
-                  <ServicesIcon fontSize="small" />
-                  إضافة خدمة
-                </MenuItem>
-              )}
+              
 
               {/* Add button in mobile */}
               {showAddButton &&
@@ -909,7 +892,7 @@ const SubAppBar = ({
                     }}
                   >
                     <AddIcon fontSize="small" />
-                    إضافة
+                    {titleBtn}
                   </MenuItem>
                 )}
 
