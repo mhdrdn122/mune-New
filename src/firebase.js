@@ -1,22 +1,25 @@
 // import {initializeApp} from "firebase/app"
 // import {getMessaging,getToken,onMessage} from "firebase/messaging"
 
+ 
+
+// // Your web app's Firebase configuration
 // const firebaseConfig = {
-//     apiKey: "AIzaSyCbwKtnIlHD45RVvrZct9aNtFFEh8SnvEk",
-//     authDomain: "menu-new-version.firebaseapp.com",
-//     projectId: "menu-new-version",
-//     storageBucket: "menu-new-version.firebasestorage.app",
-//     messagingSenderId: "942258237966",
-//     appId: "1:942258237966:web:1d2ce3d8dd373e8b72425f"
-//   };
-  
+//   apiKey: "AIzaSyC_-w7vJ2Ne5ViQ6vA7ebLZvaig6H3svhM",
+//   authDomain: "portofolio-69ada.firebaseapp.com",
+//   projectId: "portofolio-69ada",
+//   storageBucket: "portofolio-69ada.firebasestorage.app",
+//   messagingSenderId: "1028040176666",
+//   appId: "1:1028040176666:web:f1ebad59eea49fdca5cda3"
+// };
+// const app = initializeApp(firebaseConfig);
 
 // //Initialize Firebase 
-// const app = initializeApp(firebaseConfig)
+ 
 // const messaging = getMessaging(app)
 
 
-// const vapidKey="BCfPW7sPQCYWyrRVgHvIza1JbkUa9RDNyt2uFbuacd0nLCz4283R8GJKbChKMp7oxVP4ZVRNWSHvjgvq5BDqvms";
+// const vapidKey="BNd15I9rLt23q7Gm_STjBzD1erClGTI4rxbf5AV0YvV2WTvjBKcGQaXZxqp1Y6OG6xIlKiUEfQaOrctKEzLn86s";
 
 // export const requestFCMToken=async()=>{
 //     return Notification.requestPermission()
@@ -42,7 +45,7 @@
 //         if (status === "granted") {
 //             const token = await getToken(messaging, {
 //                 vapidKey: 
-//                 "BCfPW7sPQCYWyrRVgHvIza1JbkUa9RDNyt2uFbuacd0nLCz4283R8GJKbChKMp7oxVP4ZVRNWSHvjgvq5BDqvms",
+//                 "BNd15I9rLt23q7Gm_STjBzD1erClGTI4rxbf5AV0YvV2WTvjBKcGQaXZxqp1Y6OG6xIlKiUEfQaOrctKEzLn86s",
 //             });
 //             if (token) {
 //                 console.log("FCM Token:", token);
@@ -61,8 +64,8 @@
 // // Listener for foreground messages
 // export const onMessageListener = () =>
 //     new Promise((resolve) => {
-//         // onMessage(messaging, (payload) => {
-//         //     console.log("Foreground message received:", payload);
-//         //     resolve(payload);
-//         // });
+//         onMessage(messaging, (payload) => {
+//             console.log("Foreground message received:", payload);
+//             resolve(payload);
+//         });
 //     });

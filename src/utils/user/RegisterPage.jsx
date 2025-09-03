@@ -23,6 +23,7 @@ import { useSelector } from "react-redux";
 import { loginSuperAdminAction } from "../../redux/slice/super_admin/auth/authSlice";
 import { loginAdminAction } from "../../redux/slice/auth/authSlice";
 import useGetStyle from "../../hooks/useGetStyle";
+import { useNotificationFromFirebase } from "../../context/FCMProvider";
 
 const RegisterPage = ({ mode }) => {
   // Context hooks
@@ -30,6 +31,7 @@ const RegisterPage = ({ mode }) => {
   const { language } = useContext(LanguageContext);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { fcmToken } = useNotificationFromFirebase()
   
   // State management
   const [currentState, setCurrentState] = useState("Login");
@@ -212,7 +214,7 @@ const RegisterPage = ({ mode }) => {
         await handleUserAuthentication(values, setErrors);
       }
     } catch (error) {
-      notify("An error occurred. Please try again.", "error");
+      notify(error?.data?.message, "error");
     } finally {
       setLoading(false);
     }
@@ -234,11 +236,13 @@ const RegisterPage = ({ mode }) => {
   }
 
   async function handleAdminLogin(values) {
+     
     setIsPress(true);
     await dispatch(
       loginAdminAction({
         user_name: values?.username,
         password: values?.password,
+        fcm_token:fcmToken 
       })
     );
     setIsPress(false);

@@ -1,7 +1,7 @@
 // تحديث عنوان API للتوافق مع الباك إند الجديد
-export const baseURLLocal = "https://tmenuback.addresses.sy/superAdmin_api"
-export const baseURLLocalAdmin = "https://tmenuback.addresses.sy/admin_api"
-export const baseURLLocalPublic = "https://tmenuback.addresses.sy"
+export const baseURLLocal = "http://192.168.1.38:8000/superAdmin_api"
+export const baseURLLocalAdmin = "http://192.168.1.38:8000/admin_api"
+export const baseURLLocalPublic = "http://192.168.1.38:8000"
 
 // النسخة القديمة (محفوظة للرجوع إليها عند الحاجة)
 // export const baseURLLocal = "https://medical-clinic.serv00.net/superAdmin_api"

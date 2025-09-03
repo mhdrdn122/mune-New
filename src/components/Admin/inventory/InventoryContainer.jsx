@@ -3,16 +3,8 @@
 
 import { useEffect, useState } from "react";
 import Pagination from "../../../utils/Pagination";
-import { Col, Row } from "react-bootstrap";
-import { useGetOrdersQuery } from "../../../redux/slice/order/orderApi";
-import SearchComponent from "../../../utils/super_admin/SearchInput";
-import { Grid } from "@mui/material";
-import { FaFilter } from "react-icons/fa";
-import DateFilter from "../../../utils/DateFilter";
-import axios from "axios";
-import { baseURLLocalPublic } from "../../../Api/baseURLLocal";
-import Table from "../../Tables/Tables";
-
+ import { useGetOrdersQuery } from "../../../redux/slice/order/orderApi"; 
+import Table from "../../Tables/Tables"; 
 /**
  * InventoryContainer Component
  *
@@ -22,11 +14,11 @@ import Table from "../../Tables/Tables";
  * @returns {JSX.Element} A paginated, filterable, and downloadable inventory table
  */
 const InventoryContainer = ({
-  refresh,
-  downloadExcel,
+  refresh, 
   searchWord,
   startDate,
   endDate,
+  setOrders
 }) => {
   // Table configuration
   const tableHeader = ["اسم المنتج", "السعر", "الكمية", "تاريخ انشاء الطلب"];
@@ -72,15 +64,11 @@ const InventoryContainer = ({
    * Initial refetch on component mount
    */
   useEffect(() => {
+    setOrders(orders)
     refetch();
   }, []);
 
-  /**
-   * download Excel
-   */
-  useEffect(() => {
-    if (downloadExcel == true) handleDownloadExcel();
-  }, [downloadExcel]);
+ 
   /**
    * Handles pagination change
    * @param {number} page - New page number
@@ -89,41 +77,8 @@ const InventoryContainer = ({
     setPage(page);
     window.scroll(0, 0);
   };
-
-  /**
-   * Downloads the inventory as an Excel file with applied filters
-   */
-  const handleDownloadExcel = async () => {
-    try {
-      const params = new URLSearchParams();
-      params.append("status", "done");
-      if (debouncedSearch) params.append("searchWord", debouncedSearch);
-      if (startDate) params.append("startDate", startDate);
-      if (endDate) params.append("endDate", endDate);
-
-      const response = await axios.get(
-        `${baseURLLocalPublic}/admin_api/excel_sales_inventory?${params.toString()}`,
-        {
-          responseType: "blob",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      const url = window.URL.createObjectURL(new Blob([response.data]));
-      const link = document.createElement("a");
-      link.href = url;
-      link.setAttribute("download", `Invoices_${new Date().toISOString().split('T')[0]}.xlsx`);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      window.URL.revokeObjectURL(url);
-    } catch (error) {
-      console.error("Error downloading Excel:", error);
-      alert("حدث خطأ أثناء تحميل الملف");
-    }
-  };
+ 
+  
 
   return (
     <>

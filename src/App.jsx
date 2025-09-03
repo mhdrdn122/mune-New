@@ -98,6 +98,7 @@ import CreateAccountForm from "./LoginForm";
 import UserOrders from "./utils/user/UserOrders";
 import HomeTemp10 from "./components/user/template10/HomeTemp10";
 import DriverTracking from "./pages/Admin/deliveries/DriverTracking"; 
+import NotificationManager from "./NotificationManager";
 function App() {
   const { adminDetails, updateUsername, loading } = useContext(AdminContext);
   console.log(adminDetails);
@@ -115,11 +116,16 @@ function App() {
     window.scrollTo(0, 0);
   }, [pathname]);
 
+  
   return (
     <div>
+
+
       <Routes>
         {/* <Route index element={<LoginPage />} /> */}
         {/* Admin Routes */}
+          <Route path="/not" element={<NotificationManager />} />
+
         <Route element={<AdminPrivateRoutes />}>
           <Route path="/admin/rests" element={<RestsManager />} />
 

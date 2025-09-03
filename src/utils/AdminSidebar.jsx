@@ -339,8 +339,7 @@ const AdminSidebar = ({ className }) => {
       // Skip hidden items (including hidden dividers)
       if (!item.show) return null;
 
-      console.log(item);
-      // Handle divider items
+       // Handle divider items
       if (item.isDivider) {
         return (
           <Divider
@@ -403,8 +402,7 @@ const AdminSidebar = ({ className }) => {
     });
   };
 
-  console.log(userData?.restaurant?.logo);
-  return (
+   return (
     <Sidebar
       collapsed={isCollapsed && !isSmallDevice}
       toggled={isSmallDevice ? !isCollapsed : false}
