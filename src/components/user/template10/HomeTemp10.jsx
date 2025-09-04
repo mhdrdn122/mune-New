@@ -10,7 +10,7 @@ import { baseURLPublicName } from "../../../Api/baseURL";
 import DynamicSkeleton from "../../../utils/DynamicSkeletonProps";
 
 const HomeTemp10 = () => {
-  const { adminDetails, updateUsername , loading } = useContext(AdminContext);
+  const { adminDetails, updateUsername, loading } = useContext(AdminContext);
   const [searchWord, setSearchWord] = useState("");
   const { username } = useParams();
   const handleUpdateUsername = () => {

@@ -18,10 +18,10 @@ const CatContainer = () => {
   useEffect(() => {
     updateUsername(username);
   }, [updateUsername, username]);
-  return (
+   return (
     <div className="grid grid-cols-2 md:grid-col-3 lg:grid-cols-4 gap-2 md:gap-3 mb-5 md:mb-2 p-1">
       {categories?.map((cat) => {
-        const path = `/${username}/template/10/category/${cat.id}`;
+        const path = `/${username}/template/${adminDetails?.menu_template_id}/category/${cat.id}`;
         return (
           <Link to={path} key={cat.id} style={{ textDecoration: "none" }}>
             <div

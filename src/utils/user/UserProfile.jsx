@@ -13,6 +13,7 @@ import { UserProfileCard } from "./UserProfileCard";
 import PasswordEdit from "./PasswordEdit";
 import ProfileDetailsForm from "./ProfileDetailsForm";
 import { MdLanguage } from "react-icons/md";
+import DynamicSkeleton from "../DynamicSkeletonProps";
 
 const TabCard = styled(Card)(({ theme }) => ({
   maxWidth: "600px",
@@ -43,9 +44,12 @@ const UserProfile = () => {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
 
   const getProfileInf = async () => {
     try {
+      setLoading(true)
       const response = await axios.get(
         `${baseURLLocalPublic}/user_api/show_profile`,
         {
@@ -61,8 +65,12 @@ const UserProfile = () => {
       setUserName(userInf?.username);
       setEmail(userInf?.email);
       setNumber(userInf?.phone);
+      setLoading(false)
+
     } catch (error) {
       console.log("error of received Profile info : ", error);
+      setLoading(false)
+
     }
   };
 
@@ -94,127 +102,166 @@ const UserProfile = () => {
           width: "100%",
           // padding: "20px 0",
           ...(adminDetails?.background_image_category &&
-          adminDetails?.image_or_color
+            adminDetails?.image_or_color
             ? {
-                backgroundImage: `url(${adminDetails?.background_image_category})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat",
-              }
+              backgroundImage: `url(${adminDetails?.background_image_category})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+            }
             : {
-                backgroundColor: `#${adminDetails?.background_color?.substring(
-                  10,
-                  16
-                )}`,
-              }),
+              backgroundColor: `#${adminDetails?.background_color?.substring(
+                10,
+                16
+              )}`,
+            }),
         }}
       >
         {userToken ? (
           <Box sx={{ p: 2 }}>
-            <div className="flex justify-between items-center  capitalize   w-full md:w-[50%] m-auto  my-2 p-2 ">
-              <h3>personal profile</h3>
+            {
+              loading ?
+                (
+                  <div className="m-auto w-full md:w-[50%]">
 
-              <span className="flex items-center">
-                <button
-                  onClick={() =>
-                    toggleLanguage(language === "en" ? "ar" : "en")
-                  }
-                  className="p-0 border-0 bg-transparent cursor-pointer flex items-center"
-                  aria-label="Toggle language"
-                >
-                  <MdLanguage size={24} className="text-black mr-1" />
-                  <span className="text-black font-medium">
-                    {language === "en" ? "EN" : "AR"}
-                  </span>
-                </button>
-              </span>
-            </div>
+                    <DynamicSkeleton
+                      count={1}
+                      variant="rounded"
+                      height={50}
+                      animation="wave"
+                      spacing={3}
+                      columns={{ xs: 12, sm: 12, md: 12 }}
+
+                    />
+                  </div>
+                ) : (
+                  <div className="flex justify-between items-center  capitalize   w-full md:w-[50%] m-auto  my-2 p-2 ">
+                    <h3>personal profile</h3>
+
+                    <span className="flex items-center">
+                      <button
+                        onClick={() =>
+                          toggleLanguage(language === "en" ? "ar" : "en")
+                        }
+                        className="p-0 border-0 bg-transparent cursor-pointer flex items-center"
+                        aria-label="Toggle language"
+                      >
+                        <MdLanguage size={24} className="text-black mr-1" />
+                        <span className="text-black font-medium">
+                          {language === "en" ? "EN" : "AR"}
+                        </span>
+                      </button>
+                    </span>
+                  </div>
+                )
+            }
+
+
             <UserProfileCard
               userInfo={userInf}
               adminDetails={adminDetails}
+              loading={loading}
             />
 
-            <TabCard
-              sx={{
-                backgroundColor: "#b1afaf",
-                width: "100%",
-              }}
-            >
-              <Tabs
-                value={tabValue}
-                onChange={handleTabChange}
-                variant="fullWidth"
-                sx={{
-                  "& .MuiTabs-indicator": {
-                    backgroundColor: `#${adminDetails?.color?.substring(
-                      10,
-                      16
-                    )}`,
-                    height: 0,
-                  },
-                  mb: 3,
-                }}
-              >
-                <Tab
-                  label="تعديل الملف الشخصي"
+            {
+              loading ? (<div className="m-auto my-2 w-full md:w-[50%]  ">
+
+                <DynamicSkeleton
+                  count={1}
+                  variant="rounded"
+                  height={350}
+                  animation="wave"
+                  spacing={3}
+                  columns={{ xs: 12, sm: 12, md: 12 }}
+
+                />
+
+
+              </div>) : (
+                <TabCard
                   sx={{
-                    fontWeight: "bold",
-                    borderRadius: "50px",
-                    "&.Mui-selected": {
-                      backgroundColor: `#${adminDetails?.color?.substring(
-                        10,
-                        16
-                      )}`,
-                      color: "#fff",
-                      textDecoration: "none",
-                    },
+                    backgroundColor: "#b1afaf",
+                    width: "100%",
                   }}
-                />
-                <Tab
-                  label="تغيير كلمة المرور"
-                  sx={{
-                    fontWeight: "bold",
-                    borderRadius: "50px",
+                >
+                  <Tabs
+                    value={tabValue}
+                    onChange={handleTabChange}
+                    variant="fullWidth"
+                    sx={{
+                      "& .MuiTabs-indicator": {
+                        backgroundColor: `#${adminDetails?.color?.substring(
+                          10,
+                          16
+                        )}`,
+                        height: 0,
+                      },
+                      mb: 3,
+                    }}
+                  >
+                    <Tab
+                      label="تعديل الملف الشخصي"
+                      sx={{
+                        fontWeight: "bold",
+                        borderRadius: "50px",
+                        "&.Mui-selected": {
+                          backgroundColor: `#${adminDetails?.color?.substring(
+                            10,
+                            16
+                          )}`,
+                          color: "#fff",
+                          textDecoration: "none",
+                        },
+                      }}
+                    />
+                    <Tab
+                      label="تغيير كلمة المرور"
+                      sx={{
+                        fontWeight: "bold",
+                        borderRadius: "50px",
 
-                    "&.Mui-selected": {
-                      backgroundColor: `#${adminDetails?.color?.substring(
-                        10,
-                        16
-                      )}`,
-                      color: "#fff",
-                      textDecoration: "none",
-                    },
-                  }}
-                />
-              </Tabs>
+                        "&.Mui-selected": {
+                          backgroundColor: `#${adminDetails?.color?.substring(
+                            10,
+                            16
+                          )}`,
+                          color: "#fff",
+                          textDecoration: "none",
+                        },
+                      }}
+                    />
+                  </Tabs>
 
-              {tabValue === 0 && (
-                <ProfileDetailsForm
-                  setNumber={setNumber}
-                  name1={name1}
-                  setName1={setName1}
-                  userToken={userToken}
-                  username={userName}
-                  email={email}
-                  number={number}
-                  setUserName={setUserName}
-                  setEmail={setEmail}
-                  getProfileInf={getProfileInf}
-                 />
-              )}
+                  {tabValue === 0 && (
+                    <ProfileDetailsForm
+                      setNumber={setNumber}
+                      name1={name1}
+                      setName1={setName1}
+                      userToken={userToken}
+                      username={userName}
+                      email={email}
+                      number={number}
+                      setUserName={setUserName}
+                      setEmail={setEmail}
+                      getProfileInf={getProfileInf}
+                    />
+                  )}
 
-              {tabValue === 1 && (
-                <PasswordEdit
-                  userToken={userToken}
-                  oldPassword={oldPassword}
-                  newPassword={newPassword}
-                  confirmPassword={confirmPassword}
-                  setOldPassword={setOldPassword}
-                  setNewPassword={setNewPassword}
-                  setConfirmPassword={setConfirmPassword}
-                />
-              )}
-            </TabCard>
+                  {tabValue === 1 && (
+                    <PasswordEdit
+                      userToken={userToken}
+                      oldPassword={oldPassword}
+                      newPassword={newPassword}
+                      confirmPassword={confirmPassword}
+                      setOldPassword={setOldPassword}
+                      setNewPassword={setNewPassword}
+                      setConfirmPassword={setConfirmPassword}
+                    />
+                  )}
+                </TabCard>)
+            }
+
+
           </Box>
         ) : (
           <LoginUserModal

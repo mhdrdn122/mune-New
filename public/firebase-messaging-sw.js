@@ -1,32 +1,49 @@
-// // Import Firebase scripts
+importScripts("https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js");
+importScripts(
+  "https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js"
+);
 
-// importScripts("https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js");
-// importScripts("https://www.gstatic.com/firebasejs/8.2.0/firebase-messaging.js");
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyDs9QbuAuJUXMGFoxlM4ejs6--CZaOfw4Q",
+  authDomain: "menu-admin-new.firebaseapp.com",
+  projectId: "menu-admin-new",
+  storageBucket: "menu-admin-new.firebasestorage.app",
+  messagingSenderId: "772757852538",
+  appId: "1:772757852538:web:6f66d51b788a743b3ac6c3",
+  measurementId: "G-P41FPNJDLR",
+};
 
-// // Firebase configuration
-// const firebaseConfig = {
-//     apiKey: "AIzaSyCbwKtnIlHD45RVvrZct9aNtFFEh8SnvEk",
-//     authDomain: "menu-new-version.firebaseapp.com",
-//     projectId: "menu-new-version",
-//     storageBucket: "menu-new-version.firebasestorage.app",
-//     messagingSenderId: "942258237966",
-//     appId: "1:942258237966:web:1d2ce3d8dd373e8b72425f",
-// };
+// Initialize the Firebase app in the service worker
+firebase.initializeApp(firebaseConfig);
+const messaging = firebase.messaging();
+console.log(messaging);
 
-// // Initialize Firebase
-// firebase.initializeApp(firebaseConfig);
+// Listen for messages in the background
+messaging.onBackgroundMessage(function (payload) {
+  console.log(
+    "[firebase-messaging-sw.js] Received background message ",
+    payload
+  );
 
-// const messaging = firebase.messaging();
-
-// // Handle background messages
-// messaging.onBackgroundMessage((payload) => {
-//     console.log("Received background message: ", payload);
-
-//     const notificationTitle = payload.notification.title;
-//     const notificationOptions = {
-//         body: payload.notification.body,
-//         icon: payload.notification.icon,
-//     };
-
-//     self.registration.showNotification(notificationTitle, notificationOptions);
-// });
+  const notificationTitle = payload.notification.title;
+  
+   const notificationOptions = {
+    body: payload.notification.body,
+    icon: "/firebase-logo.png", 
+    image: "/food.jpg",  
+    badge: "/badge.png",  
+    actions: [
+      {
+        action: "view",
+        title: "عرض التفاصيل",
+      },
+      {
+        action: "dismiss",
+        title: "إغلاق",
+      },
+    ],
+  };
+  
+  self.registration.showNotification(notificationTitle, notificationOptions);
+});

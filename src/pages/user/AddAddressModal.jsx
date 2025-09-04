@@ -115,9 +115,10 @@ const AddAddressModal = ({
         }
       );
 
-      setDelivery_price(response.data?.data?.delivery_price);
+      setDelivery_price(response?.data?.data?.delivery_price);
       setIsSelectedAddress(true);
       setIsDeliveryModal(true);
+      setAddress(response?.data?.data?.address)
       handleClose();
       notify("لقد تم تحديد الموقع بنجاح", "success");
     } catch (error) {

@@ -49,7 +49,7 @@ const CombinedSubcategoryItems10 = () => {
     setSelectedItem(item)
     setShowModal(true);
   };
-  const { language } = useContext(LanguageContext);
+   const { language } = useContext(LanguageContext);
   const navigate = useNavigate();
   return (
     <div style={{
@@ -83,7 +83,7 @@ const CombinedSubcategoryItems10 = () => {
       >
         <IoMdArrowRoundBack />
       </div>
-      <div className="subcategory-tabs-container" style={{ padding: '0 20px' }}>
+      <div className="subcategory-tabs-container" style={{ padding: '0 20px'  }}>
         { subCategories?.length > 0 && 
           <div style={{ position: 'relative' }}>
             <div>
@@ -96,11 +96,12 @@ const CombinedSubcategoryItems10 = () => {
                 }}
                 modules={[Navigation]}
                 style={{
+                  width:"100%",
                     padding: '10px 0',
                     '--swiper-navigation-color': adminDetails?.color?.substring(10, 16) || '#000',
                     '--swiper-navigation-size': '24px',
                 }}
-                className="swiper-slide1"
+                // className="swiper-slide1"
               >
                 {subCategories?.map(sub => (
                   <SwiperSlide 
@@ -116,9 +117,12 @@ const CombinedSubcategoryItems10 = () => {
                       onClick={() => setSelectedSubId(sub.id)}
                       style={{
                         fontFamily: adminDetails?.font_category,
-                        fontSize: `${adminDetails?.font_size_category || 1}em`,
+                        // fontSize: `${adminDetails?.font_size_category || 1}em`,
+                        fontSize: `1em`,
+
                         fontWeight: adminDetails?.font_bold_category ? 'bold' : 'normal',
-                        padding: '8px 50px',     
+                        padding: '8px 30px',     
+                        margin:"0 10px",
                         borderRadius: '25px',
                         cursor: 'pointer',
                         transition: 'all 0.3s ease',
@@ -127,12 +131,11 @@ const CombinedSubcategoryItems10 = () => {
                           ? `#${adminDetails?.color?.substring(10, 16) || '9a6a6a'}` 
                           : 'rgba(0,0,0,0.05)',
                         color: selectedSubId === sub.id ? '#fff' : '#333',
-                        textAlign: 'center',   
-                        width: '80%',          
-                        
+                        textAlign: 'center !important',   
+                         
                       }}
-                    >
-                        <p>{sub.name}</p>
+                    >{sub.name}
+                        <p></p>
                     </div>
                   </SwiperSlide>
                 ))}

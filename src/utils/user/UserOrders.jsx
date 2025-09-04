@@ -1,6 +1,6 @@
-import  { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context/UserProvider";
-import LoginUserModal from "./LoginUserModal"; 
+import LoginUserModal from "./LoginUserModal";
 import { AdminContext } from "../../context/AdminProvider";
 import NavBarUser from "./NavBarUser";
 import axios from "axios";
@@ -9,8 +9,9 @@ import { ToastContainer } from "react-toastify";
 import notify from "../useNotification";
 import ModalDelete from "../../components/super_admin/cities/ModalDelete";
 import ShowOrderModal from "./ShowOrderModal";
- import InvoiceCurrentCard from "./InvoiceCurrentCard";
- import OrderHistory from "./OrderHistory";
+import InvoiceCurrentCard from "./InvoiceCurrentCard";
+import OrderHistory from "./OrderHistory";
+import DynamicSkeleton from "../DynamicSkeletonProps";
 
 const UserOrders = () => {
   const { userToken } = useContext(UserContext);
@@ -21,9 +22,11 @@ const UserOrders = () => {
   const [showDelete, setShowDelete] = useState(false);
   const [deleteOrderLoading, setDeleteOrderLoading] = useState(false);
   const [showOrderModal, setShowOrderModal] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  
-  
+
+
+
 
 
 
@@ -73,6 +76,7 @@ const UserOrders = () => {
 
   const getOrders = async () => {
     try {
+      setLoading(true)
       const response = await axios.get(
         `${baseURLLocalPublic}/user_api/show_orders?type=${selectedTab}`,
         {
@@ -83,8 +87,10 @@ const UserOrders = () => {
         }
       );
       setInvoices(response?.data?.data);
+      setLoading(false)
     } catch (error) {
       console.log("error of received Orders info : ", error);
+      setLoading(false)
     }
   };
 
@@ -114,14 +120,7 @@ const UserOrders = () => {
     };
   };
 
-  // Show loading state while data is being fetched
-  if (!invoices) {
-    return (
-      <div className="flex justify-center w-full">
-        <span className="loader">Loading...</span>
-      </div>
-    );
-  }
+
 
   return (
     <div className=" ">
@@ -132,19 +131,19 @@ const UserOrders = () => {
           minHeight: "calc(100vh + 124px)",
           width: "100%",
           ...(adminDetails?.background_image_category &&
-          adminDetails?.image_or_color
+            adminDetails?.image_or_color
             ? {
-                backgroundImage: `url(${adminDetails?.background_image_category})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat",
-              }
+              backgroundImage: `url(${adminDetails?.background_image_category})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+            }
             : {
-                backgroundColor: `#${adminDetails?.background_color?.substring(
-                  10,
-                  16
-                )}`,
-              }),
+              backgroundColor: `#${adminDetails?.background_color?.substring(
+                10,
+                16
+              )}`,
+            }),
         }}
       >
         {userToken ? (
@@ -167,29 +166,49 @@ const UserOrders = () => {
             </div>
 
             {/* Conditionally Render Section Based on selectedTab */}
-            <div className="mt-3 w-full    ">
-              {selectedTab === "current" ? (
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                  {invoices?.map((e, i) => {
-                     return (
-                      <InvoiceCurrentCard
-                        e={e}
-                        i={i}
-                        adminDetails={adminDetails}
-                        handleShowDelete={handleShowDelete}
-                        handleShowOrder={handleShowOrder}
-                      />
-                    );
-                  })}
+            {loading ?
+              ((
+                <div className="my-5">
+
+                  <DynamicSkeleton
+                    count={10}
+                    variant="rounded"
+                    height={250}
+                    animation="wave"
+                    spacing={3}
+                    columns={{ xs: 12, sm: 6, md: 3 }}
+
+                  />
                 </div>
-              ) : selectedTab === "orders" ? (
-                <div className="grid grid-cols-1 sx:grid-cols-3 lg:grid-cols-4 gap-2">
-                  {invoices?.map((e, i) => (
-                    <OrderHistory e={e} i={i}  handleShowOrder={handleShowOrder} adminDetails={adminDetails} />
-                  ))}
+              ))
+              :
+              (
+                <div className="mt-3 w-full    ">
+                  {selectedTab === "current" ? (
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                      {invoices?.map((e, i) => {
+                        return (
+                          <InvoiceCurrentCard
+                            e={e}
+                            i={i}
+                            adminDetails={adminDetails}
+                            handleShowDelete={handleShowDelete}
+                            handleShowOrder={handleShowOrder}
+                          />
+                        );
+                      })}
+                    </div>
+                  ) : selectedTab === "orders" ? (
+                    <div className="grid grid-cols-1 sx:grid-cols-3 lg:grid-cols-4 gap-2">
+                      {invoices?.map((e, i) => (
+                        <OrderHistory e={e} i={i} handleShowOrder={handleShowOrder} adminDetails={adminDetails} />
+                      ))}
+                    </div>
+                  ) : null}
                 </div>
-              ) : null}
-            </div>
+              )
+            }
+
           </div>
         ) : (
           <LoginUserModal

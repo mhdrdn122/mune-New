@@ -2,8 +2,9 @@ import { Typography } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { resetAuthState } from "../../redux/slice/super_admin/auth/authSlice";
+import DynamicSkeleton from "../DynamicSkeletonProps";
 
-export const UserProfileCard = ({ userInfo, adminDetails }) => {
+export const UserProfileCard = ({ userInfo, adminDetails, loading }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -15,6 +16,25 @@ export const UserProfileCard = ({ userInfo, adminDetails }) => {
       navigate(`/${username}/takeout/register`);
     }
   };
+
+  if (loading) {
+    return (
+      <div className="m-auto my-2 w-full md:w-[50%]  ">
+
+        <DynamicSkeleton
+          count={1}
+          variant="rounded"
+          height={350}
+          animation="wave"
+          spacing={3}
+          columns={{ xs: 12, sm: 12, md: 12 }}
+
+        />
+
+
+      </div>
+    )
+  }
 
   return (
     <div

@@ -207,14 +207,16 @@ const RegisterPage = ({ mode }) => {
     
     try {
       if (mode === "super_admin") {
-        await handleSuperAdminLogin(values);
+       await handleSuperAdminLogin(values);
+         
       } else if (mode === "admin") {
         await handleAdminLogin(values);
       } else {
         await handleUserAuthentication(values, setErrors);
       }
     } catch (error) {
-      notify(error?.data?.message, "error");
+      console.log(error?.message)
+      notify(error?.message, "error");
     } finally {
       setLoading(false);
     }
@@ -222,7 +224,7 @@ const RegisterPage = ({ mode }) => {
 
   async function handleSuperAdminLogin(values) {
     setIsPress(true);
-    await dispatch(
+    const res =  await dispatch(
       loginSuperAdminAction({
         user_name: values?.username,
         password: values?.password,
@@ -230,6 +232,9 @@ const RegisterPage = ({ mode }) => {
     );
     setIsPress(false);
     
+    if(res?.payload?.message){
+       notify(res?.payload?.message , "error")
+    }
     if (superAdminAuth?.superAdminInfo?.token) {
       handleSuccessfulLogin(superAdminAuth?.superAdminInfo, "super_admin");
     }
@@ -238,7 +243,7 @@ const RegisterPage = ({ mode }) => {
   async function handleAdminLogin(values) {
      
     setIsPress(true);
-    await dispatch(
+   const res =  await dispatch(
       loginAdminAction({
         user_name: values?.username,
         password: values?.password,
@@ -247,14 +252,18 @@ const RegisterPage = ({ mode }) => {
     );
     setIsPress(false);
 
-    if (adminAuth.adminInfo?.token) {
+    if(res?.payload?.message){
+       notify(res?.payload?.message , "error")
+    }
+     if (adminAuth.adminInfo?.token) {
       handleSuccessfulLogin(adminAuth?.adminInfo, "admin");
     }
   }
 
   async function handleUserAuthentication(values, setErrors) {
     const endpoint = getEndpoint(currentState);
-    
+     values["fcm_token"] = fcmToken
+    console.log(values)
     const result = await fetch(endpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },

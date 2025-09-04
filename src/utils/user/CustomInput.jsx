@@ -13,7 +13,8 @@ const CustomInput = ({
   className = "",
   fullWidth = true,
 }) => {
-  const error = formik?.touched[name] && formik?.errors[name];
+  console.log(name)
+  const error = formik?.touched?.[name] && formik?.errors?.[name];
   const {Color} = useGetStyle();
   const [showPassword, setShowPassword] = React.useState(false);
  
