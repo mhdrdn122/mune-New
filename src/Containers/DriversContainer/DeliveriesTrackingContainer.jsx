@@ -179,7 +179,7 @@ const DeliveriesTrackingContainer = () => {
               <Marker
                 key={`driver-${selectedDriver.id}`}
                 position={selectedDriverPosition}
-                icon={driverIcon}
+                icon={driverIcon} 
               >
                 <Popup>
                   <div className="font-bold">{selectedDriver.name}</div>

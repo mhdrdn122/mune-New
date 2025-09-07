@@ -1,7 +1,16 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import { Marker, Popup, useMap, useMapEvents } from "react-leaflet";
+import L from "leaflet";
 
+const Icon = L.icon({
+   iconUrl: "https://unpkg.com/leaflet@1.9.3/dist/images/marker-icon.png",
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+   shadowUrl: "https://unpkg.com/leaflet@1.9.3/dist/images/marker-shadow.png",
+  shadowSize: [41, 41],
+});
 // Component to handle marker placement and address fetching on the map
 function LocationMarker({
   setCity,
@@ -84,6 +93,8 @@ function LocationMarker({
     <Marker
       draggable
       eventHandlers={eventHandlers}
+      icon={Icon}
+
       position={position}
       ref={markerRef}
     >
