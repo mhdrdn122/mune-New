@@ -12,12 +12,13 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { AiOutlineInstagram, AiOutlineWhatsApp } from "react-icons/ai";
 import { FaFacebookF } from "react-icons/fa";
 import DynamicSkeleton from "../../../utils/DynamicSkeletonProps";
+import { MdFacebook } from "react-icons/md";
 export default function Cover() {
   const { adminDetails, updateUsername } = useContext(AdminContext);
   console.log(adminDetails.logo)
 
   return (
- 
+
     <div className="relative ">
 
       {
@@ -57,7 +58,7 @@ export default function Cover() {
               transform: "translate(-50%)",
             }}
             src={adminDetails.logo}
-            className=" absolute bottom-[-50px] md:bottom-[-50px] left-[50%] border-0  object-cover w-[150px] md:w-[200px] h-[150px] md:h-[200px] "
+            className=" absolute bottom-[-20px] md:bottom-[-50px] left-[50%] border-0  object-cover w-[150px] md:w-[200px] h-[150px] md:h-[200px] "
             alt="cover_restaurant"
           />
         ) : (
@@ -89,49 +90,52 @@ export default function Cover() {
 
 
       <div
-        className="w-100 d-flex justify-content-start"
+        className="w-full flex justify-between md:!justify-start"
         style={{ gap: "15px", paddingLeft: "15px" }}
       >
-        {adminDetails.facebook_url && (
-          <div className="d-flex align-items-center social">
-            <Link target="_blank" to={adminDetails.facebook_url}>
-              <FaFacebookF
-                className="p-2"
-                color="white"
-                style={{
-                  background: `#${adminDetails &&
-                    adminDetails.color &&
-                    adminDetails.color.substring(10, 16)
-                    }`,
-                  width: "45px",
-                  height: "45px",
-                  borderRadius: "50%",
-                  opacity: adminDetails.home_opacity || 1,
-                }}
-              />
-            </Link>
-          </div>
-        )}
-        {adminDetails.instagram_url && (
-          <div className="d-flex align-items-center social">
-            <Link target="_blank" to={adminDetails.instagram_url}>
-              <AiOutlineInstagram
-                className="p-2"
-                color="white"
-                style={{
-                  backgroundColor: `#${adminDetails &&
-                    adminDetails.color &&
-                    adminDetails.color.substring(10, 16)
-                    }`,
-                  width: "45px",
-                  height: "45px",
-                  borderRadius: "50%",
-                  opacity: adminDetails.home_opacity || 1,
-                }}
-              />
-            </Link>
-          </div>
-        )}
+        <div className="flex items-center gap-2">
+          {adminDetails.facebook_url && (
+            <div className="d-flex align-items-center social">
+              <Link target="_blank" to={adminDetails.facebook_url}>
+                <MdFacebook
+                  className="p-1"
+                  color="white"
+                  style={{
+                    background: `#${adminDetails &&
+                      adminDetails.color &&
+                      adminDetails.color.substring(10, 16)
+                      }`,
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "50%",
+                    opacity: adminDetails.home_opacity || 1,
+                  }}
+                />
+              </Link>
+            </div>
+          )}
+          {adminDetails.instagram_url && (
+            <div className="d-flex align-items-center social">
+              <Link target="_blank" to={adminDetails.instagram_url}>
+                <AiOutlineInstagram
+                  className="p-1"
+                  color="white"
+                  style={{
+                    backgroundColor: `#${adminDetails &&
+                      adminDetails.color &&
+                      adminDetails.color.substring(10, 16)
+                      }`,
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "50%",
+                    opacity: adminDetails.home_opacity || 1,
+                  }}
+                />
+              </Link>
+            </div>
+          )}
+        </div>
+
         {adminDetails.whatsapp_phone && (
           <div className="d-flex align-items-center justify-content-center  social">
             <Link
@@ -141,15 +145,15 @@ export default function Cover() {
               )}`}
             >
               <AiOutlineWhatsApp
-                className="p-2"
+                className="p-1"
                 color="white"
                 style={{
                   backgroundColor: `#${adminDetails &&
                     adminDetails.color &&
                     adminDetails.color.substring(10, 16)
                     }`,
-                  width: "45px",
-                  height: "45px",
+                  width: "40px",
+                  height: "40px",
                   borderRadius: "50%",
                   opacity: adminDetails.home_opacity || 1,
                 }}

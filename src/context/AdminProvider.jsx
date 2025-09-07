@@ -49,7 +49,7 @@ const AdminProvider = ({ children }) => {
             tableId ? `&qr_code=${tableId}` : ""
           }`,
           config
-        );
+        ); 
         console.log(response)
         localStorage.setItem('adminInfo',JSON.stringify(response?.data?.data))
 
