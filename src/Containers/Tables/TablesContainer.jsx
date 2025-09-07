@@ -49,8 +49,7 @@ const TablesContainer = ({
 }) => {
   const userData = JSON.parse(localStorage.getItem("adminInfo"));
   const navigate = useNavigate();
-  // const channel = useWebSocket(userData?.restaurant_id);
-  const channel = useWebSocket(`restaurant${userData?.restaurant_id}`);
+   const channel = useWebSocket(`restaurant${userData?.restaurant_id}`);
 
   const [page, setPage] = useState(1);
   const [tables, setTables] = useState();
@@ -75,7 +74,7 @@ const TablesContainer = ({
     error,
     refetch,
     isFetching,
-  } = useGetTablesQuery({});
+  } = useGetTablesQuery({page , per_page:15});
   const [addInvoice] = useAddInvoiceMutation();
 
 
@@ -84,7 +83,7 @@ const TablesContainer = ({
 
   const { triggerRedirect } = useError401Admin(isError, error);
 
-
+ 
 
   // WebSocket listener for table updates
   useEffect(() => {

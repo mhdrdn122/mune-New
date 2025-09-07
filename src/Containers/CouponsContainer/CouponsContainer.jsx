@@ -244,7 +244,7 @@ const CouponsContainer = ({ show, handleClose, refresh, role, mode }) => {
 
         {/* Pagination Controls */}
       {coupons?.meta?.total_pages > 1 && (
-        <Pagination onPress={onPress} pageCount={coupons.meta.total_pages} />
+        <Pagination onPress={onPress} pageCount={coupons?.meta?.total_pages} />
       )}
       <ToastContainer />
     </div>

@@ -23,7 +23,7 @@ export const tablesApi = createApi({
   tagTypes: ["tables"],
   endpoints: (builder) => ({
     getTables: builder.query({
-      query: ({ page }) => `show_tables?page=${page}`,
+      query: ({ page , per_page }) => `show_tables?page=${page}&per_page=${per_page || 15}`,
       providesTags: ["tables"],
     }),
     getOrders: builder.query({

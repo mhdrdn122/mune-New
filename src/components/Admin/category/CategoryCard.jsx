@@ -70,7 +70,7 @@ const CategoryCard = ({ title, title2, img, id, page, is_active, to, setMasterId
         overflow: "hidden",
         backgroundColor: "#D3D3D3",
         boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-        maxWidth:"300px"
+        maxWidth: "300px"
       }}
     >
       {/* Link wraps the image and title */}
@@ -84,7 +84,7 @@ const CategoryCard = ({ title, title2, img, id, page, is_active, to, setMasterId
               objectFit: "cover",
               position: "relative",
               backgroundColor: "#2F4F4F",
-            }}  
+            }}
           >
             {/* Loading overlay */}
             {imageLoading && (
@@ -113,6 +113,12 @@ const CategoryCard = ({ title, title2, img, id, page, is_active, to, setMasterId
               style={{
                 width: "100%",
                 height: "100%",
+                minWidth: "300px",
+                maxWidth: "300px",
+
+                minHeight: "300px",
+                maxHeight: "300px",
+
                 objectFit: "cover",
                 visibility: imageLoading ? "hidden" : "visible",
                 aspectRatio: 1,
@@ -155,12 +161,12 @@ const CategoryCard = ({ title, title2, img, id, page, is_active, to, setMasterId
           </IconButton>
         )}
 
-         {hasPermission(PermissionsEnum.CATEGORY_ACTIVE) &&
+        {hasPermission(PermissionsEnum.CATEGORY_ACTIVE) &&
           (is_active === 1 ? (
             <IconButton
               sx={{ color: "#9ACD32", padding: "10px" }}
               onClick={() => setShowDeactiveModal(true)}
-              style={{ backgroundColor:  is_active == 1 ? "#FFFFFF" : "#f00" , borderRadius: "20px", padding: "4px 12px" }}
+              style={{ backgroundColor: is_active == 1 ? "#FFFFFF" : "#f00", borderRadius: "20px", padding: "4px 12px" }}
             >
               <MdToggleOn size={35} />
             </IconButton>
@@ -168,7 +174,7 @@ const CategoryCard = ({ title, title2, img, id, page, is_active, to, setMasterId
             <IconButton
               sx={{ color: "#9ACD32", padding: "0" }}
               onClick={() => setShowDeactiveModal(true)}
-              style={{ backgroundColor:  is_active == 1 ? "#FFFFFF" : "#f00", borderRadius: "20px", padding: "4px 12px" }}
+              style={{ backgroundColor: is_active == 1 ? "#FFFFFF" : "#f00", borderRadius: "20px", padding: "4px 12px" }}
             >
               <MdToggleOff size={35} />
             </IconButton>
@@ -185,7 +191,7 @@ const CategoryCard = ({ title, title2, img, id, page, is_active, to, setMasterId
           </IconButton>
         )}
 
-       
+
       </CardActions>
 
       {/* Edit Modal */}

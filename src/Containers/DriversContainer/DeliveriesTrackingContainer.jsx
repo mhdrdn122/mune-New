@@ -8,6 +8,7 @@ import "leaflet-routing-machine"; // Import as side effect for L.Routing
 import "./Style.css";
 import { useGetDeliveriesQuery } from "../../redux/slice/deliveries/deliveriesApi";
 import DynamicSkeleton from "../../utils/DynamicSkeletonProps";
+import { useWebSocket } from "../../context/WebSocketProvider";
 
 // تحديد الأيقونات المخصصة
 const driverIcon = L.icon({
@@ -95,6 +96,16 @@ const DeliveriesTrackingContainer = () => {
 
   const [selectedDriver, setSelectedDriver] = useState(null);
   const [showDrivers, setShowDrivers] = useState(false);
+
+  //  const channel = useWebSocket(`LocationUpdated`);
+
+  //   // WebSocket listener for table updates
+  //   useEffect(() => {
+  //     console.log("channel");
+  //     channel.listen(".App\\Events\\LocationUpdated", (event) => {
+  //       console.log("📩 Event received:", event);
+  //      });
+  //   }, [channel]);
 
   const defaultPosition = [33.5138, 36.2765];
   const zoomLevel = 10;
