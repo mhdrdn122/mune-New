@@ -264,7 +264,7 @@ const MyOrdersPage = () => {
                 height={250}
                 animation="wave"
                 spacing={3}
-                columns={{ xs: 6, sm: 6, md: 6 }}
+                columns={{ xs: 12, sm: 6, md: 6 }}
               />
 
               <DynamicSkeleton
@@ -273,7 +273,7 @@ const MyOrdersPage = () => {
                 height={300}
                 animation="wave"
                 spacing={3}
-                columns={{ xs: 6, sm: 6, md: 6 }}
+                columns={{ xs: 12, sm: 6, md: 6 }}
               />
 
             </div>

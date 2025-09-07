@@ -74,7 +74,7 @@ export default function AdvertismentSlider() {
                 <div className="relative w-full aspect-square max-w-[300px] mx-auto p-1 sm:p-2">
                   {adv.is_panorama ? (
                     <div
-                      className="relative w-full h-full rounded-2xl overflow-hidden cursor-pointer shadow-lg"
+                      className="relative w-full h-full rounded-2xl overflow-hidden cursor-pointer !shadow-none"
                       onClick={() => handleShow(adv)}
                     >
                       <ReactPannellum
@@ -94,7 +94,7 @@ export default function AdvertismentSlider() {
                     </div>
                   ) : (
                     <div
-                      className="relative w-full h-full rounded-2xl overflow-hidden cursor-pointer shadow-lg"
+                      className="relative w-full h-full rounded-2xl overflow-hidden cursor-pointer !shadow-none"
                       onClick={() => handleShow(adv)}
                     >
                       <img

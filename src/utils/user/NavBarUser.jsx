@@ -9,7 +9,8 @@ import { LanguageContext } from "../../context/LanguageProvider";
 import Search from "../../components/user/template6/Search";
 
 import { MdAddShoppingCart, MdHome, MdLanguage } from "react-icons/md";
-import { FaUserCircle, FaStar, FaShoppingBag } from "react-icons/fa";
+import { FaUserCircle, FaStar } from "react-icons/fa";
+import { TbTruckDelivery } from "react-icons/tb";
 
 const NavBarUser = ({ handleShow, searchWord, setSearchWord, withRatings }) => {
   const { adminDetails, updateUsername } = useContext(AdminContext);
@@ -106,7 +107,7 @@ const NavBarUser = ({ handleShow, searchWord, setSearchWord, withRatings }) => {
             isTakeout && (
               <>
                 <Link to={`/${adminDetails?.name_url}/my-orders`}>
-                  <FaShoppingBag size={24} className="text-white" />
+                  <TbTruckDelivery size={24} className="text-white" />
                 </Link>
                 <Link to={`/${adminDetails?.name_url}/profile`}>
                   <FaUserCircle size={24} className="text-white" />
@@ -163,7 +164,7 @@ const NavBarUser = ({ handleShow, searchWord, setSearchWord, withRatings }) => {
             isTakeout && (
               <>
                 <Link to={`/${adminDetails?.name_url}/my-orders`}>
-                  <FaShoppingBag size={24} className="text-white" />
+                  <TbTruckDelivery size={24} className="text-white" />
                 </Link>
 
               </>

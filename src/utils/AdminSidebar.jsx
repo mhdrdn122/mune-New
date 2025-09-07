@@ -339,7 +339,7 @@ const AdminSidebar = ({ className }) => {
       // Skip hidden items (including hidden dividers)
       if (!item.show) return null;
 
-       // Handle divider items
+      // Handle divider items
       if (item.isDivider) {
         return (
           <Divider
@@ -402,7 +402,7 @@ const AdminSidebar = ({ className }) => {
     });
   };
 
-   return (
+  return (
     <Sidebar
       collapsed={isCollapsed && !isSmallDevice}
       toggled={isSmallDevice ? !isCollapsed : false}
@@ -443,13 +443,16 @@ const AdminSidebar = ({ className }) => {
                 width: "170px !important",
                 height: "148px !important",
                 position: "relative",
-                background: Color ? "#" +  Color : "#2f4b2b",
+                background: Color ? "#" + Color : "#2f4b2b",
+                cursor: "pointer"
+
               }}
               display="flex"
               justifyContent="flex-start"
               alignItems="center"
             >
-              <Link to="/admin/restaurant_details">
+              <Link
+                to="/admin/restaurant_details">
                 <img
                   alt="profile-user"
                   src={userData?.restaurant?.logo || imageMenu}
@@ -465,6 +468,13 @@ const AdminSidebar = ({ className }) => {
                     height: "100px",
                   }}
                 />
+                <span style={{
+                  display: "inline-block",
+                  transform: "rotate(90deg)",
+                  fontSize: "20px",
+                  color: "#fff",
+                  textTransform: "normal"
+                }} className="">{userData?.restaurant?.name_url || "name"}</span>
               </Link>
             </Box>
           </Box>

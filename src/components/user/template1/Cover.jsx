@@ -28,7 +28,7 @@ export default function Cover() {
               borderRadius: "40px 40px",
             }}
             src={adminDetails.cover}
-            className="w-full  px-2 my-3 shadow-lg  object-cover min-h-[300px] max-h-[250px] md:max-h-[500px] "
+            className="w-full  px-2 my-3   object-cover   max-h-[200px] md:max-h-[500px] "
             alt="cover_restaurant"
           />
         ) : (
@@ -91,7 +91,7 @@ export default function Cover() {
 
       <div
         className="w-full flex justify-between md:!justify-start"
-        style={{ gap: "15px", paddingLeft: "15px" }}
+        style={{ gap: "15px", padding: "0 10px" }}
       >
         <div className="flex items-center gap-2">
           {adminDetails.facebook_url && (
