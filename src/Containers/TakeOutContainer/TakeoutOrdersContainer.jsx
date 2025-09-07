@@ -62,12 +62,15 @@ const TakeoutOrdersContainer = ({refresh}) => {
 
   const handleShowEdit = (order) => {
     setPassedData(order);
+
     setShowEditModal(true);
   };
+ console.log(passedData)
 
   const handleShowOrder = (order) => {
     setShowOrder(true);
     setPassedData(order);
+
   };
 
   const actions = [
@@ -213,13 +216,13 @@ const TakeoutOrdersContainer = ({refresh}) => {
            loading={false}
           onHide={() => setShowEditModal(false)}
           onSubmit={async (values) =>{
-  console.log(values)
+  console.log(passedData)
 
             await handleUpdateOrder(
               values,
               drivers,
               adminInfo,
-              // setRefresh,
+              null,
               () => setShowEditModal(false),
               passedData
             )}

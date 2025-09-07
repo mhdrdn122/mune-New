@@ -32,7 +32,7 @@ const RegisterPage = ({ mode }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { fcmToken } = useNotificationFromFirebase()
-  
+
   // State management
   const [currentState, setCurrentState] = useState("Login");
   const [loading, setLoading] = useState(false);
@@ -42,18 +42,18 @@ const RegisterPage = ({ mode }) => {
   const [latitude, setLatitude] = useState("");
   const [adminDetails, setAdminDetails] = useState(null);
   const [isPress, setIsPress] = useState(true);
-  
+
   // Redux state selectors
   const {
     loading: LoadingSuperAdmin,
     superAdminAuth,
     status,
   } = useSelector((state) => state.authSuper);
-  
+
   const { loading: LoadingAdmin, adminAuth } = useSelector(
     (state) => state.auth
   );
-  
+
   // Custom hooks
   const { BackgroundColor, BackgroundImg, Logo } = useGetStyle();
   const [, setPermissionsInLocalStorage] = useLocalStorage("permissions", []);
@@ -134,7 +134,7 @@ const RegisterPage = ({ mode }) => {
           .oneOf([Yup.ref("new_password"), null], "كلمة المرور غير متطابقة"),
       }),
     };
-    
+
     return baseSchemas[currentState] || Yup.object();
   }
 
@@ -142,7 +142,7 @@ const RegisterPage = ({ mode }) => {
     setLoading(false);
     await getQuestions();
     formik.resetForm();
-    
+
     // Load admin details from localStorage
     const res = await localStorage.getItem("adminInfo");
     setAdminDetails(JSON.parse(res)?.restaurant || JSON.parse(res));
@@ -167,7 +167,7 @@ const RegisterPage = ({ mode }) => {
 
   function getLocation() {
     setLoading(true);
-    
+
     if (!navigator.geolocation) {
       console.log("Geolocation is not supported by this browser.");
       setLoading(false);
@@ -204,11 +204,11 @@ const RegisterPage = ({ mode }) => {
 
   async function handleSubmit(values, { setErrors }) {
     setLoading(true);
-    
+
     try {
       if (mode === "super_admin") {
-       await handleSuperAdminLogin(values);
-         
+        await handleSuperAdminLogin(values);
+
       } else if (mode === "admin") {
         await handleAdminLogin(values);
       } else {
@@ -224,16 +224,16 @@ const RegisterPage = ({ mode }) => {
 
   async function handleSuperAdminLogin(values) {
     setIsPress(true);
-    const res =  await dispatch(
+    const res = await dispatch(
       loginSuperAdminAction({
         user_name: values?.username,
         password: values?.password,
       })
     );
     setIsPress(false);
-    
-    if(res?.payload?.message){
-       notify(res?.payload?.message , "error")
+
+    if (!res?.payload?.status) {
+      notify(res?.payload?.message, "error")
     }
     if (superAdminAuth?.superAdminInfo?.token) {
       handleSuccessfulLogin(superAdminAuth?.superAdminInfo, "super_admin");
@@ -241,28 +241,28 @@ const RegisterPage = ({ mode }) => {
   }
 
   async function handleAdminLogin(values) {
-     
+
     setIsPress(true);
-   const res =  await dispatch(
+    const res = await dispatch(
       loginAdminAction({
         user_name: values?.username,
         password: values?.password,
-        fcm_token:fcmToken 
+        fcm_token: fcmToken
       })
     );
     setIsPress(false);
 
-    if(res?.payload?.message){
-       notify(res?.payload?.message , "error")
+    if (!res?.payload?.status) {
+      notify(res?.payload?.message, "error")
     }
-     if (adminAuth.adminInfo?.token) {
+    if (adminAuth.adminInfo?.token) {
       handleSuccessfulLogin(adminAuth?.adminInfo, "admin");
     }
   }
 
   async function handleUserAuthentication(values, setErrors) {
     const endpoint = getEndpoint(currentState);
-     values["fcm_token"] = fcmToken
+    values["fcm_token"] = fcmToken
     console.log(values)
     const result = await fetch(endpoint, {
       method: "POST",
@@ -284,27 +284,27 @@ const RegisterPage = ({ mode }) => {
     const endpoints = {
       "Login": `${baseURLLocalPublic}/user_api/login`,
       "Sign Up": `${baseURLLocalPublic}/user_api/register`,
-      "forget_password": mode === "admin" 
+      "forget_password": mode === "admin"
         ? `${baseURLLocalPublic}/admin_api/forget_password`
         : `${baseURLLocalPublic}/user_api/forget_password`
     };
-    
+
     return endpoints[currentState];
   }
 
   function handleSuccessfulLogin(userInfo, userType) {
     if (!userInfo || Object.keys(userInfo).length === 0) {
-      notify(userType === "super_admin" 
-        ? superAdminAuth?.error?.message 
-        : adminAuth?.error?.message, 
-      "error");
+      notify(userType === "super_admin"
+        ? superAdminAuth?.error?.message
+        : adminAuth?.error?.message,
+        "error");
       return;
     }
 
     // Save user info to localStorage
     const storageKey = userType === "super_admin" ? "superAdminInfo" : "adminInfo";
     localStorage.setItem(storageKey, JSON.stringify(userInfo));
-    
+
     // Handle permissions
     if (userInfo?.permissions) {
       setPermissions(userInfo.permissions);
@@ -312,7 +312,7 @@ const RegisterPage = ({ mode }) => {
     }
 
     notify("تم تسجيل الدخول بنجاح", "success");
-    
+
     // Navigate based on user type and permissions
     const navigatePath = getNavigationPath(userType, userInfo);
     setTimeout(() => navigate(navigatePath), userType === "admin" ? 1500 : 1000);
@@ -331,7 +331,7 @@ const RegisterPage = ({ mode }) => {
 
   function handleAdminLoginRedirect() {
     if (isPress || loading) return;
-    
+
     if (mode === "super_admin") {
       handleSuperAdminRedirect();
     } else if (mode === "admin") {
@@ -354,13 +354,13 @@ const RegisterPage = ({ mode }) => {
   // UI rendering functions
   function renderHeader() {
     if (currentState !== "Login") return null;
-    
+
     return (
       <header className={`${currentState === "Login" ? "md:hidden" : "flex"} justify-center mt-5`}>
         <p className="text-3xl text-[#2F4B26] font-bold">
-          {currentState === "Login" ? "تسجيل الدخول" : 
-           currentState === "Sign Up" ? "إنشاء حساب" : 
-           "RESET PASSWORD"}
+          {currentState === "Login" ? "تسجيل الدخول" :
+            currentState === "Sign Up" ? "إنشاء حساب" :
+              "RESET PASSWORD"}
         </p>
       </header>
     );
@@ -368,7 +368,7 @@ const RegisterPage = ({ mode }) => {
 
   function renderLogo() {
     if (currentState !== "Login") return null;
-    
+
     return (
       <img
         src={mode !== "user" ? logo : Logo}
@@ -405,7 +405,7 @@ const RegisterPage = ({ mode }) => {
 
   function renderRememberMeAndForgotPassword() {
     if (currentState !== "Login" || mode === "super_admin") return null;
-    
+
     return (
       <div className="flex justify-between w-full px-2 items-center">
         <div className="flex items-center space-x-2 space-x-reverse">
@@ -434,7 +434,7 @@ const RegisterPage = ({ mode }) => {
 
   function renderSubmitButton() {
     if (currentState !== "Login" && currentState !== "Sign Up") return null;
-    
+
     return (
       <div className="flex justify-end">
         <CustomButton
@@ -451,7 +451,7 @@ const RegisterPage = ({ mode }) => {
 
   function renderDivider() {
     if (currentState !== "Login" && currentState !== "Sign Up") return null;
-    
+
     return (
       <div className="relative flex items-center justify-center">
         <div className="absolute inset-0 flex items-center">
@@ -466,7 +466,7 @@ const RegisterPage = ({ mode }) => {
 
   function renderSocialButtons() {
     if (currentState !== "Login" && currentState !== "Sign Up") return null;
-    
+
     return (
       <div className="flex justify-center gap-4">
         {['facebook', 'google', 'apple'].map((social) => (
@@ -504,9 +504,10 @@ const RegisterPage = ({ mode }) => {
       <button
         className={`p-3 rounded-full !bg-[${bgColor}] text-white hover:bg-[${bgColor}]/90 transition-colors`}
         aria-label={`تسجيل الدخول عبر ${type}`}
-        style={{ borderRadius: "50%",
-          background:bgColor
-         }}
+        style={{
+          borderRadius: "50%",
+          background: bgColor
+        }}
       >
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
           {icon}
@@ -517,7 +518,7 @@ const RegisterPage = ({ mode }) => {
 
   function renderAuthToggle() {
     if (mode === "super_admin" || mode === "admin") return null;
-    
+
     return (
       <div className="text-center pt-2">
         <p className="text-sm text-[#2F4B26]">
@@ -542,7 +543,7 @@ const RegisterPage = ({ mode }) => {
 
   function renderSidePanel() {
     if (currentState !== "Login") return null;
-    
+
     return (
       <div className="hidden md:flex justify-center items-center flex-col bg-green-500 !w-[800px] rounded-3xl">
         <header className="flex justify-center mt-5">
@@ -550,8 +551,8 @@ const RegisterPage = ({ mode }) => {
             {currentState === "Login"
               ? "تسجيل الدخول"
               : currentState === "Sign Up"
-              ? "إنشاء حساب"
-              : "إعادة كتابة كلمة المرور"}
+                ? "إنشاء حساب"
+                : "إعادة كتابة كلمة المرور"}
           </p>
         </header>
         <img
@@ -573,8 +574,8 @@ const RegisterPage = ({ mode }) => {
     <div
       className="min-h-screen bg-cover bg-center flex items-center justify-center"
       style={backgroundStyle}
-      >
-       <div className="bg-white/20 m-4 relative flex gap-4 backdrop-blur-lg border border-white/30 rounded-3xl w-[80%] md:w-[70%] lg:w-[60%] text-center shadow-lg">
+    >
+      <div className="bg-white/20 m-4 relative flex gap-4 backdrop-blur-lg border border-white/30 rounded-3xl w-[80%] md:w-[70%] lg:w-[60%] text-center shadow-lg">
         <form
           className="w-100 p-6 flex flex-col justify-between min-h-[500px] sm:p-8"
           autoComplete="off"
