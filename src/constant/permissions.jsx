@@ -4,12 +4,15 @@ export const PermissionsEnum = Object.freeze({
   CATEGORY_UPDATE: 'category.update',
   CATEGORY_ACTIVE: 'category.active',
   CATEGORY_DELETE: 'category.delete',
+
   REORDER: 'reorder',
+
   ITEM_INDEX: 'item.index',
   ITEM_ADD: 'item.add',
   ITEM_UPDATE: 'item.update',
   ITEM_ACTIVE: 'item.active',
   ITEM_DELETE: 'item.delete',
+  
   // INFO_ADMIN_UPDATE: 'info_admin.update',
   // INFO_ADMIN_SHOW_BY_ID: 'info_admin.show_by_id',
   UPDATE_RESTAURANT_ADMIN: 'update_restaurant_admin',

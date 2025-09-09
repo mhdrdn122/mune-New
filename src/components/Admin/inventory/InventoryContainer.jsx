@@ -64,9 +64,11 @@ const InventoryContainer = ({
    * Initial refetch on component mount
    */
   useEffect(() => {
+     if(orders){
     setOrders(orders)
+    }
     refetch();
-  }, []);
+  }, [orders]);
 
  
   /**

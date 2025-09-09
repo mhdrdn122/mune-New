@@ -19,6 +19,7 @@ export const getEditFields = (drivers) => {
       options: options,
       required: true,
       dit: "rtl",
+    //  isHidden: (values) => values.status !== "Waiting"  
     },
     {
       name: "status",

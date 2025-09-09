@@ -125,6 +125,7 @@ export const ModalAddItem = ({ show,handleClose, page, masterId, subId,initialVa
       icon: null,
       category_id: subId === "0" ? masterId : subId,
       is_panorama: 0,
+      currency:'',
       sizes: [],
       toppings: [],
       components:[],
@@ -275,6 +276,7 @@ export const ModalAddItem = ({ show,handleClose, page, masterId, subId,initialVa
             { id: "description_ar", label: "الوصف باللغة العربية" },
             { id: "description_en", label: "الوصف باللغة الثانوية" },
             { id: "price", label: "السعر", type: "number", inputProps: { min: 0 } },
+            { id: "currency", label: "العملة", type: "text", inputProps: { min: 0 } }
           ].map(({ id, label, ...rest }) => (
             <TextField
               disabled = {mode === "view"}

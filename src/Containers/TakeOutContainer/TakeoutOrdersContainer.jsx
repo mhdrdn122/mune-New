@@ -14,7 +14,7 @@ import { TbDiscount } from 'react-icons/tb';
 import DynamicForm from '../../components/Modals/AddModal/AddModal';
 import { getEditFields, handleReceive, handleUpdateOrder } from './helpers';
 
-const TakeoutOrdersContainer = ({refresh}) => {
+const TakeoutOrdersContainer = ({ refresh , setRefresh}) => {
   const tableHeader = [
     "اسم الزبون", "اسم السائق", "العنوان", "رقم الموبايل",
     "تاريخ الانشاء", "تاريخ التسليم", "أجرة التوصيل", "الحالة", "الحدث"
@@ -28,8 +28,9 @@ const TakeoutOrdersContainer = ({refresh}) => {
   const [page, setPage] = useState(1);
   const [fields, setFields] = useState();
   const [drivers, setDrivers] = useState([]);
-   const [loadingReceivedItemId, setLoadingReceivedItemId] = useState(null);
+  const [loadingReceivedItemId, setLoadingReceivedItemId] = useState(null);
   const [passedData, setPassedData] = useState();
+ 
 
   const [showOrder, setShowOrder] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -50,7 +51,7 @@ const TakeoutOrdersContainer = ({refresh}) => {
     })();
   }, []);
 
-  useEffect(() => {} ,[refresh])
+  useEffect(() => { }, [refresh])
 
   const {
     data: takeoutOrders,
@@ -65,7 +66,7 @@ const TakeoutOrdersContainer = ({refresh}) => {
 
     setShowEditModal(true);
   };
- console.log(passedData)
+  console.log(passedData)
 
   const handleShowOrder = (order) => {
     setShowOrder(true);
@@ -158,7 +159,7 @@ const TakeoutOrdersContainer = ({refresh}) => {
           <ListGroup variant="flush">
             <ListGroup.Item>
               <FaMoneyBillAlt className="me-2" />{
-               }
+              }
               <strong>المجموع:</strong> {passedData?.total}
             </ListGroup.Item>
 
@@ -213,19 +214,20 @@ const TakeoutOrdersContainer = ({refresh}) => {
       {showEditModal && (
         <DynamicForm
           fields={fields}
-           loading={false}
+          loading={false}
           onHide={() => setShowEditModal(false)}
-          onSubmit={async (values) =>{
-  console.log(passedData)
+          onSubmit={async (values) => {
+            console.log(passedData)
 
             await handleUpdateOrder(
               values,
               drivers,
               adminInfo,
-              null,
+              setRefresh,
               () => setShowEditModal(false),
               passedData
-            )}
+            )
+          }
           }
           passedData={{}}
           show={showEditModal}

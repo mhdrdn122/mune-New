@@ -111,6 +111,7 @@ const EmployeesContainer = ({
   const [showDelete, setShowDelete] = useState(false);
   const [showDeactivate, setShowDeactive] = useState(false);
   const [passedData, setPassedData] = useState(null);
+  const [page, setPage] = useState(1);
 
   // Modal control functions
   const handleShowEmployee = (data) => {
@@ -339,6 +340,12 @@ const onEditEmployee = async (formValues) => {
       setLoadingFields(false);
     })();
   }, [types, showEdit, showForm]);
+
+
+    const onPress = async (page) => {
+    setPage(page);
+    window.scroll(0, 0);
+  };
 
     if (loading) {
     return (

@@ -13,8 +13,7 @@ const baseURL = axios.create({baseURL:"https://tmenuback.addresses.sy"})  // ا�
 
 // export const baseURLPublicName ="http://192.168.1.40:3030" //local
 
-// تحديث عنوان API العام
-export const baseURLPublicName ="https://tmenuback.addresses.sy" // الإصدار الجديد
+export const baseURLPublicName ="https://tmenuback.addresses.sy" 
 
 // export const baseURLPublicName ="https://medical-clinic.serv00.net" // server test 
 

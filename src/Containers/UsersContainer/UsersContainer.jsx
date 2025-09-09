@@ -125,7 +125,7 @@ const UsersContainer = ({ refresh, role, mode }) => {
             return (
               <DynamicCard
                 key={index}
-                data={user}
+                data={{...user , address:user?.address?.city}}
                 fields={[
                   { key: "name", label: "الاسم" },
                   { key: "username", label: "اسم المستخدم" },

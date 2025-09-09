@@ -62,6 +62,7 @@ const DynamicCard = ({
   const { hasPermission } = usePermissions();
   const { Color } = useGetStyle();
 
+  console.log(data["image"])
   return (
     <Card
       sx={{

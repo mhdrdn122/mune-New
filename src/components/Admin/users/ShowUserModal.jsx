@@ -11,8 +11,7 @@ const ShowUserModal = ({show,id, handleClose}) => {
         } = useShowOneUserQuery(id ,  {
           skip: !id, // Skip the API call if `show` is null or false
       });
-  
-      return (
+       return (
         <Modal show={show} onHide={handleClose} centered>
             <Modal.Header closeButton className='d-flex justify-content-center'>
                 <Modal.Title >تفاصيل المستخدم</Modal.Title>
@@ -32,7 +31,7 @@ const ShowUserModal = ({show,id, handleClose}) => {
                             {user?.data?.phone || "..."}<span> : رقم الموبايل </span>
                         </p>
                         <p className="d-flex justify-content-between w-100 fw-bold">
-                            {user?.data?.address || "..."}<span> : العنوان </span>
+                            {user?.data?.address?.city || "..."}<span> : العنوان </span>
                         </p>
                         <p className="d-flex justify-content-between w-100 fw-bold">
                             {user?.data?.birthday || "..."}<span> : عيد الميلاد </span>

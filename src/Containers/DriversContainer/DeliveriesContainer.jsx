@@ -169,7 +169,7 @@ const DeliveriesContainer = ({ role, refresh, show, handleClose, mode }) => {
                 showImage={true}
                 showActionTitle={true}
                 titleKey={`السائق  ${index + 1}`}
-                imageKey={user?.image}
+                imageKey={"image"}
                 fields={[
                   { key: "name", label: "الاسم" },
                   { key: "username", label: "اسم الحساب" },

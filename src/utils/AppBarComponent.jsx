@@ -26,7 +26,7 @@ const AppBarComponent = ({ Role }) => {
       title: "إضافة طلب",
       to: "/admin/addOrder",
       icon: <IoAddCircleOutline />,
-      show: hasPermission(PermissionsEnum.ORDER_INDEX) && userData?.restaurant?.is_order === 1,
+      show: hasPermission(PermissionsEnum.ORDER_ADD) && userData?.restaurant?.is_order === 1,
     },
     {
       title: "الطاولات",
@@ -38,7 +38,7 @@ const AppBarComponent = ({ Role }) => {
       title: "متابعة السائقين",
       to: "/admin/driver-tracking",
       icon: <FaTruckFast />,
-      show:   Role == "ADMIN",
+      show:  hasPermission(PermissionsEnum.DELIVERY_INDEX) && Role == "ADMIN",
     },
     {
       title: "الخدمات",
@@ -54,8 +54,7 @@ const AppBarComponent = ({ Role }) => {
     },
   ];
 
-  console.log(Color)
-   return (
+    return (
     <AppBar
       position="fixed"
       sx={{

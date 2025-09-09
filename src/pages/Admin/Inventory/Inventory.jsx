@@ -21,23 +21,27 @@ const Inventory = () => {
   const [searchWord, setSearchWord] = useState("");
 
   const [startDate, setStartDate] = useState("");
-  const [orders, setOrders] = useState("");
+  const [orders, setOrders] = useState({});
 
   const [endDate, setEndDate] = useState("");
 
-  console.log(endDate)
+  console.log(orders)
 
   const handleDownloadExcel = async () => {
     console.log(orders)
-    const data = orders?.data?.map((item, index) => ({
+    if (!orders || !orders.data || orders.data.length === 0) {
+      alert("No data to download.");
+      return;
+    }
+    
+     const data = orders?.data?.map((item, index) => ({
       "اسم المنتج بالعربية": item?.name_ar,
       "اسم المنتج بالانكليزي": item?.name_en,
       "السعر": item?.price,
       "الكمية": item?.count,
       "تاريخ الإنشاء": item?.created_at,
     }))
-    console.log(data)
-    const ws = XLSX.utils.json_to_sheet(data)
+     const ws = XLSX.utils.json_to_sheet(data)
 
     const wb = XLSX.utils.book_new()
 
@@ -72,7 +76,7 @@ const Inventory = () => {
         }}
         refresh={refresh}
         setRefresh={setRefresh}
-        showDownloadButton={true}
+        showDownloadButton={ !orders || !orders?.data ||  orders?.data?.length === 0 ? false : true}
         onDownloadExcel={() => handleDownloadExcel()}
       />
       <InventoryContainer

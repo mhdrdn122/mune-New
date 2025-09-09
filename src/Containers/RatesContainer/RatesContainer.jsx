@@ -90,9 +90,25 @@ const RatesContainer = ({ refresh, mode }) => {
   const openModal = (item) => setShowModalRate(item);
   const closeModal = () => setShowModalRate(false);
   const toggleFilterModal = () => setShowFilterModal(!showFilterModal);
+  const resetFilterModal = () => {
+    setFilterParams({
+      from_date: "2024-01-01",
+      to_date: nowDate,
+      from_age: "",
+      to_age: "",
+      type: "person",
+      rate: 0,
+      gender: "",
+    })
+    toggleFilterModal()
+  }
+
 
   const renderFilterInputs = () => {
     switch (selectedFilter) {
+      case "":
+        return () => resetFilterModal;
+
       case "date":
         return (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -312,7 +328,7 @@ const RatesContainer = ({ refresh, mode }) => {
             </Button>
           </Col>
           <Col xs={12} className="flex flex-wrap gap-3 justify-end">
-            {["unknown", "person"].map((type) => (
+            {["anonymous", "person"].map((type) => (
               <Button
                 key={type}
                 size={isSmallDevice ? "small" : "large"}
@@ -332,8 +348,8 @@ const RatesContainer = ({ refresh, mode }) => {
                     filterParams.type === type
                       ? "#fff"
                       : Color
-                      ? Color
-                      : "#2F4B26",
+                        ? Color
+                        : "#2F4B26",
                   fontWeight: 600,
                   transition: "all 0.3s ease",
                   "&:hover": {
@@ -348,7 +364,7 @@ const RatesContainer = ({ refresh, mode }) => {
                 }}
                 onClick={() => setFilterParams((prev) => ({ ...prev, type }))}
               >
-                {type === "unknown"
+                {type === "anonymous"
                   ? "التقييمات الغير معروفة"
                   : "التقييمات المعروفة"}
               </Button>
@@ -409,7 +425,7 @@ const RatesContainer = ({ refresh, mode }) => {
                 </select>
                 <div>{renderFilterInputs()}</div>
               </div>
-              <div className="flex justify-end mt-6">
+              <div className="flex justify-end gap-2 mt-6">
                 <Button
                   onClick={toggleFilterModal}
                   variant="contained"
@@ -422,6 +438,20 @@ const RatesContainer = ({ refresh, mode }) => {
                   }}
                 >
                   تطبيق
+                </Button>
+
+                <Button
+                  onClick={resetFilterModal}
+                  variant="contained"
+                  sx={{
+                    backgroundColor: "#f00",
+                    color: "#fff",
+                    px: 3,
+                    borderRadius: "8px",
+                    "&:hover": { backgroundColor: "#f21" },
+                  }}
+                >
+                  تراجع
                 </Button>
               </div>
             </div>

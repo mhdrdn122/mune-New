@@ -90,7 +90,7 @@ export default function DynamicForm({
           ) : (
             <Modal.Body className="d-flex flex-column justify-content-center align-items-center p-4">
               {fields?.map((field) => {
-                if (field?.isHidden && field?.isHidden(formValues)) {
+                if (field?.isHidden && field?.isHidden(formValues )) {
                   return null;
                 }
                 if (field?.type === "image") {

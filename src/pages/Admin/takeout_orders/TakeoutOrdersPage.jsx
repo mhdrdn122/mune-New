@@ -21,8 +21,7 @@ const breadcrumbs = [
  * @returns {JSX.Element}
  */
 const TakeoutOrdersPage = () => {
-  const [randomNumber, refreshRandomNumber] = useRandomNumber(1, 100);
-  const [refresh, setRefresh] = useState(false);
+   const [refresh, setRefresh] = useState(false);
 
   return (
     <div>
@@ -32,7 +31,7 @@ const TakeoutOrdersPage = () => {
         refresh={refresh}
         setRefresh={setRefresh}
       />
-      <TakeoutOrdersContainer refresh={refresh} />
+      <TakeoutOrdersContainer refresh={refresh} setRefresh={setRefresh} />
     </div>
   );
 };
