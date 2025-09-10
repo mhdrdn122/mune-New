@@ -75,7 +75,7 @@ export const resturantsApi = createApi({
     showOneRest: builder.query({
       query: (id) => `show_restaurant?id=${id}`,
       providesTags: ["resturants"],
-    }),
+    }), 
     updateRest: builder.mutation({
       query: (data) => {
         const formData = new FormData();

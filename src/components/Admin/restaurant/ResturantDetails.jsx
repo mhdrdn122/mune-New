@@ -165,6 +165,7 @@ const ResturantDetails = ({ getProfileDetails }) => {
           user_name: item?.user_name || "",
           name_en: item?.translations?.en?.name || "",
           name_ar: item?.translations?.ar?.name || "",
+          
           background_color: convertColorFormat(item?.background_color),
           color: convertColorFormat(item?.color),
           facebook_url: item?.facebook_url || "",

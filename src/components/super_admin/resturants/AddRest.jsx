@@ -22,7 +22,7 @@ import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import {} from "../../../redux/slice/categories/categoriesSlice";
+import { } from "../../../redux/slice/categories/categoriesSlice";
 import { ToastContainer } from "react-toastify";
 import notify from "../../../utils/useNotification";
 import { LuPlus } from "react-icons/lu";
@@ -96,16 +96,16 @@ const AddRest = () => {
   const [img, setImg] = useState(null);
   const [imgLogo, setImgLogo] = useState(null);
   const [logo_home_page, setLogo_home_page] = useState(null);
-  const [background_image_home_page,setBackGroundImageHome]=useState(null);
-  const [background_image_category,setBackGroundImageCategory]=useState(null);
-  const [background_image_sub,setBackGroundImageSub]=useState(null);
-  const [background_image_item,setBackGroundImageItem]=useState(null);  
+  const [background_image_home_page, setBackGroundImageHome] = useState(null);
+  const [background_image_category, setBackGroundImageCategory] = useState(null);
+  const [background_image_sub, setBackGroundImageSub] = useState(null);
+  const [background_image_item, setBackGroundImageItem] = useState(null);
   // const [loading, setLoading] = useState(false);
   const outerTheme = useTheme();
 
-  const { data: managers } = useGetRestManagersQuery({ page: 1, perpage:1000 });
-  const { data: fonts } = useGetFontsQuery({language: 'en'});
-  const { data: fontsArabic } = useGetFontsQuery({language: 'ar'});
+  const { data: managers } = useGetRestManagersQuery({ page: 1, perpage: 1000 });
+  const { data: fonts } = useGetFontsQuery({ language: 'en' });
+  const { data: fontsArabic } = useGetFontsQuery({ language: 'ar' });
   const { cities } = useSelector((state) => state.citySuper);
   const { emojis } = useSelector((state) => state.emojiSuper);
   const { data: menus } = useGetMenusQuery(1);
@@ -115,35 +115,35 @@ const AddRest = () => {
   const { triggerRedirect } = useError401(isError, error);
 
   const onImageChange = (event, type) => {
-    console.log('event : ',event.currentTarget.files[0])
-    console.log('type : ',type)
+    console.log('event : ', event.currentTarget.files[0])
+    console.log('type : ', type)
     if (event.currentTarget.files) {
       const file = event.currentTarget.files[0];
       const imageUrl = URL.createObjectURL(file);
       if (type === "cover") {
         setImg(imageUrl);
         formik.setFieldValue("cover", file);
-      } else if (type === "logo"){
+      } else if (type === "logo") {
         setImgLogo(imageUrl);
         formik.setFieldValue("logo", file);
       }
-      else if(type==="logo_home_page"){
+      else if (type === "logo_home_page") {
         setLogo_home_page(imageUrl)
-        formik.setFieldValue("logo_home_page",file)
+        formik.setFieldValue("logo_home_page", file)
       }
-      else if (type === "background_image_home_page"){
+      else if (type === "background_image_home_page") {
         setBackGroundImageHome(imageUrl);
         formik.setFieldValue("background_image_home_page", file);
       }
-      else if (type === "background_image_category"){
+      else if (type === "background_image_category") {
         setBackGroundImageCategory(imageUrl);
         formik.setFieldValue("background_image_category", file);
       }
-      else if (type === "background_image_sub"){
+      else if (type === "background_image_sub") {
         setBackGroundImageSub(imageUrl);
         formik.setFieldValue("background_image_sub", file);
       }
-      else if (type === "background_image_item"){
+      else if (type === "background_image_item") {
         setBackGroundImageItem(imageUrl);
         formik.setFieldValue("background_image_item", file);
       }
@@ -171,6 +171,9 @@ const AddRest = () => {
       name_en: "",
       name_ar: "",
       name_url: "",
+      user_link: "",
+      admin_link: "",
+      delivery_link: "",
       user_name: "",
       name_admin: "",
       background_color: "#000000",
@@ -191,7 +194,7 @@ const AddRest = () => {
       message_perfect: "",
       // count_sms: "",
       logo: null,
-      logo_home_page:null,
+      logo_home_page: null,
       cover: null,
       font_type: "",
       is_rate: "",
@@ -205,42 +208,42 @@ const AddRest = () => {
       admin_id: "",
       font_id_en: '',
       font_id_ar: '',
-      rate_format:"",
-      is_taxes:"",
-      welcome:"", 
-      question:"",
-      if_answer_no:"",
-      is_welcome_massege:"",
-      longitude:'',
-      latitude:'',
-      accepted_by_waiter:'',
-      is_sub_move:'',
-      is_takeout:'',
-      is_delivery:'',
-      consumer_spending:"1",
-      local_administration:"1",
-      reconstruction:"1",
-      image_or_color:'', // for the background
-      rate_opacity:'',
-      sub_opacity:'',
-      image_or_write:'', // for logo 
-      logo_shape:'',
-      message_in_home_page:'',
-      fav_lang:'',
-      font_size_welcome:'',
-      font_type_welcome:'',
-      empty_image:'',
-      home_opacity:'',
-      font_size_category:'',
-      font_type_category_ar:'',
-      font_type_category_en:'',
-      font_bold_category:'',
-      font_size_item:'',
-      font_type_item_ar:'',
-      font_type_item_en:'',
-      font_bold_item:'',
-      price_type:'',
-      share_item_whatsapp:'',
+      rate_format: "",
+      is_taxes: "",
+      welcome: "",
+      question: "",
+      if_answer_no: "",
+      is_welcome_massege: "",
+      longitude: '',
+      latitude: '',
+      accepted_by_waiter: '',
+      is_sub_move: '',
+      is_takeout: '',
+      is_delivery: '',
+      consumer_spending: "1",
+      local_administration: "1",
+      reconstruction: "1",
+      image_or_color: '', // for the background
+      rate_opacity: '',
+      sub_opacity: '',
+      image_or_write: '', // for logo 
+      logo_shape: '',
+      message_in_home_page: '',
+      fav_lang: '',
+      font_size_welcome: '',
+      font_type_welcome: '',
+      empty_image: '',
+      home_opacity: '',
+      font_size_category: '',
+      font_type_category_ar: '',
+      font_type_category_en: '',
+      font_bold_category: '',
+      font_size_item: '',
+      font_type_item_ar: '',
+      font_type_item_en: '',
+      font_bold_item: '',
+      price_type: '',
+      share_item_whatsapp: '',
     },
     onSubmit: async (values, { setErrors }) => {
       console.log('waiting')
@@ -263,8 +266,8 @@ const AddRest = () => {
       }
 
       const cleanedData = removeNullValues(convertedValues);
-      console.log("cleanedData : ",cleanedData);
-     
+      console.log("cleanedData : ", cleanedData);
+
       try {
         const result = await addNewRest(cleanedData).unwrap();
         console.log("added successfully:", result);
@@ -297,14 +300,18 @@ const AddRest = () => {
       name_en: Yup.string().required("Required"),
       name_ar: Yup.string().required("Required"),
       name_url: Yup.string()
-      // .matches(/^[a-zA-Z0-9_-]+$/, "Name URL can only contain letters, numbers, underscores, and hyphens")
-      .required("Required"),
+        // .matches(/^[a-zA-Z0-9_-]+$/, "Name URL can only contain letters, numbers, underscores, and hyphens")
+        .required("Required"),
       // user_name: Yup.string().required("Required"),
       // name_admin: Yup.string().required("Required"),
       background_color: Yup.string().required("Required"),
       color: Yup.string().required("Required"),
       note_en: Yup.string().required("Required"),
       note_ar: Yup.string().required("Required"),
+
+      user_link: Yup.string(),
+      admin_link: Yup.string(),
+      delivery_link: Yup.string(),
       // end_date: Yup.string().required("Required"),
       // logo: Yup.string().required("Required"),
       // cover: Yup.string().required("Required"),
@@ -321,7 +328,7 @@ const AddRest = () => {
       facebook_url: Yup.string().url("رابط غير صالح"), // Validates if the string is a valid URL
       instagram_url: Yup.string().url("رابط غير صالح"),
       // rate_format:Yup.string().required("Required"),
-      is_taxes:Yup.string().required("Required"),
+      is_taxes: Yup.string().required("Required"),
     }),
   });
 
@@ -366,179 +373,179 @@ const AddRest = () => {
                   />
                 </div>
 
-                                          
-                  <div className="d-flex">
 
-                    <div className="profile-section-top mb-3">
-                    <label htmlFor="upload-photo7"  style={{ width: "10%" }}>
+                <div className="d-flex">
 
-                    {logo_home_page ? (
-                      <>
-                      <img
-                        src={logo_home_page}
-                        alt="profile"
-                        className="profile-avatar"
-                      ></img>
-                      </>
-                    ) : (
-                      <div className="upload_icon_logo">
-                        <LuPlus />
-                      </div>
-                    )}
+                  <div className="profile-section-top mb-3">
+                    <label htmlFor="upload-photo7" style={{ width: "10%" }}>
+
+                      {logo_home_page ? (
+                        <>
+                          <img
+                            src={logo_home_page}
+                            alt="profile"
+                            className="profile-avatar"
+                          ></img>
+                        </>
+                      ) : (
+                        <div className="upload_icon_logo">
+                          <LuPlus />
+                        </div>
+                      )}
                     </label>
                     <input
-                    accept="image/*"
-                    id="upload-photo7"
-                    name="logo_home_page"
-                    label="Upload Photo"
-                    type="file"
-                    onChange={(e) => onImageChange(e, "logo_home_page")}
-                    style={{ display: "none" }}
+                      accept="image/*"
+                      id="upload-photo7"
+                      name="logo_home_page"
+                      label="Upload Photo"
+                      type="file"
+                      onChange={(e) => onImageChange(e, "logo_home_page")}
+                      style={{ display: "none" }}
                     />
                     <p className="mt-5">logo home page</p>
 
-                    </div>
-                    <div className="profile-section-top">
+                  </div>
+                  <div className="profile-section-top">
                     <label className="" htmlFor="upload-photo2" style={{ width: "10%" }}>
 
-                    {imgLogo ? (
-                      <img
-                        src={imgLogo}
-                        alt="profile"
-                        className="profile-avatar"
-                      ></img>
-                    ) : (
-                      <div className="upload_icon_logo">
-                        <LuPlus />
-                      </div>
-                    )}
+                      {imgLogo ? (
+                        <img
+                          src={imgLogo}
+                          alt="profile"
+                          className="profile-avatar"
+                        ></img>
+                      ) : (
+                        <div className="upload_icon_logo">
+                          <LuPlus />
+                        </div>
+                      )}
                     </label>
                     <input
-                    accept="image/*"
-                    id="upload-photo2"
-                    name="logo"
-                    label="Upload Photo"
-                    type="file"
-                    onChange={(e) => onImageChange(e, "logo")}
-                    style={{ display: "none" }}
+                      accept="image/*"
+                      id="upload-photo2"
+                      name="logo"
+                      label="Upload Photo"
+                      type="file"
+                      onChange={(e) => onImageChange(e, "logo")}
+                      style={{ display: "none" }}
                     />
                     <p className="mt-5">logo</p>
 
-                    </div>
+                  </div>
 
-                    </div>
+                </div>
 
-                      <>
-                      <div className="bg-images-container mt-5" >
-                        <div>
-                        <input
-                    accept="image/*"
-                    id="upload-photo3"
-                    name="background_image_home_page"
-                    label="Upload Photo"
-                    type="file"
-                    onChange={(e) => onImageChange(e, "background_image_home_page")}
-                    style={{ display: "none" }}
-                    
-                  />
-                        <label htmlFor="upload-photo3" >     
-                    {background_image_home_page ? (
-                      <img
-                        src={background_image_home_page}
-                        alt="profile"
-                        className="profile-avatar"
-                      ></img>
-                    ) : (
-                      <div className="upload_icon_logo">
-                        <LuPlus />
-                      </div>
-                    )}
-                    bg-image home
-                  </label>
-                 
-                        </div>
-
-                      <div>
-                      <label htmlFor="upload-photo4" >   
-                      {background_image_category ? (
-                        <img
-                          src={background_image_category}
-                          alt="background_image_category"
-                          className="profile-avatar"
-                        ></img>
-                      ) : (
-                        <div className="upload_icon_logo">
-                          <LuPlus />
-                        </div>
-                      )}
-                      bg-image category
-                            </label>
-
-                    <input
-                      accept="image/*"
-                      id="upload-photo4"
-                      name="background_image_category"
-                      label="Upload Photo"
-                      type="file"
-                      onChange={(e) => onImageChange(e, "background_image_category")}
-                      style={{ display: "none" }}
-                    />
-                      </div>
-              
+                <>
+                  <div className="bg-images-container mt-5" >
                     <div>
-                      <label htmlFor="upload-photo5" >
-                      {background_image_sub ? (
-                        <img
-                          src={background_image_sub}
-                          alt="profile"
-                          className="profile-avatar"
-                        ></img>
-                      ) : (
-                        <div className="upload_icon_logo">
-                          <LuPlus />
-                        </div>
-                      )}
-                      bg-image sub
-                      </label>
                       <input
-                      accept="image/*"
-                      id="upload-photo5"
-                      name="background_image_sub"
-                      label="Upload Photo"
-                      type="file"
-                      onChange={(e) => onImageChange(e, "background_image_sub")}
-                      style={{ display: "none" }}
-                      
+                        accept="image/*"
+                        id="upload-photo3"
+                        name="background_image_home_page"
+                        label="Upload Photo"
+                        type="file"
+                        onChange={(e) => onImageChange(e, "background_image_home_page")}
+                        style={{ display: "none" }}
+
+                      />
+                      <label htmlFor="upload-photo3" >
+                        {background_image_home_page ? (
+                          <img
+                            src={background_image_home_page}
+                            alt="profile"
+                            className="profile-avatar"
+                          ></img>
+                        ) : (
+                          <div className="upload_icon_logo">
+                            <LuPlus />
+                          </div>
+                        )}
+                        bg-image home
+                      </label>
+
+                    </div>
+
+                    <div>
+                      <label htmlFor="upload-photo4" >
+                        {background_image_category ? (
+                          <img
+                            src={background_image_category}
+                            alt="background_image_category"
+                            className="profile-avatar"
+                          ></img>
+                        ) : (
+                          <div className="upload_icon_logo">
+                            <LuPlus />
+                          </div>
+                        )}
+                        bg-image category
+                      </label>
+
+                      <input
+                        accept="image/*"
+                        id="upload-photo4"
+                        name="background_image_category"
+                        label="Upload Photo"
+                        type="file"
+                        onChange={(e) => onImageChange(e, "background_image_category")}
+                        style={{ display: "none" }}
                       />
                     </div>
-                      <div>
-                      <label htmlFor="upload-photo6" >  
-                      {background_image_item ? (
-                        <img
-                          src={background_image_item}
-                          alt="profile"
-                          className="profile-avatar"
-                        ></img>
-                      ) : (
-                        <div className="upload_icon_logo">
-                          <LuPlus />
-                        </div>
-                      )}
-                      bg-image item
-                    </label>
-                    <input
-                      accept="image/*"
-                      id="upload-photo6"
-                      name="background_image_item"
-                      label="Upload Photo"
-                      type="file"
-                      onChange={(e) => onImageChange(e, "background_image_item")}
-                      style={{ display: "none" }}
-                      
-                    />
-                      </div>
-                </div>
-                    </>
+
+                    <div>
+                      <label htmlFor="upload-photo5" >
+                        {background_image_sub ? (
+                          <img
+                            src={background_image_sub}
+                            alt="profile"
+                            className="profile-avatar"
+                          ></img>
+                        ) : (
+                          <div className="upload_icon_logo">
+                            <LuPlus />
+                          </div>
+                        )}
+                        bg-image sub
+                      </label>
+                      <input
+                        accept="image/*"
+                        id="upload-photo5"
+                        name="background_image_sub"
+                        label="Upload Photo"
+                        type="file"
+                        onChange={(e) => onImageChange(e, "background_image_sub")}
+                        style={{ display: "none" }}
+
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="upload-photo6" >
+                        {background_image_item ? (
+                          <img
+                            src={background_image_item}
+                            alt="profile"
+                            className="profile-avatar"
+                          ></img>
+                        ) : (
+                          <div className="upload_icon_logo">
+                            <LuPlus />
+                          </div>
+                        )}
+                        bg-image item
+                      </label>
+                      <input
+                        accept="image/*"
+                        id="upload-photo6"
+                        name="background_image_item"
+                        label="Upload Photo"
+                        type="file"
+                        onChange={(e) => onImageChange(e, "background_image_item")}
+                        style={{ display: "none" }}
+
+                      />
+                    </div>
+                  </div>
+                </>
                 <Grid container spacing={3} sx={{ paddingTop: "25px" }}>
                   <Grid xs={12} md={4}>
                     <TextField
@@ -599,7 +606,69 @@ const AddRest = () => {
                       }
                     />
                   </Grid>
-                
+
+
+                  <Grid xs={12} md={4}>
+                    <TextField
+                      fullWidth
+                      variant="outlined"
+                      size="small"
+                      InputLabelProps={{ shrink: true }}
+                      label="رابط تطبيق المستخدم "
+                      name="user_link"
+                      onChange={formik.handleChange}
+                      value={formik.values.user_link}
+                      onBlur={formik.handleBlur}
+                      error={
+                        !!formik.touched.user_link && !!formik.errors.user_link
+                      }
+                      helperText={
+                        formik.touched.user_link && formik.errors.user_link
+                      }
+                    />
+                  </Grid>
+
+                  <Grid xs={12} md={4}>
+                    <TextField
+                      fullWidth
+                      variant="outlined"
+                      size="small"
+                      InputLabelProps={{ shrink: true }}
+                      label="رابط تطبيق المدير "
+                      name="admin_link"
+                      onChange={formik.handleChange}
+                      value={formik.values.admin_link}
+                      onBlur={formik.handleBlur}
+                      error={
+                        !!formik.touched.admin_link && !!formik.errors.admin_link
+                      }
+                      helperText={
+                        formik.touched.admin_link && formik.errors.admin_link
+                      }
+                    />
+                  </Grid>
+
+                  <Grid xs={12} md={4}>
+                    <TextField
+                      fullWidth
+                      variant="outlined"
+                      size="small"
+                      InputLabelProps={{ shrink: true }}
+                      label="رابط تطبيق عامل التوصيل "
+                      name="delivery_link"
+                      onChange={formik.handleChange}
+                      value={formik.values.delivery_link}
+                      onBlur={formik.handleBlur}
+                      error={
+                        !!formik.touched.delivery_link && !!formik.errors.delivery_link
+                      }
+                      helperText={
+                        formik.touched.delivery_link && formik.errors.delivery_link
+                      }
+                    />
+                  </Grid>
+
+
                   <Grid xs={12} md={4}>
                     <TextField
                       fullWidth
@@ -664,7 +733,7 @@ const AddRest = () => {
                       }
                     />
                   </Grid>
-                
+
 
                   <Grid xs={12} md={4}>
                     <TextField
@@ -881,7 +950,7 @@ const AddRest = () => {
                       }
                     />
                   </Grid>
-                
+
                   <Grid xs={6} md={2}>
                     <TextField
                       fullWidth
@@ -994,111 +1063,111 @@ const AddRest = () => {
                     />
                   </Grid>
 
-                    <Grid xs={6} md={2}>
-                        <SearchableSelect
-                          label=" نوع خط رسالة الترحيب"
-                          options={fonts?.data}
-                          formik={formik}
-                          name="font_type_welcome"
-                        />
-                    </Grid>
-                    
                   <Grid xs={6} md={2}>
-                      <FormControl
-                        variant="outlined"
-                        fullWidth
-                        size="small"
-                        error={
-                          !!formik.touched.font_size_welcome && !!formik.errors.font_size_welcome
-                        }
-                      >
-                        <InputLabel id="font_size_welcome"> حجم خط رسالة الترحيب</InputLabel>
-                          <Select
-                            // size="small"
-                            fullWidth
-                            labelId="font_size_welcome"
-                            id="font_size_welcome"
-                            label="حجم خط رسالة الترحيب"
-                            name="font_size_welcome"
-                            value={formik.values.font_size_welcome}
-                            onChange={formik.handleChange}
-                          >
-                            <MenuItem value={1}>1em</MenuItem>
-                            <MenuItem value={2}>2em</MenuItem>
-                            <MenuItem value={3}>3em</MenuItem>
-                            <MenuItem value={4}>4em</MenuItem>
-                          </Select>
-                        {formik.touched.font_size_welcome && formik.errors.font_size_welcome && (
-                          <FormHelperText>
-                            {formik.errors.font_size_welcome}
-                          </FormHelperText>
-                        )}
-                      </FormControl>
-                    </Grid>
-                    <Grid xs={6} md={2}>
-                      <FormControl
-                        variant="outlined"
-                        fullWidth
-                        size="small"
-                        error={
-                          !!formik.touched.font_size_category && !!formik.errors.font_size_category
-                        }
-                      >
-                        <InputLabel id="font_size_category"> حجم خط الصنف</InputLabel>
-                          <Select
-                            // size="small"
-                            fullWidth
-                            labelId="font_size_category"
-                            id="font_size_category"
-                            label="حجم خط الصنف"
-                            name="font_size_category"
-                            value={formik.values.font_size_category}
-                            onChange={formik.handleChange}
-                          >
-                            <MenuItem value={1}>1em</MenuItem>
-                            <MenuItem value={2}>2em</MenuItem>
-                            <MenuItem value={3}>3em</MenuItem>
-                            <MenuItem value={4}>4em</MenuItem>
-                          </Select>
-                        {formik.touched.font_size_category && formik.errors.font_size_category && (
-                          <FormHelperText>
-                            {formik.errors.font_size_category}
-                          </FormHelperText>
-                        )}
-                      </FormControl>
-                    </Grid>
-                    <Grid xs={6} md={2}>
-                      <FormControl
-                        variant="outlined"
-                        fullWidth
-                        size="small"
-                        error={
-                          !!formik.touched.font_bold_category && !!formik.errors.font_bold_category
-                        }
-                      >
-                        <InputLabel id="font_bold_category"> الخط سميك للصنف</InputLabel>
-                        <Select
-                          // size="small"
-                          fullWidth
-                          labelId="font_bold_category"
-                          id="font_bold_category"
-                          label="الخط سميك للصنف"
-                          name="font_bold_category"
-                          value={formik.values.font_bold_category}
-                          onChange={formik.handleChange}
-                        >
-                          <MenuItem value={1}>Yes</MenuItem>
-                          <MenuItem value={0}>No</MenuItem>
-                        </Select>
-                        {formik.touched.font_bold_category && formik.errors.font_bold_category && (
-                          <FormHelperText>
-                            {formik.errors.font_bold_category}
-                          </FormHelperText>
-                        )}
-                      </FormControl>
-                    </Grid>
+                    <SearchableSelect
+                      label=" نوع خط رسالة الترحيب"
+                      options={fonts?.data}
+                      formik={formik}
+                      name="font_type_welcome"
+                    />
+                  </Grid>
 
-                    <Grid xs={6} md={2}>
+                  <Grid xs={6} md={2}>
+                    <FormControl
+                      variant="outlined"
+                      fullWidth
+                      size="small"
+                      error={
+                        !!formik.touched.font_size_welcome && !!formik.errors.font_size_welcome
+                      }
+                    >
+                      <InputLabel id="font_size_welcome"> حجم خط رسالة الترحيب</InputLabel>
+                      <Select
+                        // size="small"
+                        fullWidth
+                        labelId="font_size_welcome"
+                        id="font_size_welcome"
+                        label="حجم خط رسالة الترحيب"
+                        name="font_size_welcome"
+                        value={formik.values.font_size_welcome}
+                        onChange={formik.handleChange}
+                      >
+                        <MenuItem value={1}>1em</MenuItem>
+                        <MenuItem value={2}>2em</MenuItem>
+                        <MenuItem value={3}>3em</MenuItem>
+                        <MenuItem value={4}>4em</MenuItem>
+                      </Select>
+                      {formik.touched.font_size_welcome && formik.errors.font_size_welcome && (
+                        <FormHelperText>
+                          {formik.errors.font_size_welcome}
+                        </FormHelperText>
+                      )}
+                    </FormControl>
+                  </Grid>
+                  <Grid xs={6} md={2}>
+                    <FormControl
+                      variant="outlined"
+                      fullWidth
+                      size="small"
+                      error={
+                        !!formik.touched.font_size_category && !!formik.errors.font_size_category
+                      }
+                    >
+                      <InputLabel id="font_size_category"> حجم خط الصنف</InputLabel>
+                      <Select
+                        // size="small"
+                        fullWidth
+                        labelId="font_size_category"
+                        id="font_size_category"
+                        label="حجم خط الصنف"
+                        name="font_size_category"
+                        value={formik.values.font_size_category}
+                        onChange={formik.handleChange}
+                      >
+                        <MenuItem value={1}>1em</MenuItem>
+                        <MenuItem value={2}>2em</MenuItem>
+                        <MenuItem value={3}>3em</MenuItem>
+                        <MenuItem value={4}>4em</MenuItem>
+                      </Select>
+                      {formik.touched.font_size_category && formik.errors.font_size_category && (
+                        <FormHelperText>
+                          {formik.errors.font_size_category}
+                        </FormHelperText>
+                      )}
+                    </FormControl>
+                  </Grid>
+                  <Grid xs={6} md={2}>
+                    <FormControl
+                      variant="outlined"
+                      fullWidth
+                      size="small"
+                      error={
+                        !!formik.touched.font_bold_category && !!formik.errors.font_bold_category
+                      }
+                    >
+                      <InputLabel id="font_bold_category"> الخط سميك للصنف</InputLabel>
+                      <Select
+                        // size="small"
+                        fullWidth
+                        labelId="font_bold_category"
+                        id="font_bold_category"
+                        label="الخط سميك للصنف"
+                        name="font_bold_category"
+                        value={formik.values.font_bold_category}
+                        onChange={formik.handleChange}
+                      >
+                        <MenuItem value={1}>Yes</MenuItem>
+                        <MenuItem value={0}>No</MenuItem>
+                      </Select>
+                      {formik.touched.font_bold_category && formik.errors.font_bold_category && (
+                        <FormHelperText>
+                          {formik.errors.font_bold_category}
+                        </FormHelperText>
+                      )}
+                    </FormControl>
+                  </Grid>
+
+                  <Grid xs={6} md={2}>
                     <SearchableSelect
                       label="نوع خط الصنف العربي"
                       options={fontsArabic?.data}
@@ -1114,69 +1183,69 @@ const AddRest = () => {
                       name="font_type_category_en"
                     />
                   </Grid>
-     <Grid xs={6} md={2}>
-                      <FormControl
-                        variant="outlined"
+                  <Grid xs={6} md={2}>
+                    <FormControl
+                      variant="outlined"
+                      fullWidth
+                      size="small"
+                      error={
+                        !!formik.touched.font_bold_item && !!formik.errors.font_bold_item
+                      }
+                    >
+                      <InputLabel id="font_bold_item"> الخط سميك للعنصر</InputLabel>
+                      <Select
+                        // size="small"
                         fullWidth
-                        size="small"
-                        error={
-                          !!formik.touched.font_bold_item && !!formik.errors.font_bold_item
-                        }
+                        labelId="font_bold_item"
+                        id="font_bold_item"
+                        label="الخط سميك للعنصر"
+                        name="font_bold_item"
+                        value={formik.values.font_bold_item}
+                        onChange={formik.handleChange}
                       >
-                        <InputLabel id="font_bold_item"> الخط سميك للعنصر</InputLabel>
-                        <Select
-                          // size="small"
-                          fullWidth
-                          labelId="font_bold_item"
-                          id="font_bold_item"
-                          label="الخط سميك للعنصر"
-                          name="font_bold_item"
-                          value={formik.values.font_bold_item}
-                          onChange={formik.handleChange}
-                        >
-                          <MenuItem value={1}>Yes</MenuItem>
-                          <MenuItem value={0}>No</MenuItem>
-                        </Select>
-                        {formik.touched.font_bold_item && formik.errors.font_bold_item && (
-                          <FormHelperText>
-                            {formik.errors.font_bold_item}
-                          </FormHelperText>
-                        )}
-                      </FormControl>
-                    </Grid>
-                    <Grid xs={6} md={2}>
-                      <FormControl
-                        variant="outlined"
+                        <MenuItem value={1}>Yes</MenuItem>
+                        <MenuItem value={0}>No</MenuItem>
+                      </Select>
+                      {formik.touched.font_bold_item && formik.errors.font_bold_item && (
+                        <FormHelperText>
+                          {formik.errors.font_bold_item}
+                        </FormHelperText>
+                      )}
+                    </FormControl>
+                  </Grid>
+                  <Grid xs={6} md={2}>
+                    <FormControl
+                      variant="outlined"
+                      fullWidth
+                      size="small"
+                      error={
+                        !!formik.touched.font_size_item && !!formik.errors.font_size_item
+                      }
+                    >
+                      <InputLabel id="font_size_item"> حجم خط العنصر</InputLabel>
+                      <Select
+                        // size="small"
                         fullWidth
-                        size="small"
-                        error={
-                          !!formik.touched.font_size_item && !!formik.errors.font_size_item
-                        }
+                        labelId="font_size_item"
+                        id="font_size_item"
+                        label="حجم خط العنصر"
+                        name="font_size_item"
+                        value={formik.values.font_size_item}
+                        onChange={formik.handleChange}
                       >
-                        <InputLabel id="font_size_item"> حجم خط العنصر</InputLabel>
-                          <Select
-                            // size="small"
-                            fullWidth
-                            labelId="font_size_item"
-                            id="font_size_item"
-                            label="حجم خط العنصر"
-                            name="font_size_item"
-                            value={formik.values.font_size_item}
-                            onChange={formik.handleChange}
-                          >
-                            <MenuItem value={1}>1em</MenuItem>
-                            <MenuItem value={2}>2em</MenuItem>
-                            <MenuItem value={3}>3em</MenuItem>
-                            <MenuItem value={4}>4em</MenuItem>
-                          </Select>
-                        {formik.touched.font_size_item && formik.errors.font_size_item && (
-                          <FormHelperText>
-                            {formik.errors.font_size_item}
-                          </FormHelperText>
-                        )}
-                      </FormControl>
-                    </Grid>
-                    <Grid xs={6} md={2}>
+                        <MenuItem value={1}>1em</MenuItem>
+                        <MenuItem value={2}>2em</MenuItem>
+                        <MenuItem value={3}>3em</MenuItem>
+                        <MenuItem value={4}>4em</MenuItem>
+                      </Select>
+                      {formik.touched.font_size_item && formik.errors.font_size_item && (
+                        <FormHelperText>
+                          {formik.errors.font_size_item}
+                        </FormHelperText>
+                      )}
+                    </FormControl>
+                  </Grid>
+                  <Grid xs={6} md={2}>
                     <SearchableSelect
                       label="نوع خط العنصر العربي"
                       options={fontsArabic?.data}
@@ -1239,7 +1308,7 @@ const AddRest = () => {
                         <FormHelperText>{formik.errors.is_welcome_massege}</FormHelperText>
                       )}
                     </FormControl>
-                  </Grid>  
+                  </Grid>
                   <Grid xs={12} md={4}>
                     <FormControl
                       variant="outlined"
@@ -1270,77 +1339,77 @@ const AddRest = () => {
                       )}
                     </FormControl>
                   </Grid>
-               {
-                formik.values.is_taxes==1 &&
-                <>
-                <Grid xs={12} md={4}>
-                <TextField
-                  fullWidth
-                  variant="outlined"
-                  size="small"
-                  InputLabelProps={{ shrink: true }}
-                  label="إنفاق استهلاكي"
-                  name="consumer_spending"
-                  onChange={formik.handleChange}
-                  value={formik.values.consumer_spending}
-                  onBlur={formik.handleBlur}
-                  type="number"
-                  error={
-                    !!formik.touched.consumer_spending &&
-                    !!formik.errors.consumer_spending
+                  {
+                    formik.values.is_taxes == 1 &&
+                    <>
+                      <Grid xs={12} md={4}>
+                        <TextField
+                          fullWidth
+                          variant="outlined"
+                          size="small"
+                          InputLabelProps={{ shrink: true }}
+                          label="إنفاق استهلاكي"
+                          name="consumer_spending"
+                          onChange={formik.handleChange}
+                          value={formik.values.consumer_spending}
+                          onBlur={formik.handleBlur}
+                          type="number"
+                          error={
+                            !!formik.touched.consumer_spending &&
+                            !!formik.errors.consumer_spending
+                          }
+                          helperText={
+                            formik.touched.consumer_spending &&
+                            formik.errors.consumer_spending
+                          }
+                        />
+                      </Grid>
+                      <Grid xs={12} md={4}>
+                        <TextField
+                          fullWidth
+                          variant="outlined"
+                          size="small"
+                          InputLabelProps={{ shrink: true }}
+                          label="إدارة محلية"
+                          name="local_administration"
+                          onChange={formik.handleChange}
+                          type="number"
+                          value={formik.values.local_administration}
+                          onBlur={formik.handleBlur}
+                          error={
+                            !!formik.touched.local_administration &&
+                            !!formik.errors.local_administration
+                          }
+                          helperText={
+                            formik.touched.local_administration &&
+                            formik.errors.local_administration
+                          }
+                        />
+                      </Grid>
+                      <Grid xs={12} md={4}>
+                        <TextField
+                          fullWidth
+                          variant="outlined"
+                          size="small"
+                          InputLabelProps={{ shrink: true }}
+                          label="إعادة إعمار"
+                          name="reconstruction"
+                          onChange={formik.handleChange}
+                          type="number"
+                          value={formik.values.reconstruction}
+                          onBlur={formik.handleBlur}
+                          error={
+                            !!formik.touched.reconstruction &&
+                            !!formik.errors.reconstruction
+                          }
+                          helperText={
+                            formik.touched.reconstruction &&
+                            formik.errors.reconstruction
+                          }
+                        />
+                      </Grid>
+                    </>
                   }
-                  helperText={
-                    formik.touched.consumer_spending &&
-                    formik.errors.consumer_spending
-                  }
-                />
-              </Grid>
-              <Grid xs={12} md={4}>
-                <TextField
-                  fullWidth
-                  variant="outlined"
-                  size="small"
-                  InputLabelProps={{ shrink: true }}
-                  label="إدارة محلية"
-                  name="local_administration"
-                  onChange={formik.handleChange}
-                  type="number"
-                  value={formik.values.local_administration}
-                  onBlur={formik.handleBlur}
-                  error={
-                    !!formik.touched.local_administration &&
-                    !!formik.errors.local_administration
-                  }
-                  helperText={
-                    formik.touched.local_administration &&
-                    formik.errors.local_administration
-                  }
-                />
-              </Grid>
-              <Grid xs={12} md={4}>
-                <TextField
-                  fullWidth
-                  variant="outlined"
-                  size="small"
-                  InputLabelProps={{ shrink: true }}
-                  label="إعادة إعمار"
-                  name="reconstruction"
-                  onChange={formik.handleChange}
-                  type="number"
-                  value={formik.values.reconstruction}
-                  onBlur={formik.handleBlur}
-                  error={
-                    !!formik.touched.reconstruction &&
-                    !!formik.errors.reconstruction
-                  }
-                  helperText={
-                    formik.touched.reconstruction &&
-                    formik.errors.reconstruction
-                  }
-                />
-              </Grid>    
-              </>
-               }           
                   <Grid xs={12} md={4}>
                     <FormControl
                       variant="outlined"
@@ -1451,26 +1520,26 @@ const AddRest = () => {
                     </FormControl>
                   </Grid>
                   <Grid xs={6} md={2}>
-                      <TextField
-                        fullWidth
-                        variant="outlined"
-                        size="small"
-                        InputLabelProps={{ shrink: true }}
-                        label="home_opacity"
-                        name="home_opacity"
-                        onChange={formik.handleChange}
-                        value={formik.values.home_opacity}
-                        onBlur={formik.handleBlur}
-                        error={
-                          !!formik.touched.home_opacity &&
-                          !!formik.errors.home_opacity
-                        }
-                        helperText={
-                          formik.touched.home_opacity &&
-                          formik.errors.home_opacity
-                        }
+                    <TextField
+                      fullWidth
+                      variant="outlined"
+                      size="small"
+                      InputLabelProps={{ shrink: true }}
+                      label="home_opacity"
+                      name="home_opacity"
+                      onChange={formik.handleChange}
+                      value={formik.values.home_opacity}
+                      onBlur={formik.handleBlur}
+                      error={
+                        !!formik.touched.home_opacity &&
+                        !!formik.errors.home_opacity
+                      }
+                      helperText={
+                        formik.touched.home_opacity &&
+                        formik.errors.home_opacity
+                      }
                     />
-                    </Grid>
+                  </Grid>
 
                   <Grid xs={6} md={2}>
                     <FormControl
@@ -1500,79 +1569,79 @@ const AddRest = () => {
                     </FormControl>
                   </Grid>
 
-                      <Grid xs={12} md={4}>
-                      <FormControl
-                        variant="outlined"
+                  <Grid xs={12} md={4}>
+                    <FormControl
+                      variant="outlined"
+                      fullWidth
+                      size="small"
+                      error={
+                        !!formik.touched.image_or_color && !!formik.errors.image_or_color
+                      }
+                    >
+                      <InputLabel id="image_or_color"> الخلفية عبارة عن صورة</InputLabel>
+                      <Select
+                        // size="small"
                         fullWidth
-                        size="small"
-                        error={
-                          !!formik.touched.image_or_color && !!formik.errors.image_or_color
-                        }
+                        labelId="image_or_color"
+                        id="image_or_color"
+                        label="الخلفية عبارة عن صورة"
+                        name="image_or_color"
+                        value={formik.values.image_or_color}
+                        onChange={formik.handleChange}
                       >
-                        <InputLabel id="image_or_color"> الخلفية عبارة عن صورة</InputLabel>
-                        <Select
-                          // size="small"
-                          fullWidth
-                          labelId="image_or_color"
-                          id="image_or_color"
-                          label="الخلفية عبارة عن صورة"
-                          name="image_or_color"
-                          value={formik.values.image_or_color}
-                          onChange={formik.handleChange}
-                        >
-                          <MenuItem value={1}>Yes</MenuItem>
-                          <MenuItem value={0}>No</MenuItem>
-                        </Select>
-                        {formik.touched.image_or_color && formik.errors.image_or_color && (
-                          <FormHelperText>
-                            {formik.errors.image_or_color}
-                          </FormHelperText>
-                        )}
-                      </FormControl>
-                    </Grid>
-                    
-                    <Grid xs={6} md={2}>
-                      <TextField
-                        fullWidth
-                        variant="outlined"
-                        size="small"
-                        InputLabelProps={{ shrink: true }}
-                        label="rate_opacity"
-                        name="rate_opacity"
-                        onChange={formik.handleChange}
-                        value={formik.values.rate_opacity}
-                        onBlur={formik.handleBlur}
-                        error={
-                          !!formik.touched.rate_opacity &&
-                          !!formik.errors.rate_opacity
-                        }
-                        helperText={
-                          formik.touched.rate_opacity &&
-                          formik.errors.rate_opacity
-                        }
+                        <MenuItem value={1}>Yes</MenuItem>
+                        <MenuItem value={0}>No</MenuItem>
+                      </Select>
+                      {formik.touched.image_or_color && formik.errors.image_or_color && (
+                        <FormHelperText>
+                          {formik.errors.image_or_color}
+                        </FormHelperText>
+                      )}
+                    </FormControl>
+                  </Grid>
+
+                  <Grid xs={6} md={2}>
+                    <TextField
+                      fullWidth
+                      variant="outlined"
+                      size="small"
+                      InputLabelProps={{ shrink: true }}
+                      label="rate_opacity"
+                      name="rate_opacity"
+                      onChange={formik.handleChange}
+                      value={formik.values.rate_opacity}
+                      onBlur={formik.handleBlur}
+                      error={
+                        !!formik.touched.rate_opacity &&
+                        !!formik.errors.rate_opacity
+                      }
+                      helperText={
+                        formik.touched.rate_opacity &&
+                        formik.errors.rate_opacity
+                      }
                     />
-                    </Grid>
-                    <Grid xs={6} md={2}>
-                       <TextField
-                        fullWidth
-                        variant="outlined"
-                        size="small"
-                        InputLabelProps={{ shrink: true }}
-                        label="sub_opacity"
-                        name="sub_opacity"
-                        onChange={formik.handleChange}
-                        value={formik.values.sub_opacity}
-                        onBlur={formik.handleBlur}
-                        error={
-                          !!formik.touched.sub_opacity &&
-                          !!formik.errors.sub_opacity
-                        }
-                        helperText={
-                          formik.touched.sub_opacity &&
-                          formik.errors.sub_opacity
-                        }
+                  </Grid>
+                  <Grid xs={6} md={2}>
+                    <TextField
+                      fullWidth
+                      variant="outlined"
+                      size="small"
+                      InputLabelProps={{ shrink: true }}
+                      label="sub_opacity"
+                      name="sub_opacity"
+                      onChange={formik.handleChange}
+                      value={formik.values.sub_opacity}
+                      onBlur={formik.handleBlur}
+                      error={
+                        !!formik.touched.sub_opacity &&
+                        !!formik.errors.sub_opacity
+                      }
+                      helperText={
+                        formik.touched.sub_opacity &&
+                        formik.errors.sub_opacity
+                      }
                     />
-                    </Grid>
+                  </Grid>
                   <Grid xs={12} md={4}>
                     <FormControl
                       variant="outlined"
@@ -1636,38 +1705,38 @@ const AddRest = () => {
                       )}
                     </FormControl>
                   </Grid>
-                  {formik.values.is_rate==1 
-                  && 
-                  <Grid xs={12} md={4}>
-                  <FormControl
-                    variant="outlined"
-                    fullWidth
-                    size="small"
-                    error={
-                      !!formik.touched.rate_format && !!formik.errors.rate_format
-                    }
-                  >
-                    <InputLabel id="rate_format">شكل التقييم</InputLabel>
-                    <Select
-                      // InputLabelProps={{ shrink: true }}
-                      labelId="rate_format"
-                      id="rate_format"
-                      name="rate_format"
-                      label="شكل التقييم"
-                      // size="small"
-                      value={formik.values.rate_format}
-                      onChange={formik.handleChange}
-                    >
-                         <MenuItem value={1}>Yes</MenuItem>
-                         <MenuItem value={0}>No</MenuItem>
-                    </Select>
-                    {formik.touched.rate_format && formik.errors.rate_format && (
-                      <FormHelperText>
-                        {formik.errors.rate_format}
-                      </FormHelperText>
-                    )}
-                  </FormControl>
-                </Grid>
+                  {formik.values.is_rate == 1
+                    &&
+                    <Grid xs={12} md={4}>
+                      <FormControl
+                        variant="outlined"
+                        fullWidth
+                        size="small"
+                        error={
+                          !!formik.touched.rate_format && !!formik.errors.rate_format
+                        }
+                      >
+                        <InputLabel id="rate_format">شكل التقييم</InputLabel>
+                        <Select
+                          // InputLabelProps={{ shrink: true }}
+                          labelId="rate_format"
+                          id="rate_format"
+                          name="rate_format"
+                          label="شكل التقييم"
+                          // size="small"
+                          value={formik.values.rate_format}
+                          onChange={formik.handleChange}
+                        >
+                          <MenuItem value={1}>Yes</MenuItem>
+                          <MenuItem value={0}>No</MenuItem>
+                        </Select>
+                        {formik.touched.rate_format && formik.errors.rate_format && (
+                          <FormHelperText>
+                            {formik.errors.rate_format}
+                          </FormHelperText>
+                        )}
+                      </FormControl>
+                    </Grid>
                   }
                   <Grid xs={12} md={4}>
                     <FormControl
@@ -1729,7 +1798,7 @@ const AddRest = () => {
                       )}
                     </FormControl>
                   </Grid>
-                  
+
                   <Grid xs={12} md={4}>
                     <FormControl
                       variant="outlined"
@@ -1761,34 +1830,34 @@ const AddRest = () => {
                     </FormControl>
                   </Grid>
                   <Grid xs={12} md={4}>
-                      <FormControl
-                        variant="outlined"
+                    <FormControl
+                      variant="outlined"
+                      fullWidth
+                      size="small"
+                      error={
+                        !!formik.touched.image_or_write && !!formik.errors.image_or_write
+                      }
+                    >
+                      <InputLabel id="image_or_write"> اللوغو مع كتابة</InputLabel>
+                      <Select
+                        // size="small"
                         fullWidth
-                        size="small"
-                        error={
-                          !!formik.touched.image_or_write && !!formik.errors.image_or_write
-                        }
+                        labelId="image_or_write"
+                        id="image_or_write"
+                        label="اللوغو مع كتابة"
+                        name="image_or_write"
+                        value={formik.values.image_or_write}
+                        onChange={formik.handleChange}
                       >
-                        <InputLabel id="image_or_write"> اللوغو مع كتابة</InputLabel>
-                        <Select
-                          // size="small"
-                          fullWidth
-                          labelId="image_or_write"
-                          id="image_or_write"
-                          label="اللوغو مع كتابة"
-                          name="image_or_write"
-                          value={formik.values.image_or_write}
-                          onChange={formik.handleChange}
-                        >
-                          <MenuItem value={1}>Yes</MenuItem>
-                          <MenuItem value={0}>No</MenuItem>
-                        </Select>
-                        {formik.touched.image_or_write && formik.errors.image_or_write && (
-                          <FormHelperText>
-                            {formik.errors.image_or_write}
-                          </FormHelperText>
-                        )}
-                      </FormControl>
+                        <MenuItem value={1}>Yes</MenuItem>
+                        <MenuItem value={0}>No</MenuItem>
+                      </Select>
+                      {formik.touched.image_or_write && formik.errors.image_or_write && (
+                        <FormHelperText>
+                          {formik.errors.image_or_write}
+                        </FormHelperText>
+                      )}
+                    </FormControl>
                   </Grid>
                   <Grid xs={6} md={2}>
                     <FormControl
@@ -1798,7 +1867,7 @@ const AddRest = () => {
                       error={
                         !!formik.touched.price_type && !!formik.errors.price_type
                       }>
-                    <InputLabel id="price_type">نوع العملة</InputLabel>
+                      <InputLabel id="price_type">نوع العملة</InputLabel>
                       <Select
                         // size="small"
                         labelId="price_type"
@@ -1816,37 +1885,37 @@ const AddRest = () => {
                       )}
                     </FormControl>
                   </Grid>
-                    <Grid xs={6} md={2}>
-                      <FormControl
-                        variant="outlined"
+                  <Grid xs={6} md={2}>
+                    <FormControl
+                      variant="outlined"
+                      fullWidth
+                      size="small"
+                      error={
+                        !!formik.touched.logo_shape && !!formik.errors.logo_shape
+                      }
+                    >
+                      <InputLabel id="logo_shape"> شكل اللوغو</InputLabel>
+                      <Select
+                        // size="small"
                         fullWidth
-                        size="small"
-                        error={
-                          !!formik.touched.logo_shape && !!formik.errors.logo_shape
-                        }
+                        labelId="logo_shape"
+                        id="logo_shape"
+                        label="شكل اللوغو"
+                        name="logo_shape"
+                        value={formik.values.logo_shape}
+                        onChange={formik.handleChange}
                       >
-                        <InputLabel id="logo_shape"> شكل اللوغو</InputLabel>
-                          <Select
-                            // size="small"
-                            fullWidth
-                            labelId="logo_shape"
-                            id="logo_shape"
-                            label="شكل اللوغو"
-                            name="logo_shape"
-                            value={formik.values.logo_shape}
-                            onChange={formik.handleChange}
-                          >
-                            <MenuItem value={1}>circle</MenuItem>
-                            <MenuItem value={2}>Rectangle</MenuItem>
-                            <MenuItem value={3}>Square</MenuItem>
-                          </Select>
-                        {formik.touched.logo_shape && formik.errors.logo_shape && (
-                          <FormHelperText>
-                            {formik.errors.logo_shape}
-                          </FormHelperText>
-                        )}
-                      </FormControl>
-                    </Grid>
+                        <MenuItem value={1}>circle</MenuItem>
+                        <MenuItem value={2}>Rectangle</MenuItem>
+                        <MenuItem value={3}>Square</MenuItem>
+                      </Select>
+                      {formik.touched.logo_shape && formik.errors.logo_shape && (
+                        <FormHelperText>
+                          {formik.errors.logo_shape}
+                        </FormHelperText>
+                      )}
+                    </FormControl>
+                  </Grid>
 
                   <Grid xs={12} md={4}>
                     <FormControl
@@ -1940,129 +2009,129 @@ const AddRest = () => {
                     </FormControl>
                   </Grid>
 
-                    <Grid xs={6} md={2}>
-                      <FormControl
-                        variant="outlined"
-                        fullWidth
-                        size="small"
-                        error={
-                          !!formik.touched.empty_image && !!formik.errors.empty_image
-                        }
-                      >
-                        <InputLabel id="empty_image"> الصورة مفرغة</InputLabel>
-                        <Select
-                          // size="small"
-                          fullWidth
-                          labelId="empty_image"
-                          id="empty_image"
-                          label="الصورة مفرغة"
-                          name="empty_image"
-                          value={formik.values.empty_image}
-                          onChange={formik.handleChange}
-                        >
-                          <MenuItem value={1}>Yes</MenuItem>
-                          <MenuItem value={0}>No</MenuItem>
-                        </Select>
-                        {formik.touched.empty_image && formik.errors.empty_image && (
-                          <FormHelperText>
-                            {formik.errors.empty_image}
-                          </FormHelperText>
-                        )}
-                      </FormControl>
-                    </Grid>
-
-                    <Grid xs={6} md={2}>
-                      <FormControl
-                        variant="outlined"
-                        fullWidth
-                        size="small"
-                        error={
-                          !!formik.touched.share_item_whatsapp && !!formik.errors.share_item_whatsapp
-                        }
-                      >
-                        <InputLabel id="share_item_whatsapp"> مشاركة صورة العنصر</InputLabel>
-                        <Select
-                          // size="small"
-                          fullWidth
-                          labelId="share_item_whatsapp"
-                          id="share_item_whatsapp"
-                          label="مشاركة صورة العنصر"
-                          name="share_item_whatsapp"
-                          value={formik.values.share_item_whatsapp}
-                          onChange={formik.handleChange}
-                        >
-                          <MenuItem value={1}>Yes</MenuItem>
-                          <MenuItem value={0}>No</MenuItem>
-                        </Select>
-                        {formik.touched.share_item_whatsapp && formik.errors.share_item_whatsapp && (
-                          <FormHelperText>
-                            {formik.errors.share_item_whatsapp}
-                          </FormHelperText>
-                        )}
-                      </FormControl>
-                    </Grid>
-                    
-                    <Grid xs={12} md={4}>
-                      <TextField
-                        fullWidth
-                        variant="outlined"
-                        size="small"
-                        InputLabelProps={{ shrink: true }}
-                        label="message in home page"
-                        name="message_in_home_page"
-                        onChange={formik.handleChange}
-                        value={formik.values.message_in_home_page}
-                        onBlur={formik.handleBlur}
-                        error={
-                          !!formik.touched.message_in_home_page &&
-                          !!formik.errors.message_in_home_page
-                        }
-                        helperText={
-                          formik.touched.message_in_home_page &&
-                          formik.errors.message_in_home_page
-                        }
-                    />
-                    </Grid>
                   <Grid xs={6} md={2}>
-                      <TextField
+                    <FormControl
+                      variant="outlined"
+                      fullWidth
+                      size="small"
+                      error={
+                        !!formik.touched.empty_image && !!formik.errors.empty_image
+                      }
+                    >
+                      <InputLabel id="empty_image"> الصورة مفرغة</InputLabel>
+                      <Select
+                        // size="small"
                         fullWidth
-                        variant="outlined"
-                        size="small"
-                        InputLabelProps={{ shrink: true }}
-                        label="latitude"
-                        name="latitude"
+                        labelId="empty_image"
+                        id="empty_image"
+                        label="الصورة مفرغة"
+                        name="empty_image"
+                        value={formik.values.empty_image}
                         onChange={formik.handleChange}
-                        value={formik.values.latitude}
-                        onBlur={formik.handleBlur}
-                        error={
-                          !!formik.touched.latitude &&
-                          !!formik.errors.latitude
-                        }
-                        helperText={
-                          formik.touched.latitude && formik.errors.latitude
-                        }
-                      />
-                    </Grid>
-                    <Grid xs={6} md={2}>
-                      <TextField
+                      >
+                        <MenuItem value={1}>Yes</MenuItem>
+                        <MenuItem value={0}>No</MenuItem>
+                      </Select>
+                      {formik.touched.empty_image && formik.errors.empty_image && (
+                        <FormHelperText>
+                          {formik.errors.empty_image}
+                        </FormHelperText>
+                      )}
+                    </FormControl>
+                  </Grid>
+
+                  <Grid xs={6} md={2}>
+                    <FormControl
+                      variant="outlined"
+                      fullWidth
+                      size="small"
+                      error={
+                        !!formik.touched.share_item_whatsapp && !!formik.errors.share_item_whatsapp
+                      }
+                    >
+                      <InputLabel id="share_item_whatsapp"> مشاركة صورة العنصر</InputLabel>
+                      <Select
+                        // size="small"
                         fullWidth
-                        variant="outlined"
-                        size="small"
-                        InputLabelProps={{ shrink: true }}
-                        label="longitude"
-                        name="longitude"
+                        labelId="share_item_whatsapp"
+                        id="share_item_whatsapp"
+                        label="مشاركة صورة العنصر"
+                        name="share_item_whatsapp"
+                        value={formik.values.share_item_whatsapp}
                         onChange={formik.handleChange}
-                        value={formik.values.longitude}
-                        onBlur={formik.handleBlur}
-                        error={
-                          !!formik.touched.longitude &&
-                          !!formik.errors.longitude
-                        }
-                        helperText={
-                          formik.touched.longitude && formik.errors.longitude
-                        }
-                      />
-                    </Grid>
+                      >
+                        <MenuItem value={1}>Yes</MenuItem>
+                        <MenuItem value={0}>No</MenuItem>
+                      </Select>
+                      {formik.touched.share_item_whatsapp && formik.errors.share_item_whatsapp && (
+                        <FormHelperText>
+                          {formik.errors.share_item_whatsapp}
+                        </FormHelperText>
+                      )}
+                    </FormControl>
+                  </Grid>
+
+                  <Grid xs={12} md={4}>
+                    <TextField
+                      fullWidth
+                      variant="outlined"
+                      size="small"
+                      InputLabelProps={{ shrink: true }}
+                      label="message in home page"
+                      name="message_in_home_page"
+                      onChange={formik.handleChange}
+                      value={formik.values.message_in_home_page}
+                      onBlur={formik.handleBlur}
+                      error={
+                        !!formik.touched.message_in_home_page &&
+                        !!formik.errors.message_in_home_page
+                      }
+                      helperText={
+                        formik.touched.message_in_home_page &&
+                        formik.errors.message_in_home_page
+                      }
+                    />
+                  </Grid>
+                  <Grid xs={6} md={2}>
+                    <TextField
+                      fullWidth
+                      variant="outlined"
+                      size="small"
+                      InputLabelProps={{ shrink: true }}
+                      label="latitude"
+                      name="latitude"
+                      onChange={formik.handleChange}
+                      value={formik.values.latitude}
+                      onBlur={formik.handleBlur}
+                      error={
+                        !!formik.touched.latitude &&
+                        !!formik.errors.latitude
+                      }
+                      helperText={
+                        formik.touched.latitude && formik.errors.latitude
+                      }
+                    />
+                  </Grid>
+                  <Grid xs={6} md={2}>
+                    <TextField
+                      fullWidth
+                      variant="outlined"
+                      size="small"
+                      InputLabelProps={{ shrink: true }}
+                      label="longitude"
+                      name="longitude"
+                      onChange={formik.handleChange}
+                      value={formik.values.longitude}
+                      onBlur={formik.handleBlur}
+                      error={
+                        !!formik.touched.longitude &&
+                        !!formik.errors.longitude
+                      }
+                      helperText={
+                        formik.touched.longitude && formik.errors.longitude
+                      }
+                    />
+                  </Grid>
                 </Grid>
               </div>
             </div>

@@ -53,6 +53,7 @@ import { RiCouponLine } from "react-icons/ri";
 import { baseURLLocalPublic } from "../Api/baseURLLocal";
 import { useShowSidebar } from "../context/ShowSidebarProvider";
 import useGetStyle from "../hooks/useGetStyle";
+import { Apps } from "@mui/icons-material";
 
 const Item = ({
   title,
@@ -316,6 +317,12 @@ const AdminSidebar = ({ className }) => {
       title: "الملف الشخصي",
       to: "/admin/profile",
       icon: <PersonIcon />,
+      show: !userData?.super,
+    },
+    {
+      title: " التطبيقات الملحقة",
+      to: "/admin/apps",
+      icon: <Apps />,
       show: !userData?.super,
     },
 

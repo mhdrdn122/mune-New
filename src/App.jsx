@@ -99,6 +99,7 @@ import UserOrders from "./utils/user/UserOrders";
 import HomeTemp10 from "./components/user/template10/HomeTemp10";
 import DriverTracking from "./pages/Admin/deliveries/DriverTracking"; 
 import NotificationManager from "./NotificationManager";
+import Apps from "./pages/Admin/Apps/Apps";
 function App() {
   const { adminDetails, updateUsername, loading } = useContext(AdminContext);
   console.log(adminDetails);
@@ -203,6 +204,9 @@ function App() {
               />
             </Route>
             <Route path="profile" element={<ProfilePage />} />
+
+            <Route path="apps" element={<Apps />} />
+
 
             <Route
               path="rates"

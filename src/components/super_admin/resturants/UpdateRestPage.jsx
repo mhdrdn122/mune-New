@@ -200,6 +200,10 @@ const UpdateRestPage = () => {
           name_en: oneRest.data.translations.en.name,
           name_ar: oneRest.data.translations.ar.name,
           name_url: oneRest.data.name_url,
+          user_link: oneRest.data.user_link,
+          admin_link: oneRest.data.admin_link,
+          delivery_link: oneRest.data.delivery_link,
+
           // user_name: oneRest.data.admin.user_name,
           // name_admin: oneRest.data.admin.name,
           background_color: convertColorFormat(oneRest.data.background_color),
@@ -299,6 +303,9 @@ const UpdateRestPage = () => {
       name_en: "",
       name_ar: "",
       name_url: "",
+      user_link:"",
+      admin_link:"",
+       delivery_link:"",
       user_name: "",
       name_admin: "",
       background_color: "#000000",
@@ -427,6 +434,13 @@ const UpdateRestPage = () => {
       name_en: Yup.string().required("Required"),
       name_ar: Yup.string().required("Required"),
       name_url: Yup.string().required("Required"),
+
+      user_link: Yup.string(),
+      admin_link: Yup.string(),
+      delivery_link: Yup.string(),
+
+
+
       // user_name: Yup.string().required("Required"),
       // name_admin: Yup.string().required("Required"),
       background_color: Yup.string().required("Required"),
@@ -745,6 +759,66 @@ const UpdateRestPage = () => {
                       }
                       helperText={
                         formik.touched.name_url && formik.errors.name_url
+                      }
+                    />
+                  </Grid>
+
+                   <Grid xs={12} md={4}>
+                    <TextField
+                      fullWidth
+                      variant="outlined"
+                      size="small"
+                      InputLabelProps={{ shrink: true }}
+                      label="رابط تطبيق المستخدم "
+                      name="user_link"
+                      onChange={formik.handleChange}
+                      value={formik.values.user_link}
+                      onBlur={formik.handleBlur}
+                      error={
+                        !!formik.touched.user_link && !!formik.errors.user_link
+                      }
+                      helperText={
+                        formik.touched.user_link && formik.errors.user_link
+                      }
+                    />
+                  </Grid>
+
+                  <Grid xs={12} md={4}>
+                    <TextField
+                      fullWidth
+                      variant="outlined"
+                      size="small"
+                      InputLabelProps={{ shrink: true }}
+                      label="رابط تطبيق المدير "
+                      name="admin_link"
+                      onChange={formik.handleChange}
+                      value={formik.values.admin_link}
+                      onBlur={formik.handleBlur}
+                      error={
+                        !!formik.touched.admin_link && !!formik.errors.admin_link
+                      }
+                      helperText={
+                        formik.touched.admin_link && formik.errors.admin_link
+                      }
+                    />
+                  </Grid>
+
+                   <Grid xs={12} md={4}>
+                    <TextField
+                      fullWidth
+                      variant="outlined"
+                      size="small"
+                      InputLabelProps={{ shrink: true }}
+                      label="رابط تطبيق عامل التوصيل "
+                      name="delivery_link"
+                      onChange={formik.handleChange}
+                      value={formik.values.delivery_link}
+                      onBlur={formik.handleBlur}
+                      error={
+                        !!formik.touched.delivery_link && !!formik.errors.delivery_link
+                      }
+                      helperText={
+                        formik.touched.delivery_link && formik.errors.delivery_link
                       }
                     />
                   </Grid>
