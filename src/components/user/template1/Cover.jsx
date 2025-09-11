@@ -66,8 +66,7 @@ export default function Cover() {
             style={{
               borderRadius: "50%",
               transform: "translate(-50%)",
-              borderRadius: "50%",
-              overflow: "hidden"
+               overflow: "hidden"
             }}
             className=" absolute bottom-[-50px] md:bottom-[-50px] left-[50%] border-0  object-cover w-[150px] md:w-[200px] h-[150px] md:h-[200px] "
           >

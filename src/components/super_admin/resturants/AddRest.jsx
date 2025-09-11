@@ -30,7 +30,7 @@ import { useNavigate } from "react-router-dom";
 import { useGetMenusQuery } from "../../../redux/slice/super_admin/menu/menusApi";
 import { getAllEmojisAction } from "../../../redux/slice/super_admin/emoji/emojiSlice";
 import { getAllCitiesAction } from "../../../redux/slice/super_admin/city/citySlice";
-import { useAddNewRestMutation, useGetFontsQuery } from "../../../redux/slice/super_admin/resturant/resturantsApi";
+import { useAddNewRestMutation, useGenerateAppsMutation, useGetFontsQuery } from "../../../redux/slice/super_admin/resturant/resturantsApi";
 import { useGetRestManagersQuery } from "../../../redux/slice/super_admin/restManagers/restManagerApi";
 import useError401 from "../../../hooks/useError401 ";
 import SearchableSelect from "../../../utils/SearchableSelect";
@@ -111,6 +111,9 @@ const AddRest = () => {
   const { data: menus } = useGetMenusQuery(1);
   const [addNewRest, { isLoading: loading, isSuccess, isError, error }] =
     useAddNewRestMutation();
+
+  const [generateApps, { isLoading: loadingGenerateApps }] =
+    useGenerateAppsMutation();
 
   const { triggerRedirect } = useError401(isError, error);
 
@@ -270,6 +273,9 @@ const AddRest = () => {
 
       try {
         const result = await addNewRest(cleanedData).unwrap();
+        if(result?.status){
+         await generateApps(result?.data?.id)
+        }
         console.log("added successfully:", result);
         if (result.status === true) {
           notify(result.message, "success");

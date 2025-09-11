@@ -4,17 +4,35 @@ import { getMessaging, getToken, onMessage } from 'firebase/messaging';
 import notify from '../utils/useNotification';
  
 // Initialize Firebase once outside the component
+// const firebaseConfig = {
+//     apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+//     authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+//     projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+//     storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+//     messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+//     appId: import.meta.env.VITE_FIREBASE_APP_ID,
+//     measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
+// };
+
 const firebaseConfig = {
-    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-    appId: import.meta.env.VITE_FIREBASE_APP_ID,
-    measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
+  apiKey: "AIzaSyDs9QbuAuJUXMGFoxlM4ejs6--CZaOfw4Q",
+
+  authDomain: "menu-admin-new.firebaseapp.com",
+
+  projectId: "menu-admin-new",
+
+  storageBucket: "menu-admin-new.firebasestorage.app",
+
+  messagingSenderId: "772757852538",
+
+  appId: "1:772757852538:web:6f66d51b788a743b3ac6c3",
+
+  measurementId: "G-P41FPNJDLR",
 };
 
-const vapidKey = import.meta.env.VITE_FIREBASE_VAPID_KEY;
+// const vapidKey = import.meta.env.VITE_FIREBASE_VAPID_KEY;
+
+const vapidKey = "BKORvUdCTNo8PnMfhuSvyGnb-11j1S1_knc-11zOPJXu54C5Yv30Xu3Fwzi3Dgt5yHJ0u_TH9g4ZZqgZFMpyhSo";
 
 const app = initializeApp(firebaseConfig);
 const messaging = getMessaging(app);

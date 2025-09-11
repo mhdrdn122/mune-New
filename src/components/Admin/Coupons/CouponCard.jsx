@@ -6,7 +6,7 @@ import BlockIcon from "@mui/icons-material/Block";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import { usePermissions } from "../../../context/PermissionsContext";
 import { PermissionsEnum } from "../../../constant/permissions";
-import coupon from "./coupon.png";
+import coupon from "../../../assets/coupon.png";
 import useGetStyle from "../../../hooks/useGetStyle";
 
 /**
@@ -18,7 +18,7 @@ import useGetStyle from "../../../hooks/useGetStyle";
  * @param {Function} props.onBlock - Function to handle block action
  * @param {Function} props.onDelete - Function to handle delete action
  */
-const CouponCard = ({ data, onEdit, onBlock, onDelete , index }) => {
+const CouponCard = ({ data, onEdit, onBlock, onDelete, index }) => {
   const isSmallDevice = useMediaQuery("only screen and (max-width : 768px)");
   const { hasPermission } = usePermissions();
   const { Color } = useGetStyle();
@@ -55,7 +55,7 @@ const CouponCard = ({ data, onEdit, onBlock, onDelete , index }) => {
         }}
       >
         <div className="absolute top-7 text-2xl left-30 text-white">
-           0{index + 1}
+          0{index + 1}
         </div>
 
         <div
@@ -79,7 +79,7 @@ const CouponCard = ({ data, onEdit, onBlock, onDelete , index }) => {
         </div>
 
         <div className="absolute left-13 bottom-13 rotate-z-[-400deg] ">
-            {data?.percent} %
+          {data?.percent} %
         </div>
       </CardContent>
 

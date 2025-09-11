@@ -38,6 +38,7 @@ export const resturantsApi = createApi({
     getFonts: builder.query({
       query: ({language}) => `show_fonts?locale=${language}`,
     }),
+
     addNewRest: builder.mutation({
       query: (data) => {
         const formData = new FormData();
@@ -48,6 +49,17 @@ export const resturantsApi = createApi({
           url: "add_restaurant",
           method: "POST",
           body: formData,
+        };
+      },
+      invalidatesTags: ["resturants"],
+    }),
+
+    generateApps: builder.mutation({
+      query: (id) => {
+        return {
+          url: `restaurants/${id}/generate-apps`,
+          method: "POST",
+          body: {},
         };
       },
       invalidatesTags: ["resturants"],
@@ -129,5 +141,6 @@ export const {
   useUpdate_super_admin_restaurant_idMutation,
   useGetSubscriptionsQuery,
   useAddSubscriptionMutation,
-  useGetFontsQuery
+  useGetFontsQuery,
+  useGenerateAppsMutation
 } = resturantsApi;

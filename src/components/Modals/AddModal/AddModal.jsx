@@ -71,20 +71,20 @@ export default function DynamicForm({
 
   return (
     <div>
-      <Modal show={show} onHide={onHide} centered style={{ zIndex: 1050 }}>
-        <Modal.Header className="d-flex justify-content-center border-0">
+      <Modal show={show} onHide={onHide} centered style={{ zIndex: 1050  }}>
+        <Modal.Header className="d-flex justify-content-center border-0" style={{ background: "#" + Color +"15"  }} >
           <Modal.Title
             style={{
-              color: Color ? Color : "#2F4B26",
+              color: "#" + Color,
             }}
             className="  fw-bold text-center w-100"
           >
             {title}
           </Modal.Title>
         </Modal.Header>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} style={{ background: "#" + Color +"15"  }} >
           {loading ? (
-            <Modal.Body>
+            <Modal.Body >
               <Spinner className="m-auto" animation="border" role="status" />
             </Modal.Body>
           ) : (
@@ -97,14 +97,14 @@ export default function DynamicForm({
                   return (
                     <div
                       style={{
-                        border: "2px dashed #1E1E1E",
+                        border:` 2px dashed ${"#" + Color  }`,
                         padding: "20px",
                         borderRadius: "12px",
-                        backgroundColor: "#F5F5F5",
+                        backgroundColor: "#" + Color +"15" ,
                         textAlign: "center",
                         marginBottom: "16px",
                       }}
-                      className="w-full"
+                       className="w-full"
                       key={field?.name}
                     >
                       <label htmlFor="upload-photo">
@@ -136,7 +136,7 @@ export default function DynamicForm({
                               handleChange(field.name, file);
                             }
                           }}
-                          style={{ marginTop: "8px" }}
+                          style={{ marginTop: "8px" , background: "#" + Color +"15"  }}
                         />
                       </label>
                     </div>
@@ -153,7 +153,7 @@ export default function DynamicForm({
                         label={field?.label}
                       >
                         {field?.options.map((option) => (
-                          <MenuItem key={option} value={option}>
+                          <MenuItem key={option} value={option} style={{ background: "#" + Color +"15"  }}>
                             {option}
                           </MenuItem>
                         ))}
@@ -175,9 +175,11 @@ export default function DynamicForm({
                         renderValue={(selected) =>
                           selected.map((item) => item.name).join(", ")
                         }
+                        style={{ background: "#" + Color +"15"  }}
                       >
                         {field?.options.map((option) => (
-                          <MenuItem key={option.name} value={option}>
+                          
+                          <MenuItem key={option.name} value={option} style={{ background: "#" + Color +"15"  }}>
                             {option.name}
                           </MenuItem>
                         ))}
@@ -212,19 +214,19 @@ export default function DynamicForm({
                       sx={{
                         "& .MuiOutlinedInput-root": {
                           borderRadius: "8px",
-                          backgroundColor: "#FFF",
+                          backgroundColor: "#" + Color + "5",
                           "&:hover .MuiOutlinedInput-notchedOutline": {
-                            borderColor: Color ? Color : "#2F4B26",
+                            borderColor: "#" + Color + "15",
                           },
                           "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                            borderColor: Color ? Color : "#2F4B26",
+                            borderColor: "#" + Color ,
                           },
                         },
                         "& .MuiInputLabel-root": {
-                          color: Color ? Color : "#2F4B26",
+                          color: "#" + Color,
                         },
                         "& .MuiInputLabel-root.Mui-focused": {
-                          color: Color ? Color : "#2F4B26",
+                          color: "#" + Color,
                         },
                       }}
                     />
@@ -237,7 +239,7 @@ export default function DynamicForm({
             <Button
               variant="contained"
               style={{
-                backgroundColor: Color ? Color : "#2F4B26",
+                backgroundColor: "#" + Color ,
                 color: "#FFF",
               }}
               onClick={() => {
@@ -251,7 +253,7 @@ export default function DynamicForm({
               <Button
                 variant="contained"
                 style={{
-                  backgroundColor: Color ? Color : "#2F4B26",
+                  backgroundColor: "#" + Color,
                   color: "#FFF",
                 }}
               >
@@ -262,7 +264,7 @@ export default function DynamicForm({
                 variant="contained"
                 type="submit"
                 style={{
-                  backgroundColor: Color ? Color : "#2F4B26",
+                  backgroundColor: "#" + Color,
                   color: "#FFF",
                 }}
               >

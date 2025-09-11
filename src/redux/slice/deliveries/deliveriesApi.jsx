@@ -24,7 +24,7 @@ export const deliveriesApi = createApi({
       query: ({ role, page }) => {
         const params = new URLSearchParams();
         if (role) params.append("role", role);
-        if (role) params.append("page", page);
+        if (page) params.append("page", page);
 
         return `admin_api/show_deliveries?${params.toString()}`;
       },

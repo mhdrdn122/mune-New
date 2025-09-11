@@ -635,6 +635,7 @@ function App() {
         {/*   -----------------------------  */}
         {/* {<Route path="/admin/login" element={<LoginPage />} />} */}
         {<Route path="/admin/login" element={<RegisterPage mode="admin" />} />}
+        {<Route path="/" element={<RegisterPage mode="admin" />} />}
 
         {<Route path="/admin/logintakeout" element={<LoginTakeOutPage />} />}
         {
